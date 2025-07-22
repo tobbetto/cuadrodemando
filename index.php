@@ -1,29 +1,47 @@
 <?php
 
 /**
- * Un pequeño php para gestionar lo del cuadro de mando
- * Basado en el adminlte (https://adminlte.io/)
- * php version: 7.4
- * author: Thorvaldur Konradsson
+ * Dashboard/Cuadro de mando para Moodle
+ * Basado en AdminLTE (https://adminlte.io/)
+ * 
+ * @package    local_dashboard
+ * @author     Thorvaldur Konradsson
+ * @version    1.0
  */
-ini_set('display_errors', 0);
-ini_set('log_errors', 1);
-ini_set('error_log', '/var/www/html/moodle/adminlte/php_error_log');
+
+// Configuración de errores - mostrar solo en desarrollo
+if (defined('DEBUG') && DEBUG) {
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+} else {
+    ini_set('display_errors', 0);
+    ini_set('log_errors', 1);
+    ini_set('error_log', '/var/www/html/moodle/adminlte/php_error_log');
+}
+
 require_once "../config.php";
 
-// TK: Hay que encontrar un nombre más personalizado que adminlte
-// Es dentro de un Moodle así que nos aseguramos que la persona tiene 
-// sesión abierta en Moodle. Si no, al login del Moodle.
-$PAGE->set_url('/adminlte/index.php');
+// Verificar que estamos en el contexto de Moodle
 defined('MOODLE_INTERNAL') || die();
-require_once "controllers/template.controller.php";
 
+// Configurar la URL de la página
+$PAGE->set_url('/adminlte/index.php');
+
+// Requerir autenticación
 require_login();
+
+// Verificar que las variables globales necesarias existen
+if (!isset($USER) || !isset($CFG)) {
+    throw new moodle_exception('missingglobalvars', 'local_dashboard');
+}
+
 $context = context_user::instance($USER->id);
 
 // No queremos que entren estudiantes o visitantes aquí
 if (has_capability('moodle/course:create', $context)) {
-
+    // Cargar el controlador solo si el usuario tiene permisos
+    require_once "controllers/template.controller.php";
+    
     $index = new TemplateController;
     $index->index();
 } else {
