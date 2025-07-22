@@ -1,0 +1,12 @@
+<?php
+
+  class Monthly_numbers_json {
+
+      public static function get_month_numbers() {
+
+      $monthdata = [ "07" => ["2024" => ["completions" => "62", "registrations" => "875", "accesses" => "26425", "enrolments" => "4909", "suspensions" => "149", "messages" => "", "totalaccess" => "4469"]], "08" => ["2024" => ["completions" => "2124", "registrations" => "232", "accesses" => "33408", "enrolments" => "2739", "suspensions" => "562", "messages" => "", "totalaccess" => "4469"]], "09" => ["2024" => ["completions" => "3455", "registrations" => "164", "accesses" => "37792", "enrolments" => "2822", "suspensions" => "303", "messages" => "", "totalaccess" => "4469"]], "10" => ["2024" => ["completions" => "8574", "registrations" => "106", "accesses" => "63315", "enrolments" => "9439", "suspensions" => "71", "messages" => "", "totalaccess" => "4469"]], "11" => ["2024" => ["completions" => "1947", "registrations" => "276", "accesses" => "14184", "enrolments" => "1034", "suspensions" => "123", "messages" => "", "totalaccess" => "4469"]], "12" => ["2024" => ["completions" => "1169", "registrations" => "333", "accesses" => "7338", "enrolments" => "1394", "suspensions" => "234", "messages" => "", "totalaccess" => "4469"]], "01" => ["2025" => ["completions" => "1375", "registrations" => "87", "accesses" => "7348", "enrolments" => "1466", "suspensions" => "126", "messages" => "", "totalaccess" => "4469"]], "02" => ["2025" => ["completions" => "962", "registrations" => "123", "accesses" => "7969", "enrolments" => "1141", "suspensions" => "248", "messages" => "", "totalaccess" => "4469"]], "03" => ["2025" => ["completions" => "1224", "registrations" => "326", "accesses" => "14895", "enrolments" => "2255", "suspensions" => "241", "messages" => "", "totalaccess" => "4469"]], "04" => ["2025" => ["completions" => "591", "registrations" => "206", "accesses" => "7454", "enrolments" => "2185", "suspensions" => "105", "messages" => "", "totalaccess" => "4469"]], "05" => ["2025" => ["completions" => "767", "registrations" => "63", "accesses" => "12740", "enrolments" => "1410", "suspensions" => "263", "messages" => "58658", "totalaccess" => "4469"]], "06" => ["2025" => ["completions" => "353", "registrations" => "100", "accesses" => "8454", "enrolments" => "1069", "suspensions" => "617", "messages" => "56489", "totalaccess" => "4469"]],];
+
+      return $monthdata;
+
+      }
+  }

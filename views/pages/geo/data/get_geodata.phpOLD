@@ -1,0 +1,219 @@
+<?php 
+if (!defined('CLI_SCRIPT')) {
+    define('CLI_SCRIPT', true);
+    include '../../../../../config.php';
+}
+adminlte_getgeodata::geoDataJson();
+
+/**
+ * File containing the getData class.
+ *
+ * @package    adminlte_geo
+ * @copyright  2023 Thorvaldur Konradsson
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+
+/**
+ * GetData class.
+ *
+ * @package    adminlte_geo
+ * @copyright  2023 Thorvaldur Konradsson
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class adminlte_getgeodata {
+
+    /** @var object are resets allowed. */
+    protected $users;
+
+    protected $provincias = [];
+
+    static public $provinceColor = '';
+
+    /**
+    * Undocumented function countUsersProvincia
+    *
+    * @return $users
+    */
+
+    public static function countUsersProvincia($provincename)
+    {
+        global $DB;
+        
+        $sql = "select case 
+            when exists (select 1 
+                         from {user}
+                         where deleted = 0 AND institution = '{$provincename}') 
+            then 'Y' 
+            else 'N' 
+        end as rec_exists
+        from dual";
+        
+        $exists = $DB->get_record_sql($sql);
+        if ($exists = 'Y') {
+
+            self::$provinceColor = "3";
+            $sql = "SELECT COUNT (*)
+                    FROM   {user}
+                    WHERE deleted = 0 AND institution = '{$provincename}'
+                    COLLATE binary_ci";
+            $provincias = $DB->get_record_sql($sql);
+
+        } else {
+            self::$provinceColor = "1";
+            $users = 0;
+        }
+
+        foreach($provincias as $provincia) {
+
+            if ($provincia <= 100) {
+                self::$provinceColor = "1";
+            } elseif ($provincia >= 500) {
+                self::$provinceColor = "3";
+            } else {
+                self::$provinceColor = "2";
+            }
+
+            return $provincia;
+        }
+    }
+
+    public static function countCoursesProvincia($provincename)
+    {
+        global $DB;
+
+        $sql = "SELECT count(DISTINCT e.courseid) over ()
+                FROM {enrol} e
+                JOIN {user_enrolments} ue ON ue.enrolid = e.id
+                JOIN {user} u ON ue.userid  = u.id and u.institution = '{$provincename}'
+                COLLATE binary_ci
+                OFFSET 1 ROWS FETCH NEXT 1 ROWS ONLY";
+
+        $countCourses = $DB->get_record_sql($sql);
+
+        foreach ($countCourses as $countCourse) {
+
+            if ($countCourse >= 1) {
+            
+                return $countCourse;
+
+            } else {
+
+                return 'No hay cursos';
+            }
+        }
+    }
+
+    public static function countEnrolledProvincia($provincename)
+    {
+        global $DB;
+
+        $sql = "SELECT COUNT(ue.id)
+                FROM {user_enrolments} ue 
+                JOIN {user} u ON ue.userid  = u.id AND u.institution = '{$provincename}'
+                COLLATE binary_ci
+                WHERE status = 0";
+
+        $countEnrolled = $DB->get_record_sql($sql);
+
+        foreach ($countEnrolled as $countEnrol) {
+
+            if ($countEnrol >= 1) {
+            
+                return $countEnrol;
+
+            } else {
+
+                return 'No hay matriculados';
+            }
+        }
+
+    }
+
+    public static function geoDataJson()
+    {
+        global $DB;
+
+        $path = "/moodle/www/adminlte/views/pages/geo/data/user_provincia_table.php";
+
+        $geodata = [
+              ['alava', 'Araba, Álava', self::countCoursesProvincia('Araba-Alava'), self::countEnrolledProvincia('Araba-Alava'), self::countUsersProvincia('Araba-Alava'), self::$provinceColor],
+              ['albacete','Albacete', self::countCoursesProvincia('Albacete'), self::countEnrolledProvincia('Albacete'), self::countUsersProvincia('Albacete'), self::$provinceColor],
+              ['alicante','Alicante/Alacant', self::countCoursesProvincia('Alicante'), self::countEnrolledProvincia('Alicante'), self::countUsersProvincia('Alicante'), self::$provinceColor],
+              ['almeria','Almería', self::countCoursesProvincia('Almeria'), self::countEnrolledProvincia('Almeria'), self::countUsersProvincia('Almeria'), self::$provinceColor],
+              ['asturias','Asturias, Asturies', self::countCoursesProvincia('Asturias'), self::countEnrolledProvincia('Asturias'), self::countUsersProvincia('Asturias'), self::$provinceColor],
+              ['avila','Ávila', self::countCoursesProvincia('Avila'), self::countEnrolledProvincia('Avila'), self::countUsersProvincia('Avila'), self::$provinceColor],
+
+              ['badajoz','Badajoz', self::countCoursesProvincia('Badajoz'), self::countEnrolledProvincia('Badajoz'), self::countUsersProvincia('Badajoz'), self::$provinceColor],
+              ['barcelona','Barcelona', self::countCoursesProvincia('Barcelona'), self::countEnrolledProvincia('Barcelona'), self::countUsersProvincia('Barcelona'), self::$provinceColor],
+              ['burgos','Burgos', self::countCoursesProvincia('Burgos'), self::countEnrolledProvincia('Burgos'), self::countUsersProvincia('Burgos'), self::$provinceColor],
+
+              ['caceres','Cáceres', self::countCoursesProvincia('Caceres'), self::countEnrolledProvincia('Caceres'), self::countUsersProvincia('Caceres'), self::$provinceColor],
+              ['cadiz','Cádiz', self::countCoursesProvincia('Cadiz'), self::countEnrolledProvincia('Cadiz'), self::countUsersProvincia('Cadiz'), self::$provinceColor],
+              ['cantabria','Cantabria', self::countCoursesProvincia('Cantabria'), self::countEnrolledProvincia('Cantabria'), self::countUsersProvincia('Cantabria'), self::$provinceColor],
+              ['castellon','Castellón, Castelló', self::countCoursesProvincia('Castellon'), self::countEnrolledProvincia('Castellon'), self::countUsersProvincia('Castellon'), self::$provinceColor],
+              ['ciudad_real','Ciudad Real', self::countCoursesProvincia('Ciudad Real'), self::countEnrolledProvincia('Ciudad Real'), self::countUsersProvincia('Ciudad Real'), self::$provinceColor],
+              ['cordoba','Córdoba', self::countCoursesProvincia('Cordoba'), self::countEnrolledProvincia('Cordoba'), self::countUsersProvincia('Cordoba'), self::$provinceColor],
+              ['corunia','A Coruña', self::countCoursesProvincia('A Coruna'), self::countEnrolledProvincia('A Coruna'), self::countUsersProvincia('A Coruna'), self::$provinceColor],
+              ['cuenca','Cuenca', self::countCoursesProvincia('Cuenca'), self::countEnrolledProvincia('Cuenca'), self::countUsersProvincia('Cuenca'), self::$provinceColor],
+
+              ['girona','Girona', self::countCoursesProvincia('Girona'), self::countEnrolledProvincia('Girona'), self::countUsersProvincia('Girona'), self::$provinceColor],
+              ['granada','Granada', self::countCoursesProvincia('Granada'), self::countEnrolledProvincia('Granada'), self::countUsersProvincia('Granada'), self::$provinceColor],
+              ['guadalajara','Guadalajara', self::countCoursesProvincia('Guadalajara'), self::countEnrolledProvincia('Guadalajara'), self::countUsersProvincia('Guadalajara'), self::$provinceColor],
+              ['gipuzkoa','Gipuzkoa', self::countCoursesProvincia('Gipuzkoa'), self::countEnrolledProvincia('Gipuzkoa'), self::countUsersProvincia('Gipuzkoa'), self::$provinceColor],
+              
+              ['huelva','Huelva', self::countCoursesProvincia('Huelva'), self::countEnrolledProvincia('Huelva'), self::countUsersProvincia('Huelva'), self::$provinceColor],
+              ['huesca','Huesca', self::countCoursesProvincia('Huesca'), self::countEnrolledProvincia('Huesca'), self::countUsersProvincia('Huesca'), self::$provinceColor],
+              ['illes_balears','Illes Balears', self::countCoursesProvincia('Illes Balears'), self::countEnrolledProvincia('Illes Balears'), self::countUsersProvincia('Illes Balears'), self::$provinceColor],
+              ['jaen','Jaén', self::countCoursesProvincia('Jaen'), self::countEnrolledProvincia('Jaen'), self::countUsersProvincia('Jaen'), self::$provinceColor],
+              ['leon','León', self::countCoursesProvincia('Leon'), self::countEnrolledProvincia('Leon'), self::countUsersProvincia('Leon'), self::$provinceColor],
+              ['lleida','Lleida', self::countCoursesProvincia('Lleida'), self::countEnrolledProvincia('Lleida'), self::countUsersProvincia('Lleida'), self::$provinceColor],
+              ['lugo','Lugo', self::countCoursesProvincia('Lugo'), self::countEnrolledProvincia('Lugo'), self::countUsersProvincia('Lugo'), self::$provinceColor],
+
+              ['madrid','Madrid', self::countCoursesProvincia('Madrid'), self::countEnrolledProvincia('Madrid'), self::countUsersProvincia('Madrid'), self::$provinceColor],
+              ['malaga','Málaga', self::countCoursesProvincia('Malaga'), self::countEnrolledProvincia('Malaga'), self::countUsersProvincia('Malaga'), self::$provinceColor],
+              ['murcia','Murcia', self::countCoursesProvincia('Murcia'), self::countEnrolledProvincia('Murcia'), self::countUsersProvincia('Murcia'), self::$provinceColor],
+              ['navarra','Navarra', self::countCoursesProvincia('Navarra'), self::countEnrolledProvincia('Navarra'), self::countUsersProvincia('Navarra'), self::$provinceColor],
+              ['ourense','Ourense', self::countCoursesProvincia('Ourense'), self::countEnrolledProvincia('Ourense'), self::countUsersProvincia('Ourense'), self::$provinceColor],
+              ['palencia','Palencia', self::countCoursesProvincia('Palencia'), self::countEnrolledProvincia('Palencia'), self::countUsersProvincia('Palencia'), self::$provinceColor],
+              ['las_palmas','Las Palmas', self::countCoursesProvincia('Las Palmas'), self::countEnrolledProvincia('Las Palmas'), self::countUsersProvincia('Las Palmas'), self::$provinceColor],
+              ['pontevedra','Pontevedra', self::countCoursesProvincia('Pontevedra'), self::countEnrolledProvincia('Pontevedra'), self::countUsersProvincia('Pontevedra'), self::$provinceColor],
+              ['la_rioja','La Rioja', self::countCoursesProvincia('La Rioja'), self::countEnrolledProvincia('La Rioja'), self::countUsersProvincia('La Rioja'), self::$provinceColor],
+              ['salamanca','Salamanca', self::countCoursesProvincia('Salamanca'), self::countEnrolledProvincia('Salamanca'), self::countUsersProvincia('Salamanca'), self::$provinceColor],
+              ['segovia','Segovia', self::countCoursesProvincia('Segovia'), self::countEnrolledProvincia('Segovia'), self::countUsersProvincia('Segovia'), self::$provinceColor],
+
+              ['sevilla','Sevilla', self::countCoursesProvincia('Sevilla'), self::countEnrolledProvincia('Sevilla'), self::countUsersProvincia('Sevilla'), self::$provinceColor],
+              ['soria','Soria', self::countCoursesProvincia('Soria'), self::countEnrolledProvincia('Soria'), self::countUsersProvincia('Soria'), self::$provinceColor],
+              ['tarragona','Tarragona', self::countCoursesProvincia('Tarragona'), self::countEnrolledProvincia('Tarragona'), self::countUsersProvincia('Tarragona'), self::$provinceColor],
+              ['tenerife','Tenerife', self::countCoursesProvincia('Tenerife'), self::countEnrolledProvincia('Tenerife'), self::countUsersProvincia('Tenerife'), self::$provinceColor],
+              ['teruel','Teruel', self::countCoursesProvincia('Teruel'), self::countEnrolledProvincia('Teruel'), self::countUsersProvincia('Teruel'), self::$provinceColor],
+              ['toledo','Toledo', self::countCoursesProvincia('Toledo'), self::countEnrolledProvincia('Toledo'), self::countUsersProvincia('Toledo'), self::$provinceColor],
+              ['valencia','València', self::countCoursesProvincia('Valencia'), self::countEnrolledProvincia('Valencia'), self::countUsersProvincia('Valencia'), self::$provinceColor],
+              ['valladolid','Valladolid', self::countCoursesProvincia('Valladolid'), self::countEnrolledProvincia('Valladolid'), self::countUsersProvincia('Valladolid'), self::$provinceColor],
+              ['bizkaia','Bizkaia', self::countCoursesProvincia('Bizkaia'), self::countEnrolledProvincia('Bizkaia'), self::countUsersProvincia('Bizkaia'), self::$provinceColor],
+              ['zamora','Zamora', self::countCoursesProvincia('Zamora'), self::countEnrolledProvincia('Zamora'), self::countUsersProvincia('Zamora'), self::$provinceColor],
+              ['zaragoza','Zaragoza', self::countCoursesProvincia('Zaragoza'), self::countEnrolledProvincia('Zaragoza'), self::countUsersProvincia('Zaragoza'), self::$provinceColor],
+
+              ['melilla','Melilla', self::countCoursesProvincia('Melilla'), self::countEnrolledProvincia('Melilla'), self::countUsersProvincia('Melilla'), self::$provinceColor],
+              ['ceuta','Ceuta', self::countCoursesProvincia('Ceuta'), self::countEnrolledProvincia('Ceuta'), self::countUsersProvincia('Ceuta'), self::$provinceColor]
+          ];
+
+          $geodatacontents = 
+'<?php
+
+    class User_provincia_table {
+
+        public static function getprovinciainfo() {
+
+        $geodata = ' . json_encode($geodata,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT) . ';
+
+        return $geodata;
+
+        }
+    }';
+            
+              file_put_contents($path, $geodatacontents);
+        //return $geodata;
+    }
+
+}

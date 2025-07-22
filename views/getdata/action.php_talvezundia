@@ -1,0 +1,19 @@
+<?php
+if (!defined('CLI_SCRIPT')) {
+    define('CLI_SCRIPT', false);
+    include '/moodle/www/config.php';
+}
+include "views/getdata/getdata.php";
+
+$action = $_GET['action'] ?? '';
+$prov= $_GET['province'] ?? '';
+$data = null;
+$loll = new adminlte_getdata;
+switch($action){
+    case "get_province_sessions":   
+        $data = $loll->get_province_sessions($prov);
+        break;
+    case "get_province_hourly_views":
+        $data = $loll->get_province_hourly_views($prov);
+        break;
+}
