@@ -3,6 +3,7 @@
 /**
  * Dashboard/Cuadro de mando para Moodle
  * Basado en AdminLTE (https://adminlte.io/)
+ * Let's see if this works
  * 
  * @package    local_dashboard
  * @author     Thorvaldur Konradsson
