@@ -1,0 +1,17 @@
+{
+  "name": "local_dashboard",
+  "version": "1.0.0",
+  "description": "Moodle Dashboard Plugin Build Tools",
+  "devDependencies": {
+    "grunt": "^1.5.3",
+    "grunt-contrib-uglify": "^5.2.2",
+    "grunt-contrib-watch": "^1.1.0"
+  },
+  "scripts": {
+    "build": "grunt",
+    "watch": "grunt watch"
+  },
+  "keywords": ["moodle", "dashboard", "plugin"],
+  "author": "Thorvaldur Konradsson",
+  "license": "GPL-3.0"
+}

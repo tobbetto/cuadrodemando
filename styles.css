@@ -1,0 +1,242 @@
+/**
+ * Main CSS styles for the Dashboard plugin
+ *
+ * @package    local_dashboard
+ * @author     Thorvaldur Konradsson
+ * @version    1.0.0
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/* Dashboard wrapper */
+.dashboard-wrapper {
+    padding: 20px;
+}
+
+.dashboard-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.dashboard-header h2 {
+    color: #495057;
+    font-weight: 500;
+}
+
+/* Statistics cards */
+.dashboard-stats {
+    margin-bottom: 2rem;
+}
+
+.small-box {
+    border-radius: 8px;
+    position: relative;
+    display: block;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    overflow: hidden;
+}
+
+.small-box:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    transform: translateY(-2px);
+}
+
+.small-box > .inner {
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.small-box .icon {
+    position: absolute;
+    top: -10px;
+    right: 15px;
+    z-index: 0;
+    font-size: 90px;
+    color: rgba(255,255,255,0.2);
+}
+
+.small-box h3 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    white-space: nowrap;
+    padding: 0;
+    color: white;
+}
+
+.small-box p {
+    font-size: 1rem;
+    margin: 0;
+    color: rgba(255,255,255,0.9);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Color variants */
+.bg-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+}
+
+.bg-success {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+}
+
+.bg-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+    color: #212529 !important;
+}
+
+.bg-warning h3,
+.bg-warning p {
+    color: #212529 !important;
+}
+
+.bg-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+}
+
+/* Cards */
+.dashboard-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.dashboard-card-header {
+    padding: 1rem 1.5rem;
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    font-weight: 600;
+    color: #495057;
+}
+
+.dashboard-card-body {
+    padding: 1.5rem;
+}
+
+/* Charts */
+.chart-container {
+    position: relative;
+    height: 400px;
+    margin: 1rem 0;
+}
+
+/* Navigation enhancements */
+.dashboard-nav {
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 0.5rem;
+}
+
+.dashboard-nav .nav-link {
+    color: #495057;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.dashboard-nav .nav-link:hover {
+    color: #007bff;
+    background-color: #f8f9fa;
+    transform: translateY(-1px);
+}
+
+.dashboard-nav .nav-link.active {
+    color: #fff;
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    box-shadow: 0 2px 4px rgba(0,123,255,0.3);
+}
+
+/* Buttons */
+.dashboard-btn {
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.dashboard-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.dashboard-btn-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+}
+
+.dashboard-btn-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #545b62 100%);
+    color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .small-box h3 {
+        font-size: 2rem;
+    }
+    
+    .small-box .icon {
+        font-size: 70px;
+        top: 5px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .small-box h3 {
+        font-size: 1.5rem;
+    }
+    
+    .small-box .icon {
+        font-size: 50px;
+        top: 10px;
+    }
+    
+    .dashboard-wrapper {
+        padding: 10px;
+    }
+    
+    .dashboard-card-body {
+        padding: 1rem;
+    }
+    
+    .chart-container {
+        height: 300px;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .dashboard-card {
+        background: #2d3748;
+        color: #e2e8f0;
+    }
+    
+    .dashboard-card-header {
+        background: #4a5568;
+        border-color: #4a5568;
+        color: #e2e8f0;
+    }
+    
+    .dashboard-nav {
+        background: #2d3748;
+    }
+    
+    .dashboard-nav .nav-link {
+        color: #e2e8f0;
+    }
+    
+    .dashboard-nav .nav-link:hover {
+        background-color: #4a5568;
+    }
+}

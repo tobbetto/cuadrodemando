@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<libraries>
+  <library>
+    <location>thirdpartylibs/adminlte</location>
+    <name>AdminLTE</name>
+    <version>3.2.0</version>
+    <license>MIT</license>
+    <licenseversion></licenseversion>
+  </library>
+  <library>
+    <location>thirdpartylibs/chart.js</location>
+    <name>Chart.js</name>
+    <version>4.4.0</version>
+    <license>MIT</license>
+    <licenseversion></licenseversion>
+  </library>
+  <library>
+    <location>thirdpartylibs/datatables</location>
+    <name>DataTables</name>
+    <version>1.13.6</version>
+    <license>MIT</license>
+    <licenseversion></licenseversion>
+  </library>
+  <library>
+    <location>thirdpartylibs/fontawesome</location>
+    <name>Font Awesome</name>
+    <version>6.4.0</version>
+    <license>Font Awesome Free License</license>
+    <licenseversion></licenseversion>
+  </library>
+</libraries>
