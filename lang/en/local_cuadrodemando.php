@@ -60,3 +60,17 @@ $string['lang_catalan'] = 'Català';
 $string['pagenotfound'] = 'Page Not Found';
 $string['pagenotfound_desc'] = 'The requested page could not be found.';
 $string['returntodashboard'] = 'Return to Dashboard';
+
+// Geography page
+$string['geo'] = 'Geography';
+$string['geo_instructions'] = 'Hover over each province to see its data and click for more details';
+$string['provinces_total'] = 'Total Provinces';
+$string['province_last_30_days'] = 'Province data for the last 30 days';
+$string['sessions_last_hour'] = 'Open sessions last hour';
+$string['active_users_last_hour'] = 'Active users last hour';
+$string['completions_last_month'] = 'Completions last month';
+$string['enrollments_last_month'] = 'Enrollments last month';
+$string['registrations_last_month'] = 'New registrations last month';
+$string['deletions_last_month'] = 'Deletions last month';
+$string['geo_data_loading'] = 'Loading geographical data...';
+$string['map_loading'] = 'Loading interactive map...';

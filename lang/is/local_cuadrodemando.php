@@ -59,3 +59,17 @@ $string['lang_catalan'] = 'Català';
 $string['pagenotfound'] = 'Síða fannst ekki';
 $string['pagenotfound_desc'] = 'Umbeðna síðan fannst ekki.';
 $string['returntodashboard'] = 'Fara aftur á stjórnborð';
+
+// Landafræðisíða
+$string['geo'] = 'Landafræði';
+$string['geo_instructions'] = 'Færðu músina yfir hvert fylki til að sjá gögnin og smelltu fyrir frekari upplýsingar';
+$string['provinces_total'] = 'Samtals fylki';
+$string['province_last_30_days'] = 'Gögn fylkis fyrir síðustu 30 daga';
+$string['sessions_last_hour'] = 'Opnar lotur síðustu klukkustund';
+$string['active_users_last_hour'] = 'Virkir notendur síðustu klukkustund';
+$string['completions_last_month'] = 'Lokið námskeið síðasta mánuð';
+$string['enrollments_last_month'] = 'Innritanir síðasta mánuð';
+$string['registrations_last_month'] = 'Nýskráningar síðasta mánuð';
+$string['deletions_last_month'] = 'Eyðingar síðasta mánuð';
+$string['geo_data_loading'] = 'Hleð landafræðilegum gögnum...';
+$string['map_loading'] = 'Hleð gagnvirku korti...';

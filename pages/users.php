@@ -20,6 +20,57 @@ include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/total_user_chan
 
 echo html_writer::start_div('dashboard-wrapper');
 
+// Navigation menu
+echo html_writer::start_div('dashboard-nav mb-4');
+echo html_writer::start_tag('nav', array('class' => 'navbar navbar-expand-lg navbar-light bg-light'));
+echo html_writer::start_div('container-fluid');
+
+// Brand/Home link
+echo html_writer::link(
+    new moodle_url('/local/cuadrodemando/index.php'),
+    get_string('dashboard', 'local_cuadrodemando'),
+    array('class' => 'navbar-brand')
+);
+
+// Navigation links
+echo html_writer::start_div('navbar-nav');
+echo html_writer::start_div('nav-item');
+echo html_writer::link(
+    new moodle_url('/local/cuadrodemando/pages/home.php'),
+    get_string('home', 'local_cuadrodemando'),
+    array('class' => 'nav-link')
+);
+echo html_writer::end_div();
+
+echo html_writer::start_div('nav-item');
+echo html_writer::link(
+    new moodle_url('/local/cuadrodemando/pages/courses.php'),
+    get_string('courses', 'local_cuadrodemando'),
+    array('class' => 'nav-link')
+);
+echo html_writer::end_div();
+
+echo html_writer::start_div('nav-item');
+echo html_writer::link(
+    new moodle_url('/local/cuadrodemando/pages/users.php'),
+    get_string('users', 'local_cuadrodemando'),
+    array('class' => 'nav-link active')
+);
+echo html_writer::end_div();
+
+echo html_writer::start_div('nav-item');
+echo html_writer::link(
+    new moodle_url('/local/cuadrodemando/pages/geo.php'),
+    get_string('geo', 'local_cuadrodemando'),
+    array('class' => 'nav-link')
+);
+echo html_writer::end_div();
+
+echo html_writer::end_div(); // navbar-nav
+echo html_writer::end_div(); // container-fluid
+echo html_writer::end_tag('nav');
+echo html_writer::end_div(); // dashboard-nav
+
 // Dashboard header with language selector
 echo html_writer::start_div('dashboard-header mb-4 d-flex justify-content-between align-items-center');
 echo html_writer::start_div('dashboard-title');

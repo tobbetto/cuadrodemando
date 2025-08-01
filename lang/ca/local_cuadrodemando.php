@@ -59,3 +59,17 @@ $string['lang_catalan'] = 'Català';
 $string['pagenotfound'] = 'Pàgina No Trobada';
 $string['pagenotfound_desc'] = 'La pàgina sol·licitada no s\'ha pogut trobar.';
 $string['returntodashboard'] = 'Tornar al Quadre de Comandament';
+
+// Pàgina de geografia
+$string['geo'] = 'Geografia';
+$string['geo_instructions'] = 'Passeu el cursor sobre cada província per veure les seves dades i feu clic per a més detalls';
+$string['provinces_total'] = 'Total Províncies';
+$string['province_last_30_days'] = 'Dades de la província durant els darrers 30 dies';
+$string['sessions_last_hour'] = 'Sessions obertes última hora';
+$string['active_users_last_hour'] = 'Usuaris actius última hora';
+$string['completions_last_month'] = 'Finalitzacions el darrer mes';
+$string['enrollments_last_month'] = 'Matriculacions el darrer mes';
+$string['registrations_last_month'] = 'Altes el darrer mes';
+$string['deletions_last_month'] = 'Baixes el darrer mes';
+$string['geo_data_loading'] = 'Carregant dades geogràfiques...';
+$string['map_loading'] = 'Carregant mapa interactiu...';
