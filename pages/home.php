@@ -2,7 +2,7 @@
 /**
  * Dashboard home page content
  *
- * @package    local_dashboard
+ * @package    local_cuadrodemando
  * @author     Thorvaldur Konradsson
  * @version    1.0.0
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -13,13 +13,13 @@ defined('MOODLE_INTERNAL') || die();
 global $OUTPUT, $CFG;
 
 // Get dashboard statistics
-$stats = \local_dashboard\dashboard_controller::get_statistics();
+$stats = \local_cuadrodemando\dashboard_controller::get_statistics();
 
 echo html_writer::start_div('dashboard-wrapper');
 
 // Dashboard header
 echo html_writer::start_div('dashboard-header mb-4');
-echo html_writer::tag('h2', get_string('welcometodashboard', 'local_dashboard'), array('class' => 'h3'));
+echo html_writer::tag('h2', get_string('welcometodashboard', 'local_cuadrodemando'), array('class' => 'h3'));
 echo html_writer::end_div();
 
 // Statistics cards
@@ -30,7 +30,7 @@ echo html_writer::start_div('col-lg-3 col-6');
 echo html_writer::start_div('small-box bg-info');
 echo html_writer::start_div('inner');
 echo html_writer::tag('h3', $stats['total_users'] ?? 0);
-echo html_writer::tag('p', get_string('totalusers', 'local_dashboard'));
+echo html_writer::tag('p', get_string('totalusers', 'local_cuadrodemando'));
 echo html_writer::end_div(); // inner
 echo html_writer::start_div('icon');
 echo html_writer::tag('i', '', array('class' => 'ion ion-bag'));
@@ -43,7 +43,7 @@ echo html_writer::start_div('col-lg-3 col-6');
 echo html_writer::start_div('small-box bg-success');
 echo html_writer::start_div('inner');
 echo html_writer::tag('h3', $stats['total_courses'] ?? 0);
-echo html_writer::tag('p', get_string('totalcourses', 'local_dashboard'));
+echo html_writer::tag('p', get_string('totalcourses', 'local_cuadrodemando'));
 echo html_writer::end_div(); // inner
 echo html_writer::start_div('icon');
 echo html_writer::tag('i', '', array('class' => 'ion ion-stats-bars'));
@@ -56,7 +56,7 @@ echo html_writer::start_div('col-lg-3 col-6');
 echo html_writer::start_div('small-box bg-warning');
 echo html_writer::start_div('inner');
 echo html_writer::tag('h3', $stats['total_enrollments'] ?? 0);
-echo html_writer::tag('p', get_string('totalenrollments', 'local_dashboard'));
+echo html_writer::tag('p', get_string('totalenrollments', 'local_cuadrodemando'));
 echo html_writer::end_div(); // inner
 echo html_writer::start_div('icon');
 echo html_writer::tag('i', '', array('class' => 'ion ion-person-add'));
@@ -69,7 +69,7 @@ echo html_writer::start_div('col-lg-3 col-6');
 echo html_writer::start_div('small-box bg-danger');
 echo html_writer::start_div('inner');
 echo html_writer::tag('h3', '0'); // Placeholder
-echo html_writer::tag('p', get_string('activeusers', 'local_dashboard'));
+echo html_writer::tag('p', get_string('activeusers', 'local_cuadrodemando'));
 echo html_writer::end_div(); // inner
 echo html_writer::start_div('icon');
 echo html_writer::tag('i', '', array('class' => 'ion ion-pie-graph'));

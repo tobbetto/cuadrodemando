@@ -1,7 +1,7 @@
 /**
  * Dashboard main JavaScript module
  *
- * @module     local_dashboard/dashboard
+ * @module     local_cuadrodemando/dashboard
  * @copyright  2025 Thorvaldur Konradsson
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -108,7 +108,7 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, Ajax, Notificat
          */
         refreshData: function() {
             var promises = Ajax.call([{
-                methodname: 'local_dashboard_get_stats',
+                methodname: 'local_cuadrodemando_get_stats',
                 args: {}
             }]);
 

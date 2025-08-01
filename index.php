@@ -5,7 +5,7 @@
  * Basado en AdminLTE (https://adminlte.io/)
  * Let's see if this works
  * 
- * @package    local_dashboard
+ * @package    local_cuadrodemando
  * @author     Thorvaldur Konradsson
  * @version    1.0
  */
@@ -33,7 +33,7 @@ require_login();
 
 // Verificar que las variables globales necesarias existen
 if (!isset($USER) || !isset($CFG)) {
-    throw new moodle_exception('missingglobalvars', 'local_dashboard');
+    throw new moodle_exception('missingglobalvars', 'local_cuadrodemando');
 }
 
 $context = context_user::instance($USER->id);

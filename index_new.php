@@ -2,7 +2,7 @@
 /**
  * Dashboard main page
  *
- * @package    local_dashboard
+ * @package    local_cuadrodemando
  * @author     Thorvaldur Konradsson
  * @version    1.0.0
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -17,17 +17,17 @@ require_login();
 
 // Check capabilities
 $context = context_system::instance();
-require_capability('local/dashboard:view', $context);
+require_capability('local/cuadrodemando:view', $context);
 
 // Set up the page
 $PAGE->set_context($context);
-$PAGE->set_url('/local/dashboard/index.php');
-$PAGE->set_title(get_string('dashboard', 'local_dashboard'));
-$PAGE->set_heading(get_string('dashboard', 'local_dashboard'));
+$PAGE->set_url('/local/cuadrodemando/index.php');
+$PAGE->set_title(get_string('dashboard', 'local_cuadrodemando'));
+$PAGE->set_heading(get_string('dashboard', 'local_cuadrodemando'));
 $PAGE->set_pagelayout('admin');
 
 // Load the dashboard controller
-require_once($CFG->dirroot . '/local/dashboard/classes/dashboard_controller.php');
+require_once($CFG->dirroot . '/local/cuadrodemando/classes/dashboard_controller.php');
 
 // Display the dashboard
-\local_dashboard\dashboard_controller::display_dashboard();
+\local_cuadrodemando\dashboard_controller::display_dashboard();

@@ -1,5 +1,5 @@
 /**
- * Gruntfile for local_dashboard plugin
+ * Gruntfile for local_cuadrodemando plugin
  * 
  * This file builds the AMD modules for the dashboard plugin.
  * Run 'grunt' to build all modules.

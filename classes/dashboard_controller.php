@@ -2,13 +2,13 @@
 /**
  * Dashboard controller class
  *
- * @package    local_dashboard
+ * @package    local_cuadrodemando
  * @author     Thorvaldur Konradsson
  * @version    1.0.0
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace local_dashboard;
+namespace local_cuadrodemando;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -27,9 +27,9 @@ class dashboard_controller {
         
         $context = \context_system::instance();
         $PAGE->set_context($context);
-        $PAGE->set_url('/local/dashboard/index.php');
-        $PAGE->set_title(get_string('dashboard', 'local_dashboard'));
-        $PAGE->set_heading(get_string('dashboard', 'local_dashboard'));
+        $PAGE->set_url('/local/cuadrodemando/index.php');
+        $PAGE->set_title(get_string('dashboard', 'local_cuadrodemando'));
+        $PAGE->set_heading(get_string('dashboard', 'local_cuadrodemando'));
         $PAGE->set_pagelayout('admin');
         
         // Load required CSS and JS
@@ -54,9 +54,9 @@ class dashboard_controller {
         
         $context = \context_system::instance();
         $PAGE->set_context($context);
-        $PAGE->set_url("/local/dashboard/{$page}.php");
-        $PAGE->set_title(get_string($page, 'local_dashboard'));
-        $PAGE->set_heading(get_string($page, 'local_dashboard'));
+        $PAGE->set_url("/local/cuadrodemando/{$page}.php");
+        $PAGE->set_title(get_string($page, 'local_cuadrodemando'));
+        $PAGE->set_heading(get_string($page, 'local_cuadrodemando'));
         $PAGE->set_pagelayout('admin');
         
         // Load required CSS and JS
@@ -79,25 +79,25 @@ class dashboard_controller {
         global $PAGE;
         
         // Load main dashboard CSS
-        $PAGE->requires->css('/local/dashboard/styles.css');
+        $PAGE->requires->css('/local/cuadrodemando/styles.css');
         
         // Load AdminLTE CSS and JS
-        $PAGE->requires->css('/local/dashboard/thirdpartylibs/adminlte/adminlte.min.css');
-        $PAGE->requires->js('/local/dashboard/thirdpartylibs/adminlte/adminlte.min.js');
+        $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.css');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js');
         
         // Load Chart.js
-        $PAGE->requires->js('/local/dashboard/thirdpartylibs/chart/chart.umd.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/chart/chart.umd.js');
         
         // Load DataTables CSS and JS
-        $PAGE->requires->css('/local/dashboard/thirdpartylibs/datatables/datatables.min.css');
-        $PAGE->requires->js('/local/dashboard/thirdpartylibs/datatables/datatables.min.js');
+        $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/datatables/datatables.min.css');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/datatables.min.js');
         
         // Load dashboard AMD modules
-        $PAGE->requires->js_call_amd('local_dashboard/dashboard', 'init');
+        $PAGE->requires->js_call_amd('local_cuadrodemando/dashboard', 'init');
         
         // Load charts module if charts are enabled
-        if (get_config('local_dashboard', 'enablecharts')) {
-            $PAGE->requires->js_call_amd('local_dashboard/charts', 'init');
+        if (get_config('local_cuadrodemando', 'enablecharts')) {
+            $PAGE->requires->js_call_amd('local_cuadrodemando/charts', 'init');
         }
     }
     
@@ -126,6 +126,6 @@ class dashboard_controller {
      * @return array Array of statistics
      */
     public static function get_statistics() {
-        return local_dashboard_get_stats();
+        return local_cuadrodemando_get_stats();
     }
 }

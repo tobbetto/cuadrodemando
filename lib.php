@@ -2,7 +2,7 @@
 /**
  * Library of interface functions and constants for module dashboard
  *
- * @package    local_dashboard
+ * @package    local_cuadrodemando
  * @author     Thorvaldur Konradsson
  * @version    1.0.0
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -15,18 +15,18 @@ defined('MOODLE_INTERNAL') || die();
  *
  * @param global_navigation $navigation An object representing the navigation tree
  */
-function local_dashboard_extend_navigation(global_navigation $navigation) {
+function local_cuadrodemando_extend_navigation(global_navigation $navigation) {
     global $USER, $PAGE;
     
     $context = context_system::instance();
     
-    if (has_capability('local/dashboard:view', $context)) {
+    if (has_capability('local/cuadrodemando:view', $context)) {
         $node = $navigation->add(
-            get_string('dashboard', 'local_dashboard'),
-            new moodle_url('/local/dashboard/index.php'),
+            get_string('dashboard', 'local_cuadrodemando'),
+            new moodle_url('/local/cuadrodemando/index.php'),
             navigation_node::TYPE_CUSTOM,
             null,
-            'local_dashboard'
+            'local_cuadrodemando'
         );
         $node->showinflatnavigation = true;
     }
@@ -38,14 +38,14 @@ function local_dashboard_extend_navigation(global_navigation $navigation) {
  * @param settings_navigation $navigation
  * @param context $context
  */
-function local_dashboard_extend_settings_navigation(settings_navigation $navigation, context $context) {
+function local_cuadrodemando_extend_settings_navigation(settings_navigation $navigation, context $context) {
     global $PAGE;
     
-    if (has_capability('local/dashboard:view', context_system::instance())) {
+    if (has_capability('local/cuadrodemando:view', context_system::instance())) {
         if ($settingnode = $navigation->find('siteadministration', navigation_node::TYPE_SITE_ADMIN)) {
             $node = $settingnode->add(
-                get_string('dashboard', 'local_dashboard'),
-                new moodle_url('/local/dashboard/index.php'),
+                get_string('dashboard', 'local_cuadrodemando'),
+                new moodle_url('/local/cuadrodemando/index.php'),
                 navigation_node::TYPE_SETTING
             );
         }
@@ -57,7 +57,7 @@ function local_dashboard_extend_settings_navigation(settings_navigation $navigat
  *
  * @return array Dashboard statistics
  */
-function local_dashboard_get_stats() {
+function local_cuadrodemando_get_stats() {
     global $DB;
     
     $stats = array();

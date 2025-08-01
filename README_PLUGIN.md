@@ -18,7 +18,7 @@ This plugin provides a comprehensive dashboard for Moodle administrators and cou
 - `index.php` - Main dashboard entry point
 
 ### Language Files
-- `lang/en/local_dashboard.php` - English language strings
+- `lang/en/local_cuadrodemando.php` - English language strings
 
 ### Database
 - `db/access.php` - Capability definitions

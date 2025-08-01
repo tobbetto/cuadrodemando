@@ -43,7 +43,7 @@ Main dashboard functionality including:
 
 Usage in PHP:
 ```php
-$PAGE->requires->js_call_amd('local_dashboard/dashboard', 'init');
+$PAGE->requires->js_call_amd('local_cuadrodemando/dashboard', 'init');
 ```
 
 ### charts.js
@@ -54,7 +54,7 @@ Chart-specific functionality:
 
 Usage in PHP:
 ```php
-$PAGE->requires->js_call_amd('local_dashboard/charts', 'init');
+$PAGE->requires->js_call_amd('local_cuadrodemando/charts', 'init');
 ```
 
 ## CSS Structure
@@ -132,15 +132,15 @@ private static function load_assets() {
     $PAGE->requires->css('/local/dashboard/thirdpartylibs/datatables/datatables.min.css');
     
     // Load third-party JS
-    $PAGE->requires->js('/local/dashboard/thirdpartylibs/adminlte/adminlte.min.js');
-    $PAGE->requires->js('/local/dashboard/thirdpartylibs/chart/chart.umd.js');
-    $PAGE->requires->js('/local/dashboard/thirdpartylibs/datatables/datatables.min.js');
+    $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js');
+    $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/chart/chart.umd.js');
+    $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/datatables.min.js');
     
     // Load AMD modules
-    $PAGE->requires->js_call_amd('local_dashboard/dashboard', 'init');
+    $PAGE->requires->js_call_amd('local_cuadrodemando/dashboard', 'init');
     
-    if (get_config('local_dashboard', 'enablecharts')) {
-        $PAGE->requires->js_call_amd('local_dashboard/charts', 'init');
+    if (get_config('local_cuadrodemando', 'enablecharts')) {
+        $PAGE->requires->js_call_amd('local_cuadrodemando/charts', 'init');
     }
 }
 ```

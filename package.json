@@ -1,5 +1,5 @@
 {
-  "name": "local_dashboard",
+  "name": "local_cuadrodemando",
   "version": "1.0.0",
   "description": "Moodle Dashboard Plugin Build Tools",
   "devDependencies": {

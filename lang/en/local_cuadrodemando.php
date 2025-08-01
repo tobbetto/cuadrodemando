@@ -2,7 +2,7 @@
 /**
  * English language strings for the Dashboard plugin
  *
- * @package    local_dashboard
+ * @package    local_cuadrodemando
  * @author     Thorvaldur Konradsson
  * @version    1.0.0
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

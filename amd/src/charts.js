@@ -1,7 +1,7 @@
 /**
  * Charts module for dashboard
  *
- * @module     local_dashboard/charts
+ * @module     local_cuadrodemando/charts
  * @copyright  2025 Thorvaldur Konradsson
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,7 +25,7 @@ define(['jquery', 'core/ajax'], function($, Ajax) {
          */
         loadUserActivityChart: function() {
             var promises = Ajax.call([{
-                methodname: 'local_dashboard_get_user_activity',
+                methodname: 'local_cuadrodemando_get_user_activity',
                 args: {}
             }]);
 
@@ -39,7 +39,7 @@ define(['jquery', 'core/ajax'], function($, Ajax) {
          */
         loadCourseStatsChart: function() {
             var promises = Ajax.call([{
-                methodname: 'local_dashboard_get_course_stats',
+                methodname: 'local_cuadrodemando_get_course_stats',
                 args: {}
             }]);
 
