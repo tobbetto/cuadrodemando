@@ -110,13 +110,13 @@ class dashboard_controller {
     private static function display_content($page) {
         global $CFG;
         
-        $contentfile = $CFG->dirroot . "/local/dashboard/pages/{$page}.php";
+        $contentfile = $CFG->dirroot . "/local/cuadrodemando/pages/{$page}.php";
         
         if (file_exists($contentfile)) {
             include($contentfile);
         } else {
             // Display 404 error
-            include($CFG->dirroot . "/local/dashboard/pages/404.php");
+            include($CFG->dirroot . "/local/cuadrodemando/pages/404.php");
         }
     }
     

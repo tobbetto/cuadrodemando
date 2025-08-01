@@ -54,3 +54,8 @@ $string['lang_english'] = 'English';
 $string['lang_spanish'] = 'Español';
 $string['lang_icelandic'] = 'Íslenska';
 $string['lang_catalan'] = 'Català';
+
+// Páginas de error
+$string['pagenotfound'] = 'Página No Encontrada';
+$string['pagenotfound_desc'] = 'La página solicitada no se pudo encontrar.';
+$string['returntodashboard'] = 'Volver al Cuadro de Mando';

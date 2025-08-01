@@ -54,3 +54,8 @@ $string['lang_english'] = 'English';
 $string['lang_spanish'] = 'Español';
 $string['lang_icelandic'] = 'Íslenska';
 $string['lang_catalan'] = 'Català';
+
+// Villuskjár
+$string['pagenotfound'] = 'Síða fannst ekki';
+$string['pagenotfound_desc'] = 'Umbeðna síðan fannst ekki.';
+$string['returntodashboard'] = 'Fara aftur á stjórnborð';
