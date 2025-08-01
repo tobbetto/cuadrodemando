@@ -15,6 +15,12 @@ defined('MOODLE_INTERNAL') || die();
 // Require login
 require_login();
 
+// Load the dashboard controller
+require_once($CFG->dirroot . '/local/cuadrodemando/classes/dashboard_controller.php');
+
+// Handle language switching
+\local_cuadrodemando\dashboard_controller::handle_language_switch();
+
 // Check capabilities
 $context = context_system::instance();
 require_capability('local/cuadrodemando:view', $context);
@@ -25,9 +31,6 @@ $PAGE->set_url('/local/cuadrodemando/index.php');
 $PAGE->set_title(get_string('dashboard', 'local_cuadrodemando'));
 $PAGE->set_heading(get_string('dashboard', 'local_cuadrodemando'));
 $PAGE->set_pagelayout('admin');
-
-// Load the dashboard controller
-require_once($CFG->dirroot . '/local/cuadrodemando/classes/dashboard_controller.php');
 
 // Display the dashboard
 \local_cuadrodemando\dashboard_controller::display_dashboard();

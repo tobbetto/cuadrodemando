@@ -128,4 +128,31 @@ class dashboard_controller {
     public static function get_statistics() {
         return local_cuadrodemando_get_stats();
     }
+
+    /**
+     * Handle language switching
+     * 
+     * @return void
+     */
+    public static function handle_language_switch() {
+        global $USER, $DB;
+        
+        $lang = optional_param('lang', '', PARAM_ALPHA);
+        
+        if (!empty($lang) && in_array($lang, ['en', 'es', 'is', 'ca'])) {
+            // Update user's language preference
+            if (isloggedin() && !isguestuser()) {
+                $USER->lang = $lang;
+                $DB->set_field('user', 'lang', $lang, array('id' => $USER->id));
+            }
+            
+            // Set session language for this request
+            if (isset($_SESSION)) {
+                $_SESSION['SESSION']->lang = $lang;
+            }
+            
+            // Force language for this page load
+            force_current_language($lang);
+        }
+    }
 }

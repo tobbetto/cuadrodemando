@@ -142,8 +142,21 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, Ajax, Notificat
         loadPage: function(url) {
             // Implementation for AJAX page loading
             window.location.href = url;
+        },
+
+        /**
+         * Change dashboard language
+         * @param {string} langCode Language code (en, es, is, ca)
+         */
+        changeLanguage: function(langCode) {
+            var currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set('lang', langCode);
+            window.location.href = currentUrl.toString();
         }
     };
+
+    // Make changeLanguage globally available for the select onchange event
+    window.changeDashboardLanguage = Dashboard.changeLanguage;
 
     return Dashboard;
 });
