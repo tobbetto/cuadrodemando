@@ -2,9 +2,9 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-light-success elevation-4">
     <!-- Brand Logo -->
-    <a href="<?php echo $CFG->wwwroot ?>/adminlte/" class="brand-link bg-success">
+    <a href="<?php echo $CFG->wwwroot ?>/local/cuadrodemando/" class="brand-link bg-success">
     <span class="brand-text font-weight-light">Cuadro de Mando</span>
-      <!-- <img src="../../moodle/adminlte/views/assets/img/logo_fos.svg" alt="SEPE Logo" class="brand-image" style="opacity: .8"> -->
+      <!-- <img src="../../moodle/local/cuadrodemando/views/assets/img/logo_fos.svg" alt="SEPE Logo" class="brand-image" style="opacity: .8"> -->
     </a>
 
     <!-- Sidebar -->
@@ -25,7 +25,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
         <li class="nav-item">
-            <a href="<?php echo $CFG->wwwroot ?>/adminlte" class="nav-link <?php if (empty($routesArray[2]) || strstr($routesArray[2], 'index.php')) : ?>active<?php endif ?>">
+            <a href="<?php echo $CFG->wwwroot ?>/local/cuadrodemando" class="nav-link <?php if (empty($routesArray[2]) || strstr($routesArray[2], 'index.php')) : ?>active<?php endif ?>">
               <i class="nav-icon fas fa-home"></i>
               <p>
                 Inicio
@@ -33,19 +33,19 @@
             </a>
           </li>
           <li class="nav-item ml-1">
-            <a href="<?php echo $CFG->wwwroot ?>/adminlte/users" class="nav-link <?php if (strstr($routesArray[2], 'users')) : ?>active<?php endif ?>">
+            <a href="<?php echo $CFG->wwwroot ?>/local/cuadrodemando/users" class="nav-link <?php if (strstr($routesArray[2], 'users')) : ?>active<?php endif ?>">
                 <i class="fas fa-users nav-icon"></i>
                 <p>Usuarios</p>
             </a>
           </li>
           <li class="nav-item ml-1">
-            <a href="<?php echo $CFG->wwwroot ?>/adminlte/courses" class="nav-link <?php if (strstr($routesArray[2], 'courses')) : ?>active<?php endif ?>">
+            <a href="<?php echo $CFG->wwwroot ?>/local/cuadrodemando/courses" class="nav-link <?php if (strstr($routesArray[2], 'courses')) : ?>active<?php endif ?>">
                 <i class="fas fa-graduation-cap nav-icon"></i>
                 <p>Cursos</p>
             </a>
           </li>
           <li class="nav-item ml-1">
-            <a href="<?php echo $CFG->wwwroot ?>/adminlte/geo" class="nav-link <?php if (strstr($routesArray[2], 'geo')) : ?>active<?php endif ?>">
+            <a href="<?php echo $CFG->wwwroot ?>/local/cuadrodemando/geo" class="nav-link <?php if (strstr($routesArray[2], 'geo')) : ?>active<?php endif ?>">
                 <i class="fas fa-globe-europe nav-icon"></i>
                 <p>Geografia</p>
             </a>

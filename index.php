@@ -1,52 +1,36 @@
 <?php
-
 /**
- * Dashboard/Cuadro de mando para Moodle
- * Basado en AdminLTE (https://adminlte.io/)
- * Let's see if this works
- * 
+ * Dashboard main page
+ *
  * @package    local_cuadrodemando
  * @author     Thorvaldur Konradsson
- * @version    1.0
+ * @version    1.0.0
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-// Configuración de errores - mostrar solo en desarrollo
-if (defined('DEBUG') && DEBUG) {
-    ini_set('display_errors', 1);
-    error_reporting(E_ALL);
-} else {
-    ini_set('display_errors', 0);
-    ini_set('log_errors', 1);
-    ini_set('error_log', __DIR__ . '/php_error_log');
-}
+require_once('../../config.php');
 
-require_once "../config.php";
-
-// Verificar que estamos en el contexto de Moodle
 defined('MOODLE_INTERNAL') || die();
 
-// Configurar la URL de la página
-$PAGE->set_url('/adminlte/index.php');
-
-// Requerir autenticación
+// Require login
 require_login();
 
-// Verificar que las variables globales necesarias existen
-if (!isset($USER) || !isset($CFG)) {
-    throw new moodle_exception('missingglobalvars', 'local_cuadrodemando');
-}
+// Load the dashboard controller
+require_once($CFG->dirroot . '/local/cuadrodemando/classes/dashboard_controller.php');
 
-$context = context_user::instance($USER->id);
+// Handle language switching
+\local_cuadrodemando\dashboard_controller::handle_language_switch();
 
-// No queremos que entren estudiantes o visitantes aquí
-if (has_capability('moodle/course:create', $context)) {
-    // Cargar el controlador solo si el usuario tiene permisos
-    require_once "controllers/template.controller.php";
-    
-    $index = new TemplateController;
-    $index->index();
-} else {
+// Check capabilities
+$context = context_system::instance();
+require_capability('local/cuadrodemando:view', $context);
 
-    redirect($CFG->wwwroot);
+// Set up the page
+$PAGE->set_context($context);
+$PAGE->set_url('/local/cuadrodemando/index.php');
+$PAGE->set_title(get_string('dashboard', 'local_cuadrodemando'));
+$PAGE->set_heading(get_string('dashboard', 'local_cuadrodemando'));
+$PAGE->set_pagelayout('admin');
 
-}
+// Display the dashboard
+\local_cuadrodemando\dashboard_controller::display_dashboard();

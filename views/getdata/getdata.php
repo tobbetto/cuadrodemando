@@ -104,7 +104,7 @@ class adminlte_getdata {
                         if ($formatter->formatObject($date, "MM", "es_ES.utf8") == $month) { 
                             $home_calendar .='active ';
                         }; $home_calendar .='">
-                      <a class="page-link"  '; $monthobject0 = $formatter->formatObject($date, "MMMM", "es_ES.utf8"); $yearobject = $formatter->formatObject($date, "y", "es_ES.utf8"); $home_calendar .= ' title="Ver estatísticas de ' . $monthobject0 . ' de ' . $yearobject . '" href="' . $CFG->wwwroot . '/adminlte/index.php?month='; $monthobject1 = $formatter->formatObject($date, "MM", "es_ES.utf8"); $home_calendar .= '' . $monthobject1 . '&year=' . $yearobject . '">
+                      <a class="page-link"  '; $monthobject0 = $formatter->formatObject($date, "MMMM", "es_ES.utf8"); $yearobject = $formatter->formatObject($date, "y", "es_ES.utf8"); $home_calendar .= ' title="Ver estatísticas de ' . $monthobject0 . ' de ' . $yearobject . '" href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?month='; $monthobject1 = $formatter->formatObject($date, "MM", "es_ES.utf8"); $home_calendar .= '' . $monthobject1 . '&year=' . $yearobject . '">
                         <p class="page-month">'; $monthobject2 = $formatter->formatObject($date, "MMM", "es_ES.utf8"); $home_calendar .= '' . $monthobject2 . '</p>
                         <p class="page-year">' . $yearobject . '</p>
                       </a>
@@ -445,8 +445,8 @@ class adminlte_getdata {
                     }
             $usertable .= '</h3>
                     <div class="card-tools">
-                    <a href="' . $CFG->wwwroot . '/adminlte/users">
-                        <button type="button" class="btn btn-primary btn-sm" data-card-widget="back" title="Atrás a listado completo de usuarios" href="' . $CFG->wwwroot . '/adminlte/users" >
+                    <a href="' . $CFG->wwwroot . '/local/cuadrodemando/users">
+                        <button type="button" class="btn btn-primary btn-sm" data-card-widget="back" title="Atrás a listado completo de usuarios" href="' . $CFG->wwwroot . '/local/cuadrodemando/users" >
                                 <i class="fas fa-solid fa-circle-left"></i>
                         </button>
                     </a>
@@ -473,7 +473,7 @@ class adminlte_getdata {
             foreach ($studentcourses as $studentcourse) {
             
                 $usertable .= '<tr>';
-                $usertable .= '<td><a href="' . $CFG->wwwroot . '/adminlte/courses?courseid=' . $studentcourse->id .  '" title="Haz clic aquí para ver los estudiantes matriculados">' . $studentcourse->id . '</a></td>';
+                $usertable .= '<td><a href="' . $CFG->wwwroot . '/local/cuadrodemando/courses?courseid=' . $studentcourse->id .  '" title="Haz clic aquí para ver los estudiantes matriculados">' . $studentcourse->id . '</a></td>';
                 $usertable .= '<td>' . $studentcourse->fullname . '</a></td>';
                 $usertable .= '<td>' . $studentcourse->shortname . '</a></td>';
                 $usertable .= '<td>' . date('d.m.Y', $studentcourse->startdate) . '</a></td>'; 
@@ -505,8 +505,8 @@ class adminlte_getdata {
                 <div class="card-header ui-sortable-handle">
                     <h3 class="card-title">Usuarios de la plataforma</h3>
                     <div class="card-tools">
-                    <a href="' . $CFG->wwwroot . '/adminlte/users">
-                        <!-- <button type="button" class="btn btn-primary btn-sm" data-card-widget="back" title="Atrás" href="' . $CFG->wwwroot . '/adminlte/users" >
+                    <a href="' . $CFG->wwwroot . '/local/cuadrodemando/users">
+                        <!-- <button type="button" class="btn btn-primary btn-sm" data-card-widget="back" title="Atrás" href="' . $CFG->wwwroot . '/local/cuadrodemando/users" >
                                 <i class="fas fa-solid fa-circle-left"></i>
                         </button> -->
                     </a>
@@ -531,7 +531,7 @@ class adminlte_getdata {
         foreach ($users as $user) {
             
             $usertable .= '<tr>';
-            $usertable .= '<td><a href="' . $CFG->wwwroot . '/adminlte/users?userid=' . $user->id .  '&roleid=5" title="Haz click aquí para ver su información detallada">' . $user->username . '</a></td>';
+            $usertable .= '<td><a href="' . $CFG->wwwroot . '/local/cuadrodemando/users?userid=' . $user->id .  '&roleid=5" title="Haz click aquí para ver su información detallada">' . $user->username . '</a></td>';
             $usertable .= '<td>' . $user->firstname . ' ' . $user->lastname . '</td>';
             $usertable .= '<td><a href="mailto:' . $user->email .  '" title="Enviar email a la persona">' . $user->email . '</a></td>';
             $usertable .= '<td>' . $user->city . '</td>';
@@ -751,7 +751,7 @@ class adminlte_getdata {
                                     . $yearlyCourse->fullname .
                                 '</td>
                                 <td>
-                                    <a href="' . $CFG->wwwroot . '/adminlte/courses?courseid=' . $yearlyCourse->id . '" title="Ver detalle del curso"> ' . $yearlyCourse->shortname . '</a>
+                                    <a href="' . $CFG->wwwroot . '/local/cuadrodemando/courses?courseid=' . $yearlyCourse->id . '" title="Ver detalle del curso"> ' . $yearlyCourse->shortname . '</a>
                                     <br/>
                                     <small>
                                     Fecha inicio: ' . date('d-m-Y', $yearlyCourse->startdate) . '<br />
@@ -802,7 +802,7 @@ class adminlte_getdata {
                                     $yearlyCoursesTable .= '<li class="list-inline-item">';
                                         foreach($courseTeachers as $courseTeacher) :
 
-                                            $yearlyCoursesTable .= $OUTPUT->user_picture($courseTeacher, ['size' => 35, 'class' => 'userpicture']) . ' <a href="' . $CFG->wwwroot . '/adminlte/users?userid=' . $courseTeacher->id . '&roleid=3" title="Ver detalle del ponente" > ' . $courseTeacher->firstname . ' ' . $courseTeacher->lastname . '</a> ' . '<br />';
+                                            $yearlyCoursesTable .= $OUTPUT->user_picture($courseTeacher, ['size' => 35, 'class' => 'userpicture']) . ' <a href="' . $CFG->wwwroot . '/local/cuadrodemando/users?userid=' . $courseTeacher->id . '&roleid=3" title="Ver detalle del ponente" > ' . $courseTeacher->firstname . ' ' . $courseTeacher->lastname . '</a> ' . '<br />';
                                         
                                         endforeach;
                                     $yearlyCoursesTable .= '</li>
@@ -963,7 +963,7 @@ class adminlte_getdata {
                             <thead>
                                 <tr>
                                     <th>' . $course->fullname . '</th>
-                                    <th colspan="2"><a href=https://formaciononline.sepe.es/adminlte/courses?courseid=' . $course->id . '>Ver en el Cuadro de Mando</a></th>
+                                    <th colspan="2"><a href=https://formaciononline.sepe.es/local/cuadrodemando/courses?courseid=' . $course->id . '>Ver en el Cuadro de Mando</a></th>
                                     <th colspan="3"><a href=https://formaciononline.sepe.es/course/view.php?id=' . $course->id . '>Ver en Moodle</a></th>
                                 </tr>
                                 <tr>
@@ -981,7 +981,7 @@ class adminlte_getdata {
                     $yearlyCoursesTable .= '
                                     
                                 <tr>
-                                    <td><a href="' . $CFG->wwwroot . '/adminlte/users?userid=' . $enrolledUser->id . '&roleid=5" title="Ver detalle del estudiante">' . $enrolledUser->username . '</a></td>
+                                    <td><a href="' . $CFG->wwwroot . '/local/cuadrodemando/users?userid=' . $enrolledUser->id . '&roleid=5" title="Ver detalle del estudiante">' . $enrolledUser->username . '</a></td>
                                     <td>' . $enrolledUser->firstname . ' ' . $enrolledUser->lastname . '</td>
                                     <td><a href="mailto:' .  $enrolledUser->email . '" title="Enviar email" >' . $enrolledUser->email . '</a</td>
                                     <td>' . $enrolledUser->department . '</td>
@@ -1604,7 +1604,7 @@ ORDER BY enroled DESC";
 
         $pieCategorySection .= ' <li><i class="far fa-circle ' . $color_array[$n] . '';   
                 $n++;
-        $pieCategorySection .= '"></i><a href="' . $CFG->wwwroot . '/adminlte/courses?courseid=' . $totalEnrolment->id . '" title="Ver detalle del curso"> ' . $totalEnrolment->shortname . '</a> - ' . $totalEnrolment->enroled . '</li>';
+        $pieCategorySection .= '"></i><a href="' . $CFG->wwwroot . '/local/cuadrodemando/courses?courseid=' . $totalEnrolment->id . '" title="Ver detalle del curso"> ' . $totalEnrolment->shortname . '</a> - ' . $totalEnrolment->enroled . '</li>';
 
                   endforeach;
         

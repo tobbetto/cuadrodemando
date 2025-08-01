@@ -17,6 +17,7 @@ $string['dashboard:manage'] = 'Manage dashboard';
 
 // Navigation strings
 $string['home'] = 'Home';
+$string['courses'] = 'Courses';
 $string['users'] = 'Users';
 $string['courses'] = 'Courses';
 $string['geography'] = 'Geography';

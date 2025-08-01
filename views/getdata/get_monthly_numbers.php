@@ -308,7 +308,7 @@ class adminlte_getmonthlydata {
         $interval = new DateInterval('P1M');  // Mostramos cada 1 mes
         $recurrences = 12; // un foreach de 12 para cada mes del año
 
-        $path = "/moodle/www/adminlte/views/getdata/monthly_numbers_json.php";
+        $path = "/moodle/www/local/cuadrodemando/views/getdata/monthly_numbers_json.php";
 
         $totalaccesses = self::get_access_count();
 

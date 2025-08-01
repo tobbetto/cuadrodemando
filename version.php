@@ -10,8 +10,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2025072400;        // The current plugin version (Date: YYYYMMDDHH).
+$plugin->version   = 2025080100;        // The current plugin version (Date: YYYYMMDDHH).
 $plugin->requires  = 2020061500;        // Requires Moodle 3.10.1 or later.
 $plugin->component = 'local_cuadrodemando'; // Full name of the plugin (used for diagnostics).
 $plugin->maturity  = MATURITY_STABLE;   // This version's maturity level.
-$plugin->release   = '1.0.0';           // Human-readable version name.
+$plugin->release   = '1.1.0';           // Human-readable version name.

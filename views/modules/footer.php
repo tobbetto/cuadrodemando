@@ -17,7 +17,7 @@
 
             <h3>_____________________</h3>
                 <ul class="footercontact">
-            <li><i class="fa fa-globe"></i>  <a href="https://formaciononline.sepe.es/adminlte/">Formación online - SEPE</a></li>
+            <li><i class="fa fa-globe"></i>  <a href="https://formaciononline.sepe.es/local/cuadrodemando/">Formación online - SEPE</a></li>
             <li><i class="fa fa-envelope"></i>  formacion.online@sepe.es</li>
 
                 </ul>

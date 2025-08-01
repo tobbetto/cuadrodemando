@@ -128,7 +128,7 @@ private static function load_assets() {
     $PAGE->requires->css('/local/dashboard/styles.css');
     
     // Load third-party CSS
-    $PAGE->requires->css('/local/dashboard/thirdpartylibs/adminlte/adminlte.min.css');
+    $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.css');
     $PAGE->requires->css('/local/dashboard/thirdpartylibs/datatables/datatables.min.css');
     
     // Load third-party JS

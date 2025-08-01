@@ -3,7 +3,7 @@
 * El template gestiona la pare JS y dirige el usuarios a las páginas
 * correspondientes. Hay que añadir el siguiente código al .conf del apache
 * o del httpd:
-*     <Directory "/moodle/www/adminlte/">
+*     <Directory "/moodle/www/local/cuadrodemando/">
 *        Options All -Indexes
 *        Options -MultiViews
 *

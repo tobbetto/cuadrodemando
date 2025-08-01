@@ -51,7 +51,7 @@ class adminlte_getlogins {
             // Execute the SQL query
             $users = $DB->get_recordset_sql($sql);
 
-        $path = "/moodle/www/adminlte/views/getdata/users_logins_json.php";
+        $path = "/moodle/www/local/cuadrodemando/views/getdata/users_logins_json.php";
         $lastUser = 0;
         $output = '';
         
@@ -129,7 +129,7 @@ class adminlte_getlogins {
         // Execute the SQL query
         $dayLogins = $DB->get_recordset_sql($sql);
 
-        $path = '/moodle/www/adminlte/views/getdata/total_logins_json.php';
+        $path = '/moodle/www/local/cuadrodemando/views/getdata/total_logins_json.php';
 
         foreach ($dayLogins as $dayLogin) {
             $formatDate = new DateTime($dayLogin->dayname);
@@ -202,7 +202,7 @@ class Total_logins_json {
         // Execute the SQL query
         $countConfiguredUsers = $DB->count_records_sql($sql, null);
       
-      $path = '/moodle/www/adminlte/views/getdata/total_user_changes_json.php';
+      $path = '/moodle/www/local/cuadrodemando/views/getdata/total_user_changes_json.php';
 
       // Initialize the array to store the data.
 $userdata = '$userdata';
