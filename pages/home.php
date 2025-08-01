@@ -17,9 +17,36 @@ $stats = \local_cuadrodemando\dashboard_controller::get_statistics();
 
 echo html_writer::start_div('dashboard-wrapper');
 
-// Dashboard header
-echo html_writer::start_div('dashboard-header mb-4');
+// Dashboard header with language selector
+echo html_writer::start_div('dashboard-header mb-4 d-flex justify-content-between align-items-center');
+echo html_writer::start_div('dashboard-title');
 echo html_writer::tag('h2', get_string('welcometodashboard', 'local_cuadrodemando'), array('class' => 'h3'));
+echo html_writer::end_div();
+
+// Language selector
+echo html_writer::start_div('language-selector');
+echo html_writer::tag('label', get_string('language_selector', 'local_cuadrodemando'), array('for' => 'language-select', 'class' => 'form-label me-2'));
+
+$languages = array(
+    'en' => get_string('lang_english', 'local_cuadrodemando'),
+    'es' => get_string('lang_spanish', 'local_cuadrodemando'),
+    'is' => get_string('lang_icelandic', 'local_cuadrodemando'),
+    'ca' => get_string('lang_catalan', 'local_cuadrodemando')
+);
+
+$current_lang = current_language();
+$select_options = '';
+foreach ($languages as $lang_code => $lang_name) {
+    $selected = ($lang_code === $current_lang) ? 'selected' : '';
+    $select_options .= html_writer::tag('option', $lang_name, array('value' => $lang_code, 'selected' => $selected));
+}
+
+echo html_writer::tag('select', $select_options, array(
+    'id' => 'language-select',
+    'class' => 'form-select',
+    'onchange' => 'changeDashboardLanguage(this.value)'
+));
+echo html_writer::end_div();
 echo html_writer::end_div();
 
 // Statistics cards

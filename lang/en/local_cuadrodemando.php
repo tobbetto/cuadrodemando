@@ -47,3 +47,10 @@ $string['breadcrumb:home'] = 'Home';
 $string['breadcrumb:users'] = 'Users';
 $string['breadcrumb:courses'] = 'Courses';
 $string['breadcrumb:geography'] = 'Geography';
+
+// Language selector
+$string['language_selector'] = 'Language:';
+$string['lang_english'] = 'English';
+$string['lang_spanish'] = 'Español';
+$string['lang_icelandic'] = 'Íslenska';
+$string['lang_catalan'] = 'Català';
