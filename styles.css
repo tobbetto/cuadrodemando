@@ -7,6 +7,14 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/* Use CSS custom properties for consistency */
+:root {
+    --dashboard-primary: #0073aa;
+    --dashboard-secondary: #f1f1f1;
+    --dashboard-border: #ddd;
+    --dashboard-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
 /* Dashboard wrapper */
 .dashboard-wrapper {
     padding: 20px;
@@ -129,10 +137,15 @@
 /* Cards */
 .dashboard-card {
     background: white;
+    border: 1px solid var(--dashboard-border);
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
-    overflow: hidden;
+    padding: 1rem;
+    box-shadow: var(--dashboard-shadow);
+    transition: transform 0.2s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-2px);
 }
 
 .dashboard-card-header {
@@ -208,6 +221,14 @@
     color: white;
 }
 
+/* Optimize layout with CSS Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
 /* Responsive adjustments */
 @media (max-width: 991.98px) {
     .small-box h3 {
@@ -240,6 +261,12 @@
     
     .chart-container {
         height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
     }
 }
 

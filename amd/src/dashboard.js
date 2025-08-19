@@ -9,6 +9,9 @@
 define(['jquery', 'core/ajax', 'core/notification'], function($, Ajax, Notification) {
     'use strict';
 
+    let refreshTimer;
+    const REFRESH_INTERVAL = 300000; // 5 minutes
+
     /**
      * Dashboard module
      */
@@ -21,6 +24,7 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, Ajax, Notificat
             this.bindEvents();
             this.loadCharts();
             this.refreshData();
+            this.startAutoRefresh();
         },
 
         /**
@@ -107,16 +111,14 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, Ajax, Notificat
          * Refresh dashboard data
          */
         refreshData: function() {
-            var promises = Ajax.call([{
-                methodname: 'local_cuadrodemando_get_stats',
+            const promises = Ajax.call([{
+                methodname: 'local_cuadrodemando_get_dashboard_data',
                 args: {}
             }]);
-
-            promises[0].done(function(data) {
-                Dashboard.updateStats(data);
-            }).fail(function(error) {
-                Notification.exception(error);
-            });
+            
+            promises[0]
+                .then(this.updateDashboard.bind(this))
+                .catch(Notification.exception);
         },
 
         /**
@@ -133,6 +135,28 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, Ajax, Notificat
             if (data.total_enrollments) {
                 $('.stat-enrollments').text(data.total_enrollments);
             }
+        },
+
+        /**
+         * Update the entire dashboard with new data
+         * @param {Object} data Dashboard data
+         */
+        updateDashboard: function(data) {
+            // Batch DOM updates
+            requestAnimationFrame(() => {
+                $('#user-stats').html(this.renderUserStats(data.users));
+                $('#course-stats').html(this.renderCourseStats(data.courses));
+                $('#last-updated').text(new Date(data.timestamp * 1000).toLocaleString());
+            });
+        },
+
+        /**
+         * Start automatic refresh of the dashboard
+         */
+        startAutoRefresh: function() {
+            refreshTimer = setInterval(() => {
+                this.refreshData();
+            }, REFRESH_INTERVAL);
         },
 
         /**
