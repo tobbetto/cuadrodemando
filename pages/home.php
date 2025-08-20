@@ -36,7 +36,7 @@ echo html_writer::link(
 echo html_writer::start_div('navbar-nav');
 echo html_writer::start_div('nav-item');
 echo html_writer::link(
-    new moodle_url('/local/cuadrodemando/pages/home.php'),
+    new moodle_url('/local/cuadrodemando/'),
     get_string('home', 'local_cuadrodemando'),
     array('class' => 'nav-link active')
 );

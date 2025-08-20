@@ -94,6 +94,10 @@ class dashboard_controller {
         
         // Load dashboard AMD modules
         $PAGE->requires->js_call_amd('local_cuadrodemando/dashboard', 'init');
+
+        // Load Font Awesome css 
+        $PAGE->requires->css('/local/cuadrodemando/assets/fontawesome/css/all.min.css');
+        $PAGE->requires->js('/local/cuadrodemando/assets/fontawesome/js/all.min.js');
         
         // Load charts module if charts are enabled
         if (get_config('local_cuadrodemando', 'enablecharts')) {
