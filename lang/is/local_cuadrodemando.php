@@ -77,3 +77,4 @@ $string['deletions_last_month'] = 'Eyðingar síðasta mánuð';
 $string['geo_data_loading'] = 'Hleð landafræðilegum gögnum...';
 $string['map_loading'] = 'Hleð gagnvirku korti...';
 $string['visiblecourses'] = 'Sýnileg námskeið';
+$string['selectlanguage'] = 'Veldu tungumál';

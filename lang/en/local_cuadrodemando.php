@@ -58,6 +58,7 @@ $string['lang_english'] = 'English';
 $string['lang_spanish'] = 'Español';
 $string['lang_icelandic'] = 'Íslenska';
 $string['lang_catalan'] = 'Català';
+$string['selectlanguage'] = 'Select language';
 
 // Error pages
 $string['pagenotfound'] = 'Page Not Found';
