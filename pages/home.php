@@ -89,12 +89,13 @@ $languages = array(
 
 $current_lang = current_language();
 if (!$current_lang) {
-    $current_lang = 'es'; // Default to Spanish
+    $current_lang = ''; // No language selected, show "Select language"
 }
+
 $select_options = html_writer::tag(
     'option',
     get_string('selectlanguage', 'local_cuadrodemando'),
-    array('value' => '', 'disabled' => 'disabled', 'selected' => 'selected')
+    array('value' => '', 'disabled' => 'disabled', 'selected' => ($current_lang === ''))
 );
 
 foreach ($languages as $lang_code => $lang_name) {
