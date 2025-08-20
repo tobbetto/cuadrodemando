@@ -419,6 +419,13 @@ echo html_writer::end_div(); // dashboard-wrapper
 ?>
 
 <script>
+function changeDashboardLanguage(lang) {
+    // Reload the page with the lang parameter
+    var url = new URL(window.location.href);
+    url.searchParams.set('lang', lang);
+    window.location.href = url.toString();
+}
+
 // Make the dashboard widgets sortable Using jquery UI
 if (typeof $ !== 'undefined' && $.fn.sortable) {
     $('.connectedSortable').sortable({

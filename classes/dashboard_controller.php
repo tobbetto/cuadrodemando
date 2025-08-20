@@ -96,8 +96,8 @@ class dashboard_controller {
         $PAGE->requires->js_call_amd('local_cuadrodemando/dashboard', 'init');
 
         // Load Font Awesome css 
-        $PAGE->requires->css('/local/cuadrodemando/assets/fontawesome/css/all.min.css');
-        $PAGE->requires->js('/local/cuadrodemando/assets/fontawesome/js/all.min.js');
+        $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/fontawesome/css/all.min.css');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js');
         
         // Load charts module if charts are enabled
         if (get_config('local_cuadrodemando', 'enablecharts')) {
@@ -139,24 +139,9 @@ class dashboard_controller {
      * @return void
      */
     public static function handle_language_switch() {
-        global $USER, $DB;
-        
-        $lang = optional_param('lang', '', PARAM_ALPHA);
-        
-        if (!empty($lang) && in_array($lang, ['en', 'es', 'is', 'ca'])) {
-            // Update user's language preference
-            if (isloggedin() && !isguestuser()) {
-                $USER->lang = $lang;
-                $DB->set_field('user', 'lang', $lang, array('id' => $USER->id));
-            }
-            
-            // Set session language for this request
-            if (isset($_SESSION)) {
-                $_SESSION['SESSION']->lang = $lang;
-            }
-            
-            // Force language for this page load
-            force_current_language($lang);
+        global $SESSION;
+        if (isset($_GET['lang'])) {
+            $SESSION->lang = $_GET['lang'];
         }
     }
 }
