@@ -30,6 +30,9 @@ $string['totalusers'] = 'Total d\'Usuaris';
 $string['totalcourses'] = 'Total de Cursos';
 $string['totalenrollments'] = 'Total d\'Inscripcions';
 $string['activeusers'] = 'Usuaris Actius';
+$string['activeenrolments'] = 'Matriculacions actives';
+$string['registeredusers'] = 'Usuaris registrats';
+$string['uniqueaccesses'] = 'Accesos únics';
 
 // Missatges d\'error
 $string['nopermission'] = 'No tens permisos per veure el quadre de comandament';
@@ -73,3 +76,4 @@ $string['registrations_last_month'] = 'Altes el darrer mes';
 $string['deletions_last_month'] = 'Baixes el darrer mes';
 $string['geo_data_loading'] = 'Carregant dades geogràfiques...';
 $string['map_loading'] = 'Carregant mapa interactiu...';
+$string['visiblecourses'] = 'Cursos visibles';

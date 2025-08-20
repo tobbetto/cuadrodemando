@@ -30,6 +30,9 @@ $string['totalusers'] = 'Total de Usuarios';
 $string['totalcourses'] = 'Total de Cursos';
 $string['totalenrollments'] = 'Total de Inscripciones';
 $string['activeusers'] = 'Usuarios Activos';
+$string['activeenrolments'] = 'Matriculaciones activas';
+$string['registeredusers'] = 'Usuarios registrados';
+$string['uniqueaccesses'] = 'Accesos únicos';
 
 // Mensajes de error
 $string['nopermission'] = 'No tienes permisos para ver el cuadro de mando';
@@ -73,3 +76,4 @@ $string['registrations_last_month'] = 'Altas el último mes';
 $string['deletions_last_month'] = 'Bajas el último mes';
 $string['geo_data_loading'] = 'Cargando datos geográficos...';
 $string['map_loading'] = 'Cargando mapa interactivo...';
+$string['visiblecourses'] = 'Cursos visibles';

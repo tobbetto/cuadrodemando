@@ -16,7 +16,6 @@ global $OUTPUT, $CFG, $DB;
 include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/getdata.php');
 include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/monthly_numbers_json.php');
 include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/total_hourly_views_json.php');
-$PAGE->requires->css(new moodle_url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css'));
 
 echo html_writer::start_div('dashboard-wrapper');
 
@@ -145,7 +144,7 @@ echo html_writer::end_div(); // inner
 echo html_writer::start_div('icon');
 echo html_writer::tag('i', '', array('class' => 'fas fa-book-open'));
 echo html_writer::end_div(); // icon
-echo html_writer::tag('p', 'Cursos visibles', array('class' => 'small-box-footer'));
+echo html_writer::tag('p', get_string('visiblecourses', 'local_cuadrodemando'), array('class' => 'small-box-footer'));
 echo html_writer::end_div(); // small-box
 echo html_writer::end_div(); // col
 
@@ -172,7 +171,7 @@ echo html_writer::end_div(); // inner
 echo html_writer::start_div('icon');
 echo html_writer::tag('i', '', array('class' => 'fas fa-user-graduate'));
 echo html_writer::end_div(); // icon
-echo html_writer::tag('p', 'Matriculaciones activas (' . date('Y') . ')', array('class' => 'small-box-footer'));
+echo html_writer::tag('p', get_string('activeenrolments', 'local_cuadrodemando') . ' (' . date('Y') . ')', array('class' => 'small-box-footer'));
 echo html_writer::end_div(); // small-box
 echo html_writer::end_div(); // col
 
@@ -189,7 +188,7 @@ echo html_writer::end_div(); // inner
 echo html_writer::start_div('icon');
 echo html_writer::tag('i', '', array('class' => 'fas fa-user-plus'));
 echo html_writer::end_div(); // icon
-echo html_writer::tag('p', 'Usuarios registrados', array('class' => 'small-box-footer'));
+echo html_writer::tag('p', get_string('registeredusers', 'local_cuadrodemando'), array('class' => 'small-box-footer'));
 echo html_writer::end_div(); // small-box
 echo html_writer::end_div(); // col
 
@@ -210,7 +209,7 @@ echo html_writer::end_div(); // inner
 echo html_writer::start_div('icon');
 echo html_writer::tag('i', '', array('class' => 'fas fa-fingerprint'));
 echo html_writer::end_div(); // icon
-echo html_writer::tag('p', 'Accesos únicos (' . date('Y') . ') <br />', array('class' => 'small-box-footer'));
+echo html_writer::tag('p', get_string('uniqueaccesses', 'local_cuadrodemando') . ' (' . date('Y') . ') <br />', array('class' => 'small-box-footer'));
 echo html_writer::end_div(); // small-box
 echo html_writer::end_div(); // col
 

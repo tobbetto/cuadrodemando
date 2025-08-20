@@ -31,6 +31,9 @@ $string['totalusers'] = 'Total Users';
 $string['totalcourses'] = 'Total Courses';
 $string['totalenrollments'] = 'Total Enrollments';
 $string['activeusers'] = 'Active Users';
+$string['activeenrolments'] = 'Active enrolments';
+$string['registeredusers'] = 'Registered users';
+$string['uniqueaccesses'] = 'Unique accesses';
 
 // Error messages
 $string['nopermission'] = 'You do not have permission to view the dashboard';
@@ -74,3 +77,4 @@ $string['registrations_last_month'] = 'New registrations last month';
 $string['deletions_last_month'] = 'Deletions last month';
 $string['geo_data_loading'] = 'Loading geographical data...';
 $string['map_loading'] = 'Loading interactive map...';
+$string['visiblecourses'] = 'Visible courses';

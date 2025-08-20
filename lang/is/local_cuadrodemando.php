@@ -30,6 +30,9 @@ $string['totalusers'] = 'Fjöldi notenda';
 $string['totalcourses'] = 'Fjöldi námskeiða';
 $string['totalenrollments'] = 'Fjöldi skráninga';
 $string['activeusers'] = 'Virkir notendur';
+$string['activeenrolments'] = 'Virk innritun';
+$string['registeredusers'] = 'Skráðir notendur';
+$string['uniqueaccesses'] = 'Einstök aðgangur';
 
 // Villuskilaboð
 $string['nopermission'] = 'Þú hefur ekki heimild til að skoða stjórnborðið';
@@ -73,3 +76,4 @@ $string['registrations_last_month'] = 'Nýskráningar síðasta mánuð';
 $string['deletions_last_month'] = 'Eyðingar síðasta mánuð';
 $string['geo_data_loading'] = 'Hleð landafræðilegum gögnum...';
 $string['map_loading'] = 'Hleð gagnvirku korti...';
+$string['visiblecourses'] = 'Sýnileg námskeið';
