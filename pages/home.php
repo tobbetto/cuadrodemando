@@ -13,16 +13,97 @@ defined('MOODLE_INTERNAL') || die();
 global $OUTPUT, $CFG, $DB;
 
 // Include necessary classes
-require_once($CFG->dirroot . '/local/cuadrodemando/classes/navbar_helper.php');
 include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/getdata.php');
 include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/monthly_numbers_json.php');
 include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/total_hourly_views_json.php');
 
 echo html_writer::start_div('dashboard-wrapper');
 
+// Navigation menu
+echo html_writer::start_div('dashboard-nav mb-4');
+echo html_writer::start_tag('nav', array('class' => 'navbar navbar-expand-lg navbar-light bg-light'));
+echo html_writer::start_div('container-fluid');
 
-// Use navbar helper
-echo \local_cuadrodemando\navbar_helper::render_navbar('home');
+// Brand/Home link
+echo html_writer::link(
+    new moodle_url('/local/cuadrodemando/index.php'),
+    get_string('dashboard', 'local_cuadrodemando'),
+    array('class' => 'navbar-brand')
+);
+
+// Navigation links
+echo html_writer::start_div('navbar-nav');
+echo html_writer::start_div('nav-item');
+echo html_writer::link(
+    new moodle_url('/local/cuadrodemando/pages/home.php'),
+    get_string('home', 'local_cuadrodemando'),
+    array('class' => 'nav-link active')
+);
+echo html_writer::end_div();
+
+echo html_writer::start_div('nav-item');
+echo html_writer::link(
+    new moodle_url('/local/cuadrodemando/courses.php'),
+    get_string('courses', 'local_cuadrodemando'),
+    array('class' => 'nav-link')
+);
+echo html_writer::end_div();
+
+echo html_writer::start_div('nav-item');
+echo html_writer::link(
+    new moodle_url('/local/cuadrodemando/users.php'),
+    get_string('users', 'local_cuadrodemando'),
+    array('class' => 'nav-link')
+);
+echo html_writer::end_div();
+
+echo html_writer::start_div('nav-item');
+echo html_writer::link(
+    new moodle_url('/local/cuadrodemando/geo.php'),
+    get_string('geo', 'local_cuadrodemando'),
+    array('class' => 'nav-link')
+);
+echo html_writer::end_div();
+echo html_writer::end_div();
+
+echo html_writer::end_div();
+echo html_writer::end_tag('nav');
+echo html_writer::end_div();
+
+// Dashboard header
+echo html_writer::start_div('dashboard-header mb-4 d-flex justify-content-between align-items-center');
+echo html_writer::start_div('dashboard-title');
+echo html_writer::tag('h2', get_string('welcometodashboard', 'local_cuadrodemando'), array('class' => 'h3'));
+echo html_writer::end_div();
+
+// Language selector
+echo html_writer::start_div('language-selector');
+echo html_writer::tag('label', get_string('language_selector', 'local_cuadrodemando'), array('for' => 'language-select', 'class' => 'form-label me-2'));
+
+$languages = array(
+    'en' => get_string('lang_english', 'local_cuadrodemando'),
+    'es' => get_string('lang_spanish', 'local_cuadrodemando'),
+    'is' => get_string('lang_icelandic', 'local_cuadrodemando'),
+    'ca' => get_string('lang_catalan', 'local_cuadrodemando')
+);
+
+$current_lang = current_language();
+if (!$current_lang) {
+    $current_lang = 'es'; // Default to Spanish
+}
+$select_options = '';
+foreach ($languages as $lang_code => $lang_name) {
+    $selected = ($lang_code === $current_lang) ? 'selected' : '';
+    $select_options .= html_writer::tag('option', $lang_name, array('value' => $lang_code, 'selected' => $selected));
+}
+
+echo html_writer::tag('select', $select_options, array(
+    'id' => 'language-select',
+    'class' => 'form-select',
+    'onchange' => 'changeDashboardLanguage(this.value)'
+));
+echo html_writer::end_div();
+echo html_writer::end_div();
 
 // Content Wrapper
 echo html_writer::start_div('content-wrapper');
@@ -66,7 +147,7 @@ echo html_writer::end_div(); // inner
 echo html_writer::start_div('icon');
 echo html_writer::tag('i', '', array('class' => 'fas fa-book-open'));
 echo html_writer::end_div(); // icon
-echo html_writer::tag('p', get_string('visiblecourses', 'local_cuadrodemando'), array('class' => 'small-box-footer'));
+echo html_writer::tag('p', 'Cursos visibles', array('class' => 'small-box-footer'));
 echo html_writer::end_div(); // small-box
 echo html_writer::end_div(); // col
 
@@ -105,7 +186,7 @@ echo html_writer::end_div(); // inner
 echo html_writer::start_div('icon');
 echo html_writer::tag('i', '', array('class' => 'fas fa-user-graduate'));
 echo html_writer::end_div(); // icon
-echo html_writer::tag('p', get_string('activeenrolments', 'local_cuadrodemando') . ' (' . date('Y') . ')', array('class' => 'small-box-footer'));
+echo html_writer::tag('p', 'Matriculaciones activas (' . date('Y') . ')', array('class' => 'small-box-footer'));
 echo html_writer::end_div(); // small-box
 echo html_writer::end_div(); // col
 
@@ -122,7 +203,7 @@ echo html_writer::end_div(); // inner
 echo html_writer::start_div('icon');
 echo html_writer::tag('i', '', array('class' => 'fas fa-users'));
 echo html_writer::end_div(); // icon
-echo html_writer::tag('p', get_string('registeredusers', 'local_cuadrodemando'), array('class' => 'small-box-footer'));
+echo html_writer::tag('p', 'Usuarios registrados', array('class' => 'small-box-footer'));
 echo html_writer::end_div(); // small-box
 echo html_writer::end_div(); // col
 
@@ -144,7 +225,7 @@ echo html_writer::end_div(); // inner
 echo html_writer::start_div('icon');
 echo html_writer::tag('i', '', array('class' => 'fas fa-fingerprint'));
 echo html_writer::end_div(); // icon
-echo html_writer::tag('p', get_string('uniqueaccesses', 'local_cuadrodemando') . ' (' . date('Y') . ') <br />', array('class' => 'small-box-footer'));
+echo html_writer::tag('p', 'Accesos únicos (' . date('Y') . ') <br />', array('class' => 'small-box-footer'));
 echo html_writer::end_div(); // small-box
 echo html_writer::end_div(); // col
 
