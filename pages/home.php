@@ -20,6 +20,7 @@ include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/total_hourly_vi
 
 echo html_writer::start_div('dashboard-wrapper');
 
+
 // Use navbar helper
 echo \local_cuadrodemando\navbar_helper::render_navbar('home');
 
