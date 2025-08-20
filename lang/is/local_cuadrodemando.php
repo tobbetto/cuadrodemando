@@ -78,3 +78,15 @@ $string['geo_data_loading'] = 'Hleð landafræðilegum gögnum...';
 $string['map_loading'] = 'Hleð gagnvirku korti...';
 $string['visiblecourses'] = 'Sýnileg námskeið';
 $string['selectlanguage'] = 'Veldu tungumál';
+
+// Notendaskýrslur
+$string['userdetails_student'] = 'Upplýsingar um nemanda: {$a}';
+$string['userdetails_teacher'] = 'Upplýsingar um kennara: {$a}';
+$string['userdetails_user'] = 'Upplýsingar um notanda: {$a}';
+$string['users_overview'] = 'Yfirlit notenda';
+$string['totalusers'] = 'Samtals notendur';
+$string['activeusers_month'] = 'Virkir notendur (þessi mánuður)';
+$string['newusers_month'] = 'Nýir notendur (þessi mánuður)';
+$string['onlineusers'] = 'Notendur á netinu';
+$string['login_statistics'] = 'Innskráningartölfræði';
+$string['user_changes'] = 'Breytingar á notendum';

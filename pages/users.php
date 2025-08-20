@@ -13,6 +13,7 @@ defined('MOODLE_INTERNAL') || die();
 global $OUTPUT, $CFG, $DB;
 
 // Include necessary classes
+require_once($CFG->dirroot . '/local/cuadrodemando/classes/navbar_helper.php');
 include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/getdata.php');
 include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/total_logins_json.php');
 include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/users_logins_json.php');
@@ -20,131 +21,41 @@ include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/total_user_chan
 
 echo html_writer::start_div('dashboard-wrapper');
 
-// Navigation menu
-echo html_writer::start_div('dashboard-nav mb-4');
-echo html_writer::start_tag('nav', array('class' => 'navbar navbar-expand-lg navbar-light bg-light'));
-echo html_writer::start_div('container-fluid');
-
-// Brand/Home link
-echo html_writer::link(
-    new moodle_url('/local/cuadrodemando/index.php'),
-    get_string('dashboard', 'local_cuadrodemando'),
-    array('class' => 'navbar-brand')
-);
-
-// Navigation links
-echo html_writer::start_div('navbar-nav');
-echo html_writer::start_div('nav-item');
-echo html_writer::link(
-    new moodle_url('/local/cuadrodemando/'),
-    get_string('home', 'local_cuadrodemando'),
-    array('class' => 'nav-link')
-);
-echo html_writer::end_div();
-
-echo html_writer::start_div('nav-item');
-echo html_writer::link(
-    new moodle_url('/local/cuadrodemando/courses.php'),
-    get_string('courses', 'local_cuadrodemando'),
-    array('class' => 'nav-link')
-);
-echo html_writer::end_div();
-
-echo html_writer::start_div('nav-item');
-echo html_writer::link(
-    new moodle_url('/local/cuadrodemando/users.php'),
-    get_string('users', 'local_cuadrodemando'),
-    array('class' => 'nav-link active')
-);
-echo html_writer::end_div();
-
-echo html_writer::start_div('nav-item');
-echo html_writer::link(
-    new moodle_url('/local/cuadrodemando/pages/geo.php'),
-    get_string('geo', 'local_cuadrodemando'),
-    array('class' => 'nav-link')
-);
-echo html_writer::end_div();
-
-echo html_writer::end_div(); // navbar-nav
-echo html_writer::end_div(); // container-fluid
-echo html_writer::end_tag('nav');
-echo html_writer::end_div(); // dashboard-nav
-
-// Dashboard header with language selector
-echo html_writer::start_div('dashboard-header mb-4 d-flex justify-content-between align-items-center');
-echo html_writer::start_div('dashboard-title');
-
-// Check if viewing specific user
-if (isset($_GET['userid'])) {
-    $user_info = $DB->get_record('user', ['id' => $_GET['userid']]);
-    if (isset($_GET['roleid']) && $_GET['roleid'] == 5) {
-        echo html_writer::tag('h2', 'Detalles del alumno: ' . html_writer::tag('b', $user_info->firstname . ' ' . $user_info->lastname), array('class' => 'h3'));
-    } elseif (isset($_GET['roleid']) && $_GET['roleid'] == 3) {
-        echo html_writer::tag('h2', 'Detalles del docente: ' . html_writer::tag('b', $user_info->firstname . ' ' . $user_info->lastname), array('class' => 'h3'));
-    } else {
-        echo html_writer::tag('h2', 'Detalles del usuario: ' . html_writer::tag('b', $user_info->firstname . ' ' . $user_info->lastname), array('class' => 'h3'));
-    }
-} else {
-    echo html_writer::tag('h2', 'Vista general de los usuarios', array('class' => 'h3'));
-}
-
-echo html_writer::end_div();
-
-// Language selector
-echo html_writer::start_div('language-selector');
-echo html_writer::tag('label', get_string('language_selector', 'local_cuadrodemando'), array('for' => 'language-select', 'class' => 'form-label me-2'));
-
-$languages = array(
-    'en' => get_string('lang_english', 'local_cuadrodemando'),
-    'es' => get_string('lang_spanish', 'local_cuadrodemando'),
-    'is' => get_string('lang_icelandic', 'local_cuadrodemando'),
-    'ca' => get_string('lang_catalan', 'local_cuadrodemando')
-);
-
-$current_lang = current_language();
-$select_options = '';
-foreach ($languages as $lang_code => $lang_name) {
-    $selected = ($lang_code === $current_lang) ? 'selected' : '';
-    $select_options .= html_writer::tag('option', $lang_name, array('value' => $lang_code, 'selected' => $selected));
-}
-
-echo html_writer::tag('select', $select_options, array(
-    'id' => 'language-select',
-    'class' => 'form-select',
-    'onchange' => 'changeDashboardLanguage(this.value)'
-));
-echo html_writer::end_div();
-echo html_writer::end_div();
+// Use navbar helper
+echo \local_cuadrodemando\navbar_helper::render_navbar('users');
 
 // Content Wrapper
 echo html_writer::start_div('content-wrapper');
 
 // Content Header
-echo html_writer::start_tag('section', array('class' => 'content-header'));
+echo html_writer::start_tag('section', ['class' => 'content-header']);
 echo html_writer::start_div('container-fluid');
 echo html_writer::start_div('row mb-2');
 echo html_writer::start_div('col-sm-6');
 
+// Check if viewing specific user
 if (isset($_GET['userid'])) {
+    $user_info = $DB->get_record('user', ['id' => $_GET['userid']]);
+    $username = $user_info->firstname . ' ' . $user_info->lastname;
+    
     if (isset($_GET['roleid']) && $_GET['roleid'] == 5) {
-        echo html_writer::tag('h1', 'Detalles del alumno: ' . html_writer::tag('b', $user_info->firstname . ' ' . $user_info->lastname));
+        echo html_writer::tag('h1', get_string('userdetails_student', 'local_cuadrodemando', html_writer::tag('b', $username)));
     } elseif (isset($_GET['roleid']) && $_GET['roleid'] == 3) {
-        echo html_writer::tag('h1', 'Detalles del docente: ' . html_writer::tag('b', $user_info->firstname . ' ' . $user_info->lastname));
+        echo html_writer::tag('h1', get_string('userdetails_teacher', 'local_cuadrodemando', html_writer::tag('b', $username)));
     } else {
-        echo html_writer::tag('h1', 'Detalles del usuario: ' . html_writer::tag('b', $user_info->firstname . ' ' . $user_info->lastname));
+        echo html_writer::tag('h1', get_string('userdetails_user', 'local_cuadrodemando', html_writer::tag('b', $username)));
     }
 } else {
-    echo html_writer::tag('h1', 'Vista general de los usuarios');
+    echo html_writer::tag('h1', get_string('users_overview', 'local_cuadrodemando'));
 }
 
 echo html_writer::end_div();
 echo html_writer::start_div('col-sm-6');
-echo html_writer::start_tag('ol', array('class' => 'breadcrumb float-sm-right'));
-echo html_writer::start_tag('li', array('class' => 'breadcrumb-item'));
+echo html_writer::start_tag('ol', ['class' => 'breadcrumb float-sm-right']);
+echo html_writer::start_tag('li', ['class' => 'breadcrumb-item']);
 echo html_writer::link($CFG->wwwroot . '/local/cuadrodemando/', get_string('home', 'local_cuadrodemando'));
 echo html_writer::end_tag('li');
-echo html_writer::start_tag('li', array('class' => 'breadcrumb-item active'));
+echo html_writer::start_tag('li', ['class' => 'breadcrumb-item active']);
 echo html_writer::link($CFG->wwwroot . '/local/cuadrodemando/users', get_string('users', 'local_cuadrodemando'));
 echo html_writer::end_tag('li');
 echo html_writer::end_tag('ol');
@@ -154,7 +65,7 @@ echo html_writer::end_div();
 echo html_writer::end_tag('section');
 
 // Main content
-echo html_writer::start_tag('section', array('class' => 'content'));
+echo html_writer::start_tag('section', ['class' => 'content']);
 echo html_writer::start_div('container-fluid');
 
 // User statistics - Only show if not viewing specific user
@@ -186,9 +97,9 @@ if (!isset($_GET['userid'])) {
     echo html_writer::tag('p', '');
     echo html_writer::end_div(); // inner
     echo html_writer::start_div('icon');
-    echo html_writer::tag('i', '', array('class' => 'fas fa-users'));
+    echo html_writer::tag('i', '', ['class' => 'fas fa-users']);
     echo html_writer::end_div(); // icon
-    echo html_writer::tag('p', 'Total usuarios', array('class' => 'small-box-footer'));
+    echo html_writer::tag('p', get_string('totalusers', 'local_cuadrodemando'), ['class' => 'small-box-footer']);
     echo html_writer::end_div(); // small-box
     echo html_writer::end_div(); // col
 
@@ -200,9 +111,9 @@ if (!isset($_GET['userid'])) {
     echo html_writer::tag('p', '');
     echo html_writer::end_div(); // inner
     echo html_writer::start_div('icon');
-    echo html_writer::tag('i', '', array('class' => 'fas fa-user-check'));
+    echo html_writer::tag('i', '', ['class' => 'fas fa-user-check']);
     echo html_writer::end_div(); // icon
-    echo html_writer::tag('p', 'Usuarios activos (este mes)', array('class' => 'small-box-footer'));
+    echo html_writer::tag('p', get_string('activeusers_month', 'local_cuadrodemando'), ['class' => 'small-box-footer']);
     echo html_writer::end_div(); // small-box
     echo html_writer::end_div(); // col
 
@@ -214,9 +125,9 @@ if (!isset($_GET['userid'])) {
     echo html_writer::tag('p', '');
     echo html_writer::end_div(); // inner
     echo html_writer::start_div('icon');
-    echo html_writer::tag('i', '', array('class' => 'fas fa-user-plus'));
+    echo html_writer::tag('i', '', ['class' => 'fas fa-user-plus']);
     echo html_writer::end_div(); // icon
-    echo html_writer::tag('p', 'Nuevos usuarios (este mes)', array('class' => 'small-box-footer'));
+    echo html_writer::tag('p', get_string('newusers_month', 'local_cuadrodemando'), ['class' => 'small-box-footer']);
     echo html_writer::end_div(); // small-box
     echo html_writer::end_div(); // col
 
@@ -228,9 +139,9 @@ if (!isset($_GET['userid'])) {
     echo html_writer::tag('p', '');
     echo html_writer::end_div(); // inner
     echo html_writer::start_div('icon');
-    echo html_writer::tag('i', '', array('class' => 'fas fa-user-clock'));
+    echo html_writer::tag('i', '', ['class' => 'fas fa-user-clock']);
     echo html_writer::end_div(); // icon
-    echo html_writer::tag('p', 'Usuarios en línea', array('class' => 'small-box-footer'));
+    echo html_writer::tag('p', get_string('onlineusers', 'local_cuadrodemando'), ['class' => 'small-box-footer']);
     echo html_writer::end_div(); // small-box
     echo html_writer::end_div(); // col
 
@@ -263,10 +174,10 @@ $login_stats = Total_logins_json::get_total_logins();
 echo html_writer::start_div('col-md-6');
 echo html_writer::start_div('card');
 echo html_writer::start_div('card-header');
-echo html_writer::tag('h3', 'Estadísticas de acceso', array('class' => 'card-title'));
+echo html_writer::tag('h3', get_string('login_statistics', 'local_cuadrodemando'), ['class' => 'card-title']);
 echo html_writer::end_div(); // card-header
 echo html_writer::start_div('card-body');
-echo html_writer::tag('canvas', '', array('id' => 'loginChart', 'style' => 'height: 400px;'));
+echo html_writer::tag('canvas', '', ['id' => 'loginChart', 'style' => 'height: 400px;']);
 echo html_writer::end_div(); // card-body
 echo html_writer::end_div(); // card
 echo html_writer::end_div(); // col
@@ -276,10 +187,10 @@ $user_changes = Total_user_changes_json::get_total_user_changes();
 echo html_writer::start_div('col-md-6');
 echo html_writer::start_div('card');
 echo html_writer::start_div('card-header');
-echo html_writer::tag('h3', 'Cambios de usuarios', array('class' => 'card-title'));
+echo html_writer::tag('h3', get_string('user_changes', 'local_cuadrodemando'), ['class' => 'card-title']);
 echo html_writer::end_div(); // card-header
 echo html_writer::start_div('card-body');
-echo html_writer::tag('canvas', '', array('id' => 'userChangesChart', 'style' => 'height: 400px;'));
+echo html_writer::tag('canvas', '', ['id' => 'userChangesChart', 'style' => 'height: 400px;']);
 echo html_writer::end_div(); // card-body
 echo html_writer::end_div(); // card
 echo html_writer::end_div(); // col

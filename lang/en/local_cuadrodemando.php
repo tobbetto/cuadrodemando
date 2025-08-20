@@ -79,3 +79,15 @@ $string['deletions_last_month'] = 'Deletions last month';
 $string['geo_data_loading'] = 'Loading geographical data...';
 $string['map_loading'] = 'Loading interactive map...';
 $string['visiblecourses'] = 'Visible courses';
+
+// User details strings
+$string['userdetails_student'] = 'Student details: {$a}';
+$string['userdetails_teacher'] = 'Teacher details: {$a}';
+$string['userdetails_user'] = 'User details: {$a}';
+$string['users_overview'] = 'Users overview';
+$string['totalusers'] = 'Total users';
+$string['activeusers_month'] = 'Active users (this month)';
+$string['newusers_month'] = 'New users (this month)';
+$string['onlineusers'] = 'Online users';
+$string['login_statistics'] = 'Login statistics';
+$string['user_changes'] = 'User changes';
