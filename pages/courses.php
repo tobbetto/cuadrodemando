@@ -267,7 +267,7 @@ if (isset($_GET['courseid'])) {
     echo $courseEnrolment->get_course_numbers($_GET['courseid']);
 } else {
     $courseEnrolment = new adminlte_getdata();
-    echo $courseEnrolment->get_course_numbers();
+    echo $courseEnrolment->get_course_numbers(null);
 }
 
 echo html_writer::end_div(); // row
@@ -278,7 +278,7 @@ echo html_writer::start_div('row');
 if (isset($_GET['courseid'])) {
     $course_data = adminlte_getdata::get_yearly_courses($_GET['courseid']);
 } else {
-    $course_data = adminlte_getdata::get_yearly_courses();
+    $course_data = adminlte_getdata::get_yearly_courses(null);
 }
 echo $course_data;
 
