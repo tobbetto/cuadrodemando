@@ -16,6 +16,7 @@ global $OUTPUT, $CFG, $DB;
 include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/getdata.php');
 include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/monthly_numbers_json.php');
 include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/total_hourly_views_json.php');
+$PAGE->requires->css(new moodle_url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css'));
 
 echo html_writer::start_div('dashboard-wrapper');
 
