@@ -258,7 +258,7 @@ if (isset($_GET['courseid'])) {
     echo $category_numbers->get_category_numbers($_GET['courseid']);
 } else {
     $category_numbers = new adminlte_getdata();
-    echo $category_numbers->get_category_numbers();
+    echo $category_numbers->get_category_numbers(null);
 }
 
 // Course enrollment section
