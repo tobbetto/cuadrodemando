@@ -206,8 +206,268 @@ echo html_writer::end_div(); // dashboard-wrapper
 
 // JavaScript for interactivity
 ?>
-
 <script>
+$(document).ready(function() {
+    // Check if libraries are loaded
+    console.log('Chart.js available:', typeof Chart !== 'undefined');
+    console.log('jQuery Knob available:', typeof $.fn.knob !== 'undefined');
+    console.log('jQuery UI available:', typeof $.fn.sortable !== 'undefined');
+    console.log('DataTables available:', typeof $.fn.DataTable !== 'undefined');
+
+    // Initialize sortable widgets
+    if (typeof $.fn.sortable !== 'undefined') {
+        $('.connectedSortable').sortable({
+            placeholder: 'sort-highlight',
+            connectWith: '.connectedSortable',
+            handle: '.card-header, .nav-tabs',
+            forcePlaceholderSize: true,
+            zIndex: 999999
+        });
+        $('.connectedSortable .card-header').css('cursor', 'move');
+
+        $('.todo-list').sortable({
+            placeholder: 'sort-highlight',
+            handle: '.handle',
+            forcePlaceholderSize: true,
+            zIndex: 999999
+        });
+    }
+
+    // Initialize jQuery Knob
+    if (typeof $.fn.knob !== 'undefined') {
+        $('.knob').knob({
+            draw: function () {
+                if (this.$.data('skin') == 'tron') {
+                    var a = this.angle(this.cv),
+                        sa = this.startAngle,
+                        sat = this.startAngle,
+                        ea,
+                        eat = sat + a,
+                        r = true;
+
+                    this.g.lineWidth = this.lineWidth;
+
+                    this.o.cursor && (sat = eat - 0.3) && (eat = eat + 0.3);
+
+                    if (this.o.displayPrevious) {
+                        ea = this.startAngle + this.angle(this.value);
+                        this.o.cursor && (sa = ea - 0.3) && (ea = ea + 0.3);
+                        this.g.beginPath();
+                        this.g.strokeStyle = this.previousColor;
+                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
+                        this.g.stroke();
+                    }
+
+                    this.g.beginPath();
+                    this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
+                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
+                    this.g.stroke();
+
+                    this.g.lineWidth = 2;
+                    this.g.beginPath();
+                    this.g.strokeStyle = this.o.fgColor;
+                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+                    this.g.stroke();
+
+                    return false;
+                }
+            }
+        });
+    }
+
+    // Initialize Charts
+    if (typeof Chart !== 'undefined') {
+        // PIE CHART
+        if ($('#pieChart').length) {
+            var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
+            var pieData = {
+                labels: <?php echo json_encode($courseEnrolment->pieChartLabel ?? []); ?>,
+                datasets: [{
+                    data: <?php echo json_encode($courseEnrolment->pieChartData ?? []); ?>,
+                    backgroundColor: <?php echo json_encode($courseEnrolment->background_color ?? ['#dc3545', '#28a745', '#ffc107', '#17a2b8']); ?>
+                }]
+            };
+            var pieOptions = {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false
+            };
+            
+            new Chart(pieChartCanvas, {
+                type: 'doughnut',
+                data: pieData,
+                options: pieOptions
+            });
+        }
+
+        // STACKED BAR CHART
+        if ($('#stackedBarChart-canvas').length) {
+            var barChartData = {
+                labels: <?php 
+                    if (!isset($_GET['courseid'])) { 
+                        $get_course_categories = adminlte_getdata::get_category_name_number(); 
+                        echo json_encode($get_course_categories['name'] ?? []); 
+                    } else { 
+                        $get_course_categories = adminlte_getdata::get_course_enrolments($_GET['courseid']); 
+                        echo json_encode($get_course_categories['name'] ?? []); 
+                    } ?>,
+                datasets: [
+                    {
+                        label: 'Finalizados',
+                        backgroundColor: '#28a745',
+                        borderColor: '#28a745',
+                        data: <?php echo json_encode($get_course_categories['count'] ?? []); ?>
+                    },
+                    {
+                        label: 'No finalizados',
+                        backgroundColor: '#dc3545',
+                        borderColor: '#dc3545',
+                        data: <?php echo json_encode($get_course_categories['students'] ?? []); ?>
+                    }
+                ]
+            };
+
+            var stackedBarChartCanvas = $('#stackedBarChart-canvas').get(0).getContext('2d');
+            var stackedBarChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true },
+                    y: { 
+                        stacked: true,
+                        beginAtZero: true
+                    }
+                }
+            };
+
+            new Chart(stackedBarChartCanvas, {
+                type: 'bar',
+                data: barChartData,
+                options: stackedBarChartOptions
+            });
+        }
+
+        // GEO CHART
+        if ($('#geo-chart-canvas').length) {
+            var $salesChart = $('#geo-chart-canvas');
+            new Chart($salesChart, {
+                type: 'bar',
+                data: {
+                    labels: <?php 
+                        if (!isset($_GET['courseid'])) { 
+                            $get_course_categories = adminlte_getdata::get_category_name_number(); 
+                            echo json_encode($get_course_categories['name'] ?? []); 
+                        } else { 
+                            $get_course_categories = adminlte_getdata::get_course_enrolments($_GET['courseid']); 
+                            echo json_encode($get_course_categories['name'] ?? []); 
+                        } ?>,
+                    datasets: [{
+                        label: <?php
+                            if (!isset($_GET['courseid'])) { 
+                                echo "'# de cursos en categoría'"; 
+                            } else {
+                                echo "'# de provincias de los alumnos'"; 
+                            } ?>,
+                        backgroundColor: '#28a745',
+                        data: <?php echo json_encode($get_course_categories['count'] ?? []); ?>
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true },
+                        x: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        // TIME CHART
+        if ($('#time-chart-canvas').length) {
+            var timeChartCanvas = document.getElementById('time-chart-canvas').getContext('2d');
+            new Chart(timeChartCanvas, { 
+                type: 'line',
+                data: {
+                    labels: <?php
+                        if (!isset($_GET['courseid'])) { 
+                            $get_site_times = adminlte_getdata::get_site_times(); 
+                            echo json_encode($get_site_times['course'] ?? []); 
+                        } else { 
+                            $get_course_times = adminlte_getdata::get_course_times($_GET['courseid']); 
+                            echo json_encode($get_course_times['time'] ?? []); 
+                        } ?>, 
+                    datasets: [
+                        {
+                            label: 'Media de Finalización en días',
+                            backgroundColor: 'rgba(60,141,188,0.9)',
+                            borderColor: 'rgba(60,141,188,0.8)',
+                            pointRadius: false,
+                            data: <?php 
+                                if (!isset($_GET['courseid'])) { 
+                                    $get_site_times = adminlte_getdata::get_site_times(); 
+                                    echo json_encode($get_site_times['avgavg'] ?? []); 
+                                } else { 
+                                    $get_course_times = adminlte_getdata::get_course_times($_GET['courseid']); 
+                                    echo json_encode($get_course_times['avg'] ?? []); 
+                                } ?>
+                        },
+                        {
+                            label: 'Finalización en días',
+                            backgroundColor: 'rgba(210, 214, 222, 1)',
+                            borderColor: 'rgba(210, 214, 222, 1)',
+                            pointRadius: false,
+                            data: <?php 
+                                if (!isset($_GET['courseid'])) { 
+                                    echo json_encode($get_site_times['avg'] ?? []); 
+                                } else { 
+                                    echo json_encode($get_course_times['time'] ?? []); 
+                                } ?>,
+                            fill: true,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+    }
+
+    // Initialize DataTables
+    if (typeof $.fn.DataTable !== 'undefined' && $('#enroltable').length) {
+        $("#enroltable").DataTable({
+            responsive: true,
+            lengthChange: true,
+            autoWidth: false,
+            processing: true,
+            lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "Todos"] ],
+            language: {
+                "url": "//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json"
+            },
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print', 'colvis'
+            ]
+        });
+    }
+});
 
 // Language selector functionality
 function changeDashboardLanguage(lang) {
@@ -216,529 +476,4 @@ function changeDashboardLanguage(lang) {
     window.location.href = url.href;
 }
 </script>
-<script>
-
-    // Make the dashboard widgets sortable Using jquery UI
-    $('.connectedSortable').sortable({
-    placeholder: 'sort-highlight',
-    connectWith: '.connectedSortable',
-    handle: '.card-header, .nav-tabs',
-    forcePlaceholderSize: true,
-    zIndex: 999999
-  })
-  $('.connectedSortable .card-header').css('cursor', 'move')
-
-  // jQuery UI sortable for the todo list
-  $('.todo-list').sortable({
-    placeholder: 'sort-highlight',
-    handle: '.handle',
-    forcePlaceholderSize: true,
-    zIndex: 999999
-  })
-</script>
-<script>
-  $(function () {
-    /* jQueryKnob */
-
-    $('.knob').knob({
-
-      draw: function () {
-
-        // "tron" case
-        if (this.$.data('skin') == 'tron') {
-
-          var a   = this.angle(this.cv)  // Angle
-            ,
-              sa  = this.startAngle          // Previous start angle
-            ,
-              sat = this.startAngle         // Start angle
-            ,
-              ea                            // Previous end angle
-            ,
-              eat = sat + a                 // End angle
-            ,
-              r   = true
-
-          this.g.lineWidth = this.lineWidth
-
-          this.o.cursor
-          && (sat = eat - 0.3)
-          && (eat = eat + 0.3)
-
-          if (this.o.displayPrevious) {
-            ea = this.startAngle + this.angle(this.value)
-            this.o.cursor
-            && (sa = ea - 0.3)
-            && (ea = ea + 0.3)
-            this.g.beginPath()
-            this.g.strokeStyle = this.previousColor
-            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false)
-            this.g.stroke()
-          }
-
-          this.g.beginPath()
-          this.g.strokeStyle = r ? this.o.fgColor : this.fgColor
-          this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false)
-          this.g.stroke()
-
-          this.g.lineWidth = 2
-          this.g.beginPath()
-          this.g.strokeStyle = this.o.fgColor
-          this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false)
-          this.g.stroke()
-
-          return false
-        }
-      }
-    })
-    /* END JQUERY KNOB */
-  })
-</script>
-<script>
-
-  //-------------
-  // - PIE CHART -
-  //------------- courseEnrolment
-  // Get context with jQuery - using jQuery's .get() method.
-  var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-  var pieData = {
-    labels: <?php echo json_encode($courseEnrolment->pieChartLabel) ?>,
-    datasets: [
-      {
-        data: <?php echo json_encode($courseEnrolment->pieChartData) ?>, // [700, 500, 400, 600, 300, 100],
-        //backgroundColor: ['#dc3545', '#17a2b8', '#28a745', '#ffc107']
-        backgroundColor: <?php echo json_encode($courseEnrolment->background_color) ?> 
-      }
-    ]
-  }
-  var pieOptions = {
-    legend: {
-      display: false
-    },
-    offset : 1
-  }
-  // Create pie or douhnut chart
-  // You can switch between pie and douhnut using the method below.
-  // eslint-disable-next-line no-unused-vars
-  var pieChart = new Chart(pieChartCanvas, {
-    type: 'doughnut',
-    data: pieData,
-    options: pieOptions
-  })
-
-  //-----------------
-  // - END PIE CHART -
-  //-----------------
-
-</script>
-
-
-<script>
-
-var barChartData = {
-      labels  :  <?php 
-        if (!isset($_GET['courseid'])) { 
-          $get_course_categories = adminlte_getdata::get_category_name_number(); 
-          echo  $get_course_categories['name']; 
-        } else { 
-          $get_course_categories = adminlte_getdata::get_course_enrolments($_GET['courseid']); 
-          echo $get_course_categories['name']; 
-        } ?>, //['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [
-        {
-          label               : 'Finalizados',
-          backgroundColor     : '#28a745',
-          borderColor         : '#28a745',
-          pointRadius          : false,
-          pointColor          : '#3b8bba',
-          pointStrokeColor    : 'rgba(60,141,188,1)',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : <?php echo $get_course_categories['count']; ?> //[28, 48, 40, 19, 86, 27, 90]
-        },
-        {
-          label               : 'No finalizados',
-          backgroundColor     : '#dc3545',
-          borderColor         : '#dc3545',
-          pointRadius         : false,
-          pointColor          : '#dc3545',
-          pointStrokeColor    : '#c1c7d1',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : <?php echo $get_course_categories['students']; ?> //[65, 59, 80, 81, 56, 55, 40]
-        },
-      ]
-    }
-
-    //---------------------
-    //- STACKED BAR CHART -
-    //---------------------
-    var stackedBarChartCanvas = $('#stackedBarChart-canvas').get(0).getContext('2d')
-    var stackedBarChartData = $.extend(true, {}, barChartData)
- 
-    var stackedBarChartOptions = {
-      responsive              : true,
-      maintainAspectRatio     : false,
-      scales: {
-        x: {
-          stacked: true
-        },
-        y: {
-          stacked: true,
-          gridLines: {
-            display: false
-          },
-          ticks: {
-              fontColor: 'black',
-              fontSize: 12,
-              stepSize: 3,
-              beginAtZero: true
-          }
-        }
-      }
-    }
- 
-    new Chart(stackedBarChartCanvas, {
-      type: 'bar',
-      data: stackedBarChartData,
-      options: stackedBarChartOptions
-    })
-  </script>
-
-<script>
-$(function () {
-  'use strict'
-
-  var ticksStyle = {
-    fontColor: '#FFFFFF',
-    //fontStyle: 'bold'
-  }
-
-  var mode = 'index'
-  var intersect = true
-
-  var $salesChart = $('#geo-chart-canvas')
-
-  var salesChart = new Chart($salesChart, {
-    type: 'bar',
-    data: {
-      labels: <?php 
-        if (!isset($_GET['courseid'])) { 
-          $get_course_categories = adminlte_getdata::get_category_name_number(); 
-          echo  $get_course_categories['name']; 
-        } else { 
-          $get_course_categories = adminlte_getdata::get_course_enrolments($_GET['courseid']); 
-          echo $get_course_categories['name']; 
-        } ?>, //['JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
-      color: '#000',
-      datasets: [
-        {
-          label: <?php
-          if (!isset($_GET['courseid'])) { 
-            echo "'# de cursos en categoría'" ;
-          } else {
-            echo "'# de provincias de los alumnos'" ; 
-          } ?>,
-          backgroundColor: '#28a745',
-          data: <?php echo $get_course_categories['count']; ?> //[1000, 2000, 3000, 2500, 2700, 2500, 3000]
-        }
-        // ,{
-        //   backgroundColor: '#ced4da',
-        //   borderColor: '#ced4da',
-        //   data: [700, 1700, 2700, 2000, 1800, 1500, 2000]
-        // }
-      ]
-    },
-    options: {
-      maintainAspectRatio: false,
-      tooltips: {
-        mode: mode,
-        intersect: intersect,
-      },
-      hover: {
-        mode: mode,
-        intersect: intersect
-      },
-      legend: {
-        display: false,
-        labels: {
-                    // This more specific font property overrides the global property
-                    fontColor: 'blue'
-                }
-      },
-      scales: {
-        y: {
-          display: true,
-          gridLines: {
-            display: true,
-            lineWidth: '4px',
-            zeroLineColor: 'transparent'
-          },
-          ticks: {
-              fontColor: 'black',
-              fontSize: 12,
-              stepSize: 3,
-              beginAtZero: true
-          }
-        },
-        x: {
-          display: true,
-          gridLines: {
-            display: false
-          },
-          ticks: {
-              fontColor: 'black',
-              fontSize: 12,
-              stepSize: 1,
-              beginAtZero: true
-          }
-        }
-      }
-    }
-  })
-})
-
-
-</script>
-<script>
-<!-- Page specific script -->
-
-    var docDefinition = {
-  // a string or { width: number, height: number }
-  pageSize: 'A4',
-
-  // by default we use portrait, you can change it to landscape if you wish
-  pageOrientation: 'landscape',
-
-  };
-  </script>
-
-<script>
-  // Invoke Buttons plugin (Bfrtip...)
-$.extend($.fn.DataTable.defaults, {
-  buttons: [
-            {
-                extend:    'copyHtml5',
-                text:      '<i class="fas fa-copy"></i>',
-                titleAttr: 'Copiar tabla'
-            },
-            {
-                extend:    'csvHtml5',
-                text:      '<i class="fas fa-file-csv"></i>',
-                titleAttr: 'Exportar CSV'
-            },
-            {
-                extend:    'excelHtml5',
-                text:      '<i class="fas fa-file-excel"></i>',
-                titleAttr: 'Exportar Excel'
-            },
-            {
-              extend: 'pdfHtml5',
-              orientation: 'landscape',
-              text: '<i class="fas fa-file-pdf"></i>',
-              titleAttr: 'Exportar PDF'
-            },
-            {
-              extend: 'pdfHtml5',
-              orientation: 'landscape',
-              text: '<i class="fas fa-print"></i>',
-              download: 'open',
-              titleAttr: 'Imprimir tabla'
-            },
-            'colvis'
-          ],
-          language: {
-            //url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
-            buttons: {
-                colvis: 'Filtrar columnas'
-            }
-        }
-});
-
-  $(function () {
-    $("#enroltable").DataTable({
-
-      responsive: true,
-      lengthChange: true,
-      autoWidth: false,
-      processing: true,
-      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "Todos"] ],
-      language: {
-        "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-        "datetime": {
-        "previous": "Anterior",
-        "next": "Proximo",
-        "hours": "Horas",
-        "minutes": "Minutos",
-        "seconds": "Segundos",
-        "unknown": "-",
-        "amPm": [
-          "AM",
-          "PM"
-        ],
-        "months": {
-          "0": "Enero",
-          "1": "Febrero",
-          "2": "Marzo",
-          "3": "Abril",
-          "4": "Mayo",
-          "5": "Junio",
-          "6": "Julio",
-          "7": "Agosto",
-          "8": "Septiembre",
-          "9": "Octubre",
-          "10": "Noviembre",
-          "11": "Diciembre"
-        },
-        "weekdays": [
-          "Dom",
-          "Lun",
-          "Mar",
-          "Mie",
-          "Jue",
-          "Vie",
-          "Sab"
-        ]
-      },
-      "paginate": {
-        "first": "Primero",
-        "last": "Último",
-        "next": "Siguiente",
-        "previous": "Anterior"
-      },
-      "buttons": {
-        "copy": "Copiar",
-        "colvis": "Ocultar columnas",
-        "collection": "Colección",
-        "colvisRestore": "Restaurar visibilidad",
-        "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br /> <br /> Para cancelar, haga clic en este mensaje o presione escape.",
-        "copySuccess": {
-          "1": "Copiada 1 fila al portapapeles",
-          "_": "Copiadas %ds fila al portapapeles"
-        },
-        "copyTitle": "Copiar al portapapeles",
-        "csv": "CSV",
-        "excel": "Excel",
-        "pageLength": {
-          "-1": "Mostrar todas las filas",
-          "_": "Mostrar %d filas"
-        },
-        "pdf": "PDF",
-        "print": "Imprimir",
-        "renameState": "Cambiar nombre",
-        "updateState": "Actualizar",
-        "createState": "Crear Estado",
-        "removeAllStates": "Remover Estados",
-        "removeState": "Remover",
-        "savedStates": "Estados Guardados",
-        "stateRestore": "Estado %d"
-      },
-      "searchPanes": {
-        "clearMessage": "Borrar todo",
-        "collapse": {
-          "0": "Paneles de búsqueda",
-          "_": "Paneles de búsqueda (%d)"
-        },
-        "count": "{total}",
-        "countFiltered": "{shown} ({total})",
-        "emptyPanes": "Sin paneles de búsqueda",
-        "loadMessage": "Cargando paneles de búsqueda",
-        "title": "Filtros Activos - %d",
-        "showMessage": "Mostrar Todo",
-        "collapseMessage": "Colapsar Todo"
-      },
-      "processing": "Procesando...",
-      "lengthMenu": "Mostrar _MENU_ registros",
-      "zeroRecords": "No se encontraron resultados",
-      "emptyTable": "Ningún dato disponible en esta tabla",
-      "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-      "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-      "search": "Buscar:",
-      "infoThousands": ",",
-      "loadingRecords": "Cargando...",
-      //  url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
-      }
-
-    }).buttons().container().prependTo('#exportbuttons');
-  });
-</script>
-<script>
-/* Chart.js Charts */
-  // Sales chart
-  var salesChartCanvas = document.getElementById('time-chart-canvas').getContext('2d')
-  // $('#time-chart').get(0).getContext('2d');
-  var salesChart2 = new Chart(salesChartCanvas, { 
-    type: 'line',
-    data: {
-      labels: //['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      <?php
-                  if (!isset($_GET['courseid'])) { 
-                    $get_site_times = adminlte_getdata::get_site_times(); 
-                    echo  $get_site_times['course']; 
-                  } else { 
-                    $get_course_times = adminlte_getdata::get_course_times($_GET['courseid']); 
-                    echo $get_course_times['time']; 
-                  } ?>, 
-      datasets: [
-        {
-          label: 'Media de Finalización en días',
-          backgroundColor: 'rgba(60,141,188,0.9)',
-          borderColor: 'rgba(60,141,188,0.8)',
-          pointRadius: false,
-          pointColor: '#3b8bba',
-          pointStrokeColor: 'rgba(60,141,188,1)',
-          pointHighlightFill: '#fff',
-          pointHighlightStroke: 'rgba(60,141,188,1)',
-          data: <?php 
-                  if (!isset($_GET['courseid'])) { 
-                    $get_site_times = adminlte_getdata::get_site_times(); 
-                    echo  $get_site_times['avgavg']; 
-                  } else { 
-                    $get_course_times = adminlte_getdata::get_course_times($_GET['courseid']); 
-                    echo $get_course_times['avg']; 
-                  } ?>
-          //data: [28, 48, 40, 19, 86, 27, 90]
-        },
-        {
-          label: 'Finalización en días',
-          backgroundColor: 'rgba(210, 214, 222, 1)',
-          borderColor: 'rgba(210, 214, 222, 1)',
-          pointRadius: false,
-          pointColor: 'rgba(210, 214, 222, 1)',
-          pointStrokeColor: '#c1c7d1',
-          pointHighlightFill: '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data: <?php 
-                  if (!isset($_GET['courseid'])) { 
-                    echo  $get_site_times['avg']; 
-                  } else { 
-                    echo $get_course_times['time']; 
-                  } ?>, //[15, 19, 10, 11, 16, 5, 4, 5, 9, 10, 11, 6, 5, 4, 8],
-          fill: true,
-          tension: 0.4
-        }
-      ]
-    },
-  options: {
-    hoverRadius: 6,
-    hoverBackgroundColor: 'yellow',
-    maintainAspectRatio: false,
-      responsive: true,
-      legend: {
-        display: false
-      },
-      scales: {
-        x: {
-          gridLines: {
-            display: false
-          }
-        },
-        y: {
-          gridLines: {
-            display: false
-          }
-        }
-      }
-    }
-  })
-  </script>
+<?php
