@@ -32,53 +32,64 @@ $PAGE->set_title(get_string('dashboard', 'local_cuadrodemando'));
 $PAGE->set_heading(get_string('dashboard', 'local_cuadrodemando'));
 $PAGE->set_pagelayout('admin');
 
-// Load CSS libraries
+// Load CSS libraries from local thirdpartylibs
 $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/fontawesome/css/all.min.css');
 
-// Load JavaScript libraries in correct order
+// AdminLTE CSS
+$PAGE->requires->css(new moodle_url('/local/cuadrodemando/thirdpartylibs/adminlte/css/adminlte.min.css'));
+
+// Load JavaScript libraries in correct order from local files
 // 1. Chart.js (for charts)
-$PAGE->requires->js(new moodle_url('https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js'));
+$PAGE->requires->js(new moodle_url('/local/cuadrodemando/thirdpartylibs/chart/chart.min.js'));
 
 // 2. jQuery Knob (for circular progress indicators)
-$PAGE->requires->js(new moodle_url('https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js'));
+$PAGE->requires->js(new moodle_url('/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js'));
 
 // 3. jQuery UI (for sortable widgets and interactions)
-$PAGE->requires->js(new moodle_url('https://code.jquery.com/ui/1.13.2/jquery-ui.min.js'));
-$PAGE->requires->css(new moodle_url('https://code.jquery.com/ui/1.13.2/themes/ui-lightness/jquery-ui.css'));
+$PAGE->requires->js(new moodle_url('/local/cuadrodemando/thirdpartylibs/jquery-ui/jquery-ui.min.js'));
+$PAGE->requires->css(new moodle_url('/local/cuadrodemando/thirdpartylibs/jquery-ui/themes/ui-lightness/jquery-ui.css'));
 
 // 4. DataTables (for table functionality)
-$PAGE->requires->js(new moodle_url('https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js'));
-$PAGE->requires->js(new moodle_url('https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap4.min.js'));
-$PAGE->requires->js(new moodle_url('https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js'));
-$PAGE->requires->js(new moodle_url('https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap4.min.js'));
-$PAGE->requires->js(new moodle_url('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js'));
-$PAGE->requires->js(new moodle_url('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js'));
-$PAGE->requires->js(new moodle_url('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js'));
-$PAGE->requires->js(new moodle_url('https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js'));
-$PAGE->requires->js(new moodle_url('https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js'));
-$PAGE->requires->js(new moodle_url('https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js'));
+$PAGE->requires->js(new moodle_url('/local/cuadrodemando/thirdpartylibs/datatables/js/jquery.dataTables.min.js'));
+$PAGE->requires->js(new moodle_url('/local/cuadrodemando/thirdpartylibs/datatables/js/dataTables.bootstrap4.min.js'));
+$PAGE->requires->js(new moodle_url('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/dataTables.buttons.min.js'));
+$PAGE->requires->js(new moodle_url('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.bootstrap4.min.js'));
+$PAGE->requires->js(new moodle_url('/local/cuadrodemando/thirdpartylibs/jszip/jszip.min.js'));
+$PAGE->requires->js(new moodle_url('/local/cuadrodemando/thirdpartylibs/pdfmake/pdfmake.min.js'));
+$PAGE->requires->js(new moodle_url('/local/cuadrodemando/thirdpartylibs/pdfmake/vfs_fonts.js'));
+$PAGE->requires->js(new moodle_url('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.html5.min.js'));
+$PAGE->requires->js(new moodle_url('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.print.min.js'));
+$PAGE->requires->js(new moodle_url('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.colVis.min.js'));
 
-// DataTables CSS
-$PAGE->requires->css(new moodle_url('https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap4.min.css'));
-$PAGE->requires->css(new moodle_url('https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap4.min.css'));
+// AdminLTE JavaScript
+$PAGE->requires->js(new moodle_url('/local/cuadrodemando/thirdpartylibs/adminlte/js/adminlte.min.js'));
+
+// DataTables CSS from local files
+$PAGE->requires->css(new moodle_url('/local/cuadrodemando/thirdpartylibs/datatables/css/dataTables.bootstrap4.min.css'));
+$PAGE->requires->css(new moodle_url('/local/cuadrodemando/thirdpartylibs/datatables-buttons/css/buttons.bootstrap4.min.css'));
 
 // Custom dashboard CSS
 $PAGE->requires->css(new moodle_url('/local/cuadrodemando/assets/css/dashboard.css'));
 
 // Add initialization script for libraries
 $init_script = "
-<script>
 // Wait for all libraries to load
 $(document).ready(function() {
     // Initialize Chart.js defaults
     if (typeof Chart !== 'undefined') {
         Chart.defaults.responsive = true;
         Chart.defaults.maintainAspectRatio = false;
+        console.log('Chart.js loaded successfully');
+    } else {
+        console.error('Chart.js not loaded');
     }
     
     // Initialize jQuery Knob defaults
     if (typeof $.fn.knob !== 'undefined') {
         $('.knob').knob();
+        console.log('jQuery Knob loaded successfully');
+    } else {
+        console.error('jQuery Knob not loaded');
     }
     
     // Initialize sortable widgets
@@ -91,9 +102,26 @@ $(document).ready(function() {
             zIndex: 999999
         });
         $('.connectedSortable .card-header').css('cursor', 'move');
+        console.log('jQuery UI sortable loaded successfully');
+    } else {
+        console.error('jQuery UI not loaded');
     }
     
-    console.log('Dashboard libraries initialized');
+    // Initialize DataTables defaults
+    if (typeof $.fn.DataTable !== 'undefined') {
+        console.log('DataTables loaded successfully');
+    } else {
+        console.error('DataTables not loaded');
+    }
+    
+    // Initialize AdminLTE
+    if (typeof AdminLTE !== 'undefined') {
+        console.log('AdminLTE loaded successfully');
+    } else {
+        console.error('AdminLTE not loaded');
+    }
+    
+    console.log('Dashboard libraries initialization complete');
 });
 
 // Language selector functionality
@@ -102,7 +130,6 @@ function changeDashboardLanguage(lang) {
     url.searchParams.set('lang', lang);
     window.location.href = url.href;
 }
-</script>
 ";
 
 // Add the initialization script to the page
