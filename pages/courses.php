@@ -31,9 +31,10 @@ echo html_writer::start_div('row mb-2');
 echo html_writer::start_div('col-sm-6');
 
 if (isset($_GET['courseid'])) {
-    echo html_writer::tag('h1', 'Detalles del curso: ' . html_writer::tag('b', $course_info->fullname) . ' (' . $course_info->shortname . ')');
+    $course_info = $DB->get_record('course', array('id' => $_GET['courseid']));
+    echo html_writer::tag('h1', get_string('coursedetails', 'local_cuadrodemando', html_writer::tag('b', $course_info->fullname) . ' (' . $course_info->shortname . ')'));
 } else {
-    echo html_writer::tag('h1', 'Vista general de los cursos de ' . date('Y'));
+    echo html_writer::tag('h1', get_string('coursesoverview', 'local_cuadrodemando', date('Y')));
 }
 
 echo html_writer::end_div();
@@ -43,7 +44,7 @@ echo html_writer::start_tag('li', array('class' => 'breadcrumb-item'));
 echo html_writer::link($CFG->wwwroot . '/local/cuadrodemando/', get_string('home', 'local_cuadrodemando'));
 echo html_writer::end_tag('li');
 echo html_writer::start_tag('li', array('class' => 'breadcrumb-item active'));
-echo html_writer::link($CFG->wwwroot . '/local/cuadrodemando/courses', 'Cursos');
+echo html_writer::link($CFG->wwwroot . '/local/cuadrodemando/courses', get_string('courses', 'local_cuadrodemando'));
 echo html_writer::end_tag('li');
 echo html_writer::end_tag('ol');
 echo html_writer::end_div();
@@ -113,7 +114,7 @@ if (!isset($_GET['courseid'])) {
     echo html_writer::start_div('icon');
     echo html_writer::tag('i', '', array('class' => 'fas fa-calendar-plus'));
     echo html_writer::end_div(); // icon
-    echo html_writer::tag('p', 'Cursos creados (' . date('Y') . ')', array('class' => 'small-box-footer'));
+    echo html_writer::tag('p', get_string('coursescreated', 'local_cuadrodemando', date('Y')), array('class' => 'small-box-footer'));
     echo html_writer::end_div(); // small-box
     echo html_writer::end_div(); // col
 
@@ -127,7 +128,7 @@ if (!isset($_GET['courseid'])) {
     echo html_writer::start_div('icon');
     echo html_writer::tag('i', '', array('class' => 'fas fa-calendar-check'));
     echo html_writer::end_div(); // icon
-    echo html_writer::tag('p', 'Cursos activos (' . date('Y') . ')', array('class' => 'small-box-footer'));
+    echo html_writer::tag('p', get_string('coursesactive', 'local_cuadrodemando', date('Y')), array('class' => 'small-box-footer'));
     echo html_writer::end_div(); // small-box
     echo html_writer::end_div(); // col
 
@@ -141,7 +142,7 @@ if (!isset($_GET['courseid'])) {
     echo html_writer::start_div('icon');
     echo html_writer::tag('i', '', array('class' => 'fas fa-calendar-xmark'));
     echo html_writer::end_div(); // icon
-    echo html_writer::tag('p', 'Cursos finalizados (' . date('Y') . ')', array('class' => 'small-box-footer'));
+    echo html_writer::tag('p', get_string('coursesfinished', 'local_cuadrodemando', date('Y')), array('class' => 'small-box-footer'));
     echo html_writer::end_div(); // small-box
     echo html_writer::end_div(); // col
 
@@ -155,7 +156,7 @@ if (!isset($_GET['courseid'])) {
     echo html_writer::start_div('icon');
     echo html_writer::tag('i', '', array('class' => 'fas fa-users-line'));
     echo html_writer::end_div(); // icon
-    echo html_writer::tag('p', 'Media matriculados', array('class' => 'small-box-footer'));
+    echo html_writer::tag('p', get_string('averageenrollment', 'local_cuadrodemando'), array('class' => 'small-box-footer'));
     echo html_writer::end_div(); // small-box
     echo html_writer::end_div(); // col
 

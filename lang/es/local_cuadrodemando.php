@@ -88,3 +88,11 @@ $string['newusers_month'] = 'Nuevos usuarios (este mes)';
 $string['onlineusers'] = 'Usuarios en línea';
 $string['login_statistics'] = 'Estadísticas de acceso';
 $string['user_changes'] = 'Cambios de usuarios';
+
+// Detalles del curso
+$string['coursedetails'] = 'Detalles del curso: {$a}';
+$string['coursesoverview'] = 'Vista general de los cursos de {$a}';
+$string['coursescreated'] = 'Cursos creados ({$a})';
+$string['coursesactive'] = 'Cursos activos ({$a})';
+$string['coursesfinished'] = 'Cursos finalizados ({$a})';
+$string['averageenrollment'] = 'Media matriculados';

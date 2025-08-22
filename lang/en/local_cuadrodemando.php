@@ -91,3 +91,11 @@ $string['newusers_month'] = 'New users (this month)';
 $string['onlineusers'] = 'Online users';
 $string['login_statistics'] = 'Login statistics';
 $string['user_changes'] = 'User changes';
+
+// Course details
+$string['coursedetails'] = 'Course details: {$a}';
+$string['coursesoverview'] = 'Courses overview for {$a}';
+$string['coursescreated'] = 'Courses created ({$a})';
+$string['coursesactive'] = 'Active courses ({$a})';
+$string['coursesfinished'] = 'Finished courses ({$a})';
+$string['averageenrollment'] = 'Average enrollment';
