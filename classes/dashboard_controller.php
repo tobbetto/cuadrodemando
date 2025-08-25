@@ -91,38 +91,45 @@ class dashboard_controller {
     private static function load_assets() {
         global $PAGE;
 
-        // CSS
-        $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/fontawesome/css/all.min.css');
-        $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/map/estilos.css');
-        $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/jquery-ui/themes/ui-lightness/jquery-ui.css');
-        $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/datatables/dataTables.bootstrap5.min.css');
-        $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/datatables/responsive.bootstrap5.min.css');
-        $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/datatables-buttons/css/buttons.bootstrap5.min.css');
-        $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/adminlte/css/adminlte.min.css');
+        // CSS and JS in required order from /views/assets/scripts/
+        $PAGE->requires->css('/local/cuadrodemando/assets/scripts/fonts-googleapi/fonts.googleapi.css');
+        $PAGE->requires->css('/local/cuadrodemando/assets/scripts/fontawesome/css/all.min.css');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/fontawesome/js/all.min.js');
 
-        // JS (order matters!)
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jquery/jquery-3.4.1.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jquery-ui/jquery-ui.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jquery/jquery.flot.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jquery/jquery.flot.resize.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jquery/jquery.flot.pie.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/bootstrap/bootstrap.bundle.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/map/mapa.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/chart/chart.umd.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/chart/chart.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/js/jquery.dataTables.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/js/dataTables.bootstrap4.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/dataTables.buttons.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.bootstrap4.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jszip/jszip.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/pdfmake/pdfmake.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/pdfmake/vfs_fonts.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.html5.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.print.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.colVis.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/adminlte/js/adminlte.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery-ui.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.knob.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.flot.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.flot.resize.js');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.flot.pie.js');
+
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/bootstrap/bootstrap.bundle.min.js');
+
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/map/mapa.js');
+        $PAGE->requires->css('/local/cuadrodemando/assets/scripts/map/estilos.css');
+
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/chart/chart.umd.js');
+
+        $PAGE->requires->css('/local/cuadrodemando/assets/scripts/overlayscrollbars/overlayscrollbars.min.css');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/overlayscrollbars/overlayscrollbars.browser.es6.min.js');
+
+        $PAGE->requires->css('/local/cuadrodemando/assets/scripts/datatables/dataTables.bootstrap5.min.css');
+        $PAGE->requires->css('/local/cuadrodemando/assets/scripts/datatables/responsive.bootstrap5.min.css');
+        $PAGE->requires->css('/local/cuadrodemando/assets/scripts/datatables/buttons.bootstrap5.min.css');
+        $PAGE->requires->css('/local/cuadrodemando/assets/scripts/datatables/datatables.min.css');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/datatables.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/jquery.dataTables.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/dataTables.buttons.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/jszip.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/pdfmake.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/vfs_fonts.js');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/buttons.html5.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/buttons.print.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/buttons.bootstrap5.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/buttons.colVis.min.js');
+
+        $PAGE->requires->css('/local/cuadrodemando/assets/scripts/adminlte/adminlte.min.css');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/adminlte/adminlte.min.js');
 
         // Initialization script (no AMD hack needed)
         $PAGE->requires->js_init_code('
