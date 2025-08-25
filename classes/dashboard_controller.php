@@ -90,126 +90,42 @@ class dashboard_controller {
      */
     private static function load_assets() {
         global $PAGE;
-        
-        // Load CSS libraries first
+
+        // CSS
         $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/fontawesome/css/all.min.css');
         $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/adminlte/css/adminlte.min.css');
         $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/jquery-ui/themes/ui-lightness/jquery-ui.css');
         $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/datatables/css/dataTables.bootstrap4.min.css');
         $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/datatables-buttons/css/buttons.bootstrap4.min.css');
         $PAGE->requires->css('/local/cuadrodemando/assets/css/dashboard.css');
-        
-        // Use Moodle's AMD system for loading JS modules safely
-        // This prevents conflicts with RequireJS
+
+        // JS (order matters!)
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jquery/jquery-3.4.1.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jquery-ui/jquery-ui.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/chart/chart.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/js/jquery.dataTables.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/js/dataTables.bootstrap4.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/dataTables.buttons.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.bootstrap4.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jszip/jszip.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/pdfmake/pdfmake.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/pdfmake/vfs_fonts.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.html5.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.print.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.colVis.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/adminlte/js/adminlte.min.js');
+
+        // Initialization script (no AMD hack needed)
         $PAGE->requires->js_init_code('
-        // Disable AMD temporarily to avoid conflicts
-        var amdBackup = window.define;
-        window.define = undefined;
-        
-        // Load libraries after DOM is ready
-        $(document).ready(function() {
-            console.log("=== Dashboard Library Loading (AMD Safe) ===");
-            
-            // Load Chart.js safely
-            if (typeof Chart === "undefined") {
-                $.getScript("/local/cuadrodemando/thirdpartylibs/chart/chart.min.js")
-                .done(function() {
-                    console.log("Chart.js loaded successfully");
-                    Chart.defaults.responsive = true;
-                    Chart.defaults.maintainAspectRatio = false;
-                    Chart.defaults.devicePixelRatio = 1;
-                    
-                    // Trigger custom event when Chart.js is ready
-                    $(document).trigger("chartjs-loaded");
-                })
-                .fail(function() {
-                    console.error("Failed to load Chart.js");
-                });
-            } else {
-                console.log("Chart.js already available");
-                $(document).trigger("chartjs-loaded");
-            }
-            
-            // Load jQuery Knob safely
-            if (typeof $.fn.knob === "undefined") {
-                $.getScript("/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js")
-                .done(function() {
-                    console.log("jQuery Knob loaded successfully");
-                    $(".knob").knob();
-                    $(document).trigger("knob-loaded");
-                })
-                .fail(function() {
-                    console.error("Failed to load jQuery Knob");
-                });
-            } else {
-                console.log("jQuery Knob already available");
-                $(".knob").knob();
-                $(document).trigger("knob-loaded");
-            }
-            
-            // Load jQuery UI safely
-            if (typeof $.fn.sortable === "undefined") {
-                $.getScript("/local/cuadrodemando/thirdpartylibs/jquery-ui/jquery-ui.min.js")
-                .done(function() {
-                    console.log("jQuery UI loaded successfully");
-                    initializeSortable();
-                    $(document).trigger("jqueryui-loaded");
-                })
-                .fail(function() {
-                    console.error("Failed to load jQuery UI");
-                });
-            } else {
-                console.log("jQuery UI already available");
-                initializeSortable();
-                $(document).trigger("jqueryui-loaded");
-            }
-            
-            // Load DataTables safely
-            if (typeof $.fn.DataTable === "undefined") {
-                // Load DataTables core first
-                $.getScript("/local/cuadrodemando/thirdpartylibs/datatables/js/jquery.dataTables.min.js")
-                .then(function() {
-                    return $.getScript("/local/cuadrodemando/thirdpartylibs/datatables/js/dataTables.bootstrap4.min.js");
-                })
-                .then(function() {
-                    return $.getScript("/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/dataTables.buttons.min.js");
-                })
-                .then(function() {
-                    return $.getScript("/local/cuadrodemando/thirdpartylibs/jszip/jszip.min.js");
-                })
-                .then(function() {
-                    return $.getScript("/local/cuadrodemando/thirdpartylibs/pdfmake/pdfmake.min.js");
-                })
-                .then(function() {
-                    return $.getScript("/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.html5.min.js");
-                })
-                .done(function() {
-                    console.log("DataTables loaded successfully");
-                    $(document).trigger("datatables-loaded");
-                })
-                .fail(function() {
-                    console.error("Failed to load DataTables");
-                });
-            } else {
-                console.log("DataTables already available");
-                $(document).trigger("datatables-loaded");
-            }
-            
-            // Restore AMD
-            window.define = amdBackup;
-        });
-        
-        // Helper function to initialize sortable
-        function initializeSortable() {
-            $(".connectedSortable").sortable({
-                placeholder: "sort-highlight",
-                connectWith: ".connectedSortable",
-                handle: ".card-header, .nav-tabs",
-                forcePlaceholderSize: true,
-                zIndex: 999999
+            $(function() {
+                // Now all libraries are loaded as globals
+                // You can safely use Chart, $.fn.knob, $.fn.sortable, $.fn.DataTable, etc.
+                console.log("Chart.js available:", typeof Chart !== "undefined");
+                console.log("jQuery UI available:", typeof $.fn.sortable !== "undefined");
+                console.log("jQuery Knob available:", typeof $.fn.knob !== "undefined");
+                console.log("DataTables available:", typeof $.fn.DataTable !== "undefined");
             });
-            $(".connectedSortable .card-header").css("cursor", "move");
-        }
         ');
     }
     
