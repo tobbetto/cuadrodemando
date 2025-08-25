@@ -1,4 +1,4 @@
-<?php global $DB, $CFG; include_once 'views/getdata/getdata.php';?>
+<?php global $DB, $CFG; include_once 'views/getdata/getdata.php'; require_once($CFG->dirroot . '/local/cuadrodemando/classes/navbar_helper.php');?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
