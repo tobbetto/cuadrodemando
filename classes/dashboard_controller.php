@@ -91,45 +91,43 @@ class dashboard_controller {
     private static function load_assets() {
         global $PAGE;
 
-        // CSS and JS in required order from /views/assets/scripts/
-        $PAGE->requires->css('/local/cuadrodemando/assets/scripts/fonts-googleapi/fonts.googleapi.css');
-        $PAGE->requires->css('/local/cuadrodemando/assets/scripts/fontawesome/css/all.min.css');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/fontawesome/js/all.min.js');
+        // CSS and JS in required order - using thirdpartylibs and avoiding jQuery conflicts
+        $PAGE->requires->css('/local/cuadrodemando/assets/css/dashboard.css');
+        $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/fontawesome/css/all.min.css');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js');
 
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery-ui.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.knob.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.flot.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.flot.resize.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.flot.pie.min.js');
-
+        // Use Moodle's jQuery instead of loading our own to avoid conflicts
+        // $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jquery-ui/jquery-ui.min.js');
+        
         $PAGE->requires->js('/local/cuadrodemando/assets/scripts/bootstrap/bootstrap.bundle.min.js');
 
         $PAGE->requires->js('/local/cuadrodemando/assets/scripts/map/mapa.js');
         $PAGE->requires->css('/local/cuadrodemando/assets/scripts/map/estilos.css');
 
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/chart/chart.umd.js');
+        // Use thirdpartylibs Chart.js
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/chart/chart.umd.js');
 
-        $PAGE->requires->css('/local/cuadrodemando/assets/scripts/overlayscrollbars/overlayscrollbars.min.css');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/overlayscrollbars/overlayscrollbars.browser.es6.min.js');
+        $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/overlayscrollbars/overlayscrollbars.min.css');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/overlayscrollbars/overlayscrollbars.browser.es6.min.js');
 
-        $PAGE->requires->css('/local/cuadrodemando/assets/scripts/datatables/dataTables.bootstrap5.min.css');
-        $PAGE->requires->css('/local/cuadrodemando/assets/scripts/datatables/responsive.bootstrap5.min.css');
-        $PAGE->requires->css('/local/cuadrodemando/assets/scripts/datatables/buttons.bootstrap5.min.css');
-        $PAGE->requires->css('/local/cuadrodemando/assets/scripts/datatables/datatables.min.css');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/datatables.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/jquery.dataTables.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/dataTables.buttons.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/jszip.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/pdfmake.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/vfs_fonts.js');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/buttons.html5.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/buttons.print.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/buttons.bootstrap5.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/datatables/buttons.colVis.min.js');
+        $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/datatables/dataTables.bootstrap5.min.css');
+        $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/datatables/responsive.bootstrap5.min.css');
+        $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/datatables/buttons.bootstrap5.min.css');
+        $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/datatables/datatables.min.css');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/datatables.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/jquery.dataTables.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/dataTables.buttons.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/jszip.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/pdfmake.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/vfs_fonts.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/buttons.html5.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/buttons.print.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/buttons.bootstrap5.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/buttons.colVis.min.js');
 
-        $PAGE->requires->css('/local/cuadrodemando/assets/scripts/adminlte/adminlte.min.css');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/adminlte/adminlte.min.js');
+        $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.css');
+        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js');
 
     }
     

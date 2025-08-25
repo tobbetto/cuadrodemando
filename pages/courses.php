@@ -214,7 +214,16 @@
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+// Wait for Chart.js and jQuery to be fully loaded
+(function checkLibraries() {
+    if (typeof Chart !== 'undefined' && typeof $ !== 'undefined' && $.fn.sortable) {
+        initializeDashboard();
+    } else {
+        setTimeout(checkLibraries, 100);
+    }
+})();
+
+function initializeDashboard() {
     // Make the dashboard widgets sortable Using jquery UI
     $('.connectedSortable').sortable({
     placeholder: 'sort-highlight',
@@ -232,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
     forcePlaceholderSize: true,
     zIndex: 999999
   })
-});
+}
 </script>
 <script>
   $(function () {
@@ -293,7 +302,16 @@ document.addEventListener('DOMContentLoaded', function() {
   })
 </script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+// Wait for Chart.js to be loaded before initializing charts
+(function checkChart() {
+    if (typeof Chart !== 'undefined') {
+        initializePieChart();
+    } else {
+        setTimeout(checkChart, 100);
+    }
+})();
+
+function initializePieChart() {
   //-------------
   // - PIE CHART -
   //-------------
@@ -319,10 +337,19 @@ document.addEventListener('DOMContentLoaded', function() {
   //-----------------
   // - END PIE CHART -
   //-----------------
-});
+}
 </script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+// Wait for Chart.js before initializing bar chart
+(function checkChartForBar() {
+    if (typeof Chart !== 'undefined') {
+        initializeBarChart();
+    } else {
+        setTimeout(checkChartForBar, 100);
+    }
+})();
+
+function initializeBarChart() {
 var barChartData = {
       labels  :  <?php 
         if (!isset($_GET['courseid'])) { 
@@ -391,11 +418,20 @@ var barChartData = {
       data: stackedBarChartData,
       options: stackedBarChartOptions
     })
-});
+}
   </script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+// Wait for Chart.js before initializing geo chart
+(function checkChartForGeo() {
+    if (typeof Chart !== 'undefined') {
+        initializeGeoChart();
+    } else {
+        setTimeout(checkChartForGeo, 100);
+    }
+})();
+
+function initializeGeoChart() {
   'use strict'
 
   var ticksStyle = {
@@ -485,7 +521,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   })
-});
+}
 </script>
 <script>
 <!-- Page specific script -->
@@ -650,7 +686,16 @@ $.extend($.fn.DataTable.defaults, {
   });
 </script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+// Wait for Chart.js before initializing time chart
+(function checkChartForTime() {
+    if (typeof Chart !== 'undefined') {
+        initializeTimeChart();
+    } else {
+        setTimeout(checkChartForTime, 100);
+    }
+})();
+
+function initializeTimeChart() {
 /* Chart.js Charts */
   // Sales chart
   var salesChartCanvas = document.getElementById('time-chart-canvas').getContext('2d')
@@ -729,5 +774,5 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   })
-});
+}
   </script>
