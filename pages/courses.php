@@ -6,7 +6,10 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-
+<?php
+echo html_writer::start_div('dashboard-wrapper');
+echo \local_cuadrodemando\navbar_helper::render_navbar('courses');
+echo html_writer::start_div('content-wrapper'); ?>
           <?php if (isset($_GET['courseid'])) : $course_info = $DB->get_record('course', [ 'id' => $_GET['courseid'] ]); endif ?>
           <?php if (isset($_GET['courseid'])) : ?>
             <h1>Detalles del curso: <b><?php echo $course_info->fullname ?></b> ( <?php echo $course_info->shortname ?> )</h1>
