@@ -1,0 +1,81 @@
+
+
+/*MAPA*/
+.path-provincia {
+    stroke: #fff;
+}
+.path-provincia-activa {
+    cursor:pointer;
+    transition: .6s fill;
+    fill: #ccc;
+    stroke: #fff;
+}
+
+.path-provincia-activa:hover{
+    cursor:pointer;
+    fill: #FF9F00;
+}
+
+
+.color-1{
+    fill: #bdd99e;
+}
+.color-2{
+    fill: #75ce9f;
+}
+.color-3{
+    fill: #01a66f;
+}
+.color-4{
+    fill: #6a9bc8;
+}
+.color-5{
+    fill: #286296;
+}
+.color-6{
+    fill: #5d9bd3;
+}
+.color-7{
+    fill: #86b4de;
+}
+.color-8{
+    fill: #3582c8;
+}
+
+#tooltip-provincia{
+    position:absolute;
+    z-index: 100;
+    top:0;
+    left:0;
+    padding:0;
+    margin:0;
+}
+#datos-provincia{
+    font-size: 24px !important;
+    font-weight: 300;
+}
+#datos-provincia i{
+    color: #3582C8;
+}
+#datos-provincia .dato{
+    font-weight: 600;
+}
+
+/*Instrucciones*/
+.instruccion{
+    text-align: center;
+    margin: 15px 0;
+}
+.body-instruccion{
+    font-size: 16px;
+    line-height: 16px;
+    text-align: left;
+    border-left: 2px solid #ff9f00;
+    color:#ff9f00;
+    padding-left: 10px;
+    display: inline-block;
+}
+.blanco .body-instruccion{
+    border-left-color:#fff;
+    color:#fff;
+}
