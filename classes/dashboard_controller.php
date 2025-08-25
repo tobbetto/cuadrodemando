@@ -100,8 +100,8 @@ class dashboard_controller {
         $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery-ui.min.js');
         $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.knob.min.js');
         $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.flot.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.flot.resize.js');
-        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.flot.pie.js');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.flot.resize.min.js');
+        $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.flot.pie.min.js');
 
         $PAGE->requires->js('/local/cuadrodemando/assets/scripts/bootstrap/bootstrap.bundle.min.js');
 
