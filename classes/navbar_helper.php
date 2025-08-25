@@ -39,22 +39,22 @@ class navbar_helper {
         // Navigation links
         $html .= \html_writer::start_div('navbar-nav me-auto');
         
-        // Define navigation items
+        // Define navigation items using index.php?page=...
         $nav_items = [
             'home' => [
-                'url' => new \moodle_url('/local/cuadrodemando/'),
+                'url' => new \moodle_url('/local/cuadrodemando/index.php'),
                 'text' => get_string('home', 'local_cuadrodemando')
             ],
             'courses' => [
-                'url' => new \moodle_url('/local/cuadrodemando/courses.php'),
+                'url' => new \moodle_url('/local/cuadrodemando/index.php', ['page' => 'courses']),
                 'text' => get_string('courses', 'local_cuadrodemando')
             ],
             'users' => [
-                'url' => new \moodle_url('/local/cuadrodemando/users.php'),
+                'url' => new \moodle_url('/local/cuadrodemando/index.php', ['page' => 'users']),
                 'text' => get_string('users', 'local_cuadrodemando')
             ],
             'geo' => [
-                'url' => new \moodle_url('/local/cuadrodemando/geo.php'),
+                'url' => new \moodle_url('/local/cuadrodemando/index.php', ['page' => 'geo']),
                 'text' => get_string('geo', 'local_cuadrodemando')
             ]
         ];
