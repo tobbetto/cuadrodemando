@@ -91,13 +91,13 @@ class dashboard_controller {
     private static function load_assets() {
         global $PAGE;
 
-        // CSS and JS in required order - ensuring jQuery compatibility
+        // CSS and JS in required order - using thirdpartylibs and avoiding jQuery conflicts
         $PAGE->requires->css('/local/cuadrodemando/assets/css/dashboard.css');
         $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/fontawesome/css/all.min.css');
         $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js');
 
-        // Load jQuery and plugins in correct order
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jquery/jquery.min.js');
+        // Use Moodle's jQuery instead of loading our own to avoid conflicts
+        // $PAGE->requires->js('/local/cuadrodemando/assets/scripts/jquery/jquery.min.js');
         $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jquery-ui/jquery-ui.min.js');
         $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js');
         
