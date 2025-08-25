@@ -244,62 +244,70 @@ function initializeDashboard() {
 }
 </script>
 <script>
-  $(function () {
-    /* jQueryKnob */
+// Wait for jQuery and jQuery Knob to be loaded before initializing knob elements
+(function checkKnob() {
+    if (typeof jQuery !== 'undefined' && jQuery.fn.knob) {
+        jQuery(function ($) {
+            /* jQueryKnob */
 
-    $('.knob').knob({
+            $('.knob').knob({
 
-      draw: function () {
+              draw: function () {
 
-        // "tron" case
-        if (this.$.data('skin') == 'tron') {
+                // "tron" case
+                if (this.$.data('skin') == 'tron') {
 
-          var a   = this.angle(this.cv)  // Angle
-            ,
-              sa  = this.startAngle          // Previous start angle
-            ,
-              sat = this.startAngle         // Start angle
-            ,
-              ea                            // Previous end angle
-            ,
-              eat = sat + a                 // End angle
-            ,
-              r   = true
+                  var a   = this.angle(this.cv)  // Angle
+                    ,
+                      sa  = this.startAngle          // Previous start angle
+                    ,
+                      sat = this.startAngle         // Start angle
+                    ,
+                      ea                            // Previous end angle
+                    ,
+                      eat = sat + a                 // End angle
+                    ,
+                      r   = true
 
-          this.g.lineWidth = this.lineWidth
+                  this.g.lineWidth = this.lineWidth
 
-          this.o.cursor
-          && (sat = eat - 0.3)
-          && (eat = eat + 0.3)
+                  this.o.cursor
+                  && (sat = eat - 0.3)
+                  && (eat = eat + 0.3)
 
-          if (this.o.displayPrevious) {
-            ea = this.startAngle + this.angle(this.value)
-            this.o.cursor
-            && (sa = ea - 0.3)
-            && (ea = ea + 0.3)
-            this.g.beginPath()
-            this.g.strokeStyle = this.previousColor
-            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false)
-            this.g.stroke()
-          }
+                  if (this.o.displayPrevious) {
+                    ea = this.startAngle + this.angle(this.value)
+                    this.o.cursor
+                    && (sa = ea - 0.3)
+                    && (ea = ea + 0.3)
+                    this.g.beginPath()
+                    this.g.strokeStyle = this.previousColor
+                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false)
+                    this.g.stroke()
+                  }
 
-          this.g.beginPath()
-          this.g.strokeStyle = r ? this.o.fgColor : this.fgColor
-          this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false)
-          this.g.stroke()
+                  this.g.beginPath()
+                  this.g.strokeStyle = r ? this.o.fgColor : this.fgColor
+                  this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false)
+                  this.g.stroke()
 
-          this.g.lineWidth = 2
-          this.g.beginPath()
-          this.g.strokeStyle = this.o.fgColor
-          this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false)
-          this.g.stroke()
+                  this.g.lineWidth = 2
+                  this.g.beginPath()
+                  this.g.strokeStyle = this.o.fgColor
+                  this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false)
+                  this.g.stroke()
 
-          return false
-        }
-      }
-    })
-    /* END JQUERY KNOB */
-  })
+                  return false
+                }
+              }
+            })
+            /* END JQUERY KNOB */
+        });
+    } else {
+        setTimeout(checkKnob, 100);
+    }
+})();
+</script>
 </script>
 <script>
 // Wait for Chart.js to be loaded before initializing charts
@@ -315,7 +323,10 @@ function initializePieChart() {
   //-------------
   // - PIE CHART -
   //-------------
-  var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+  var pieChartElement = document.getElementById('pieChart');
+  if (!pieChartElement) return;
+  var pieChartCanvas = pieChartElement.getContext('2d');
+  
   var pieData = {
     labels: <?php echo json_encode($courseEnrolment->pieChartLabel) ?>,
     datasets: [
@@ -388,8 +399,12 @@ var barChartData = {
     //---------------------
     //- STACKED BAR CHART -
     //---------------------
-    var stackedBarChartCanvas = $('#stackedBarChart-canvas').get(0).getContext('2d')
-    var stackedBarChartData = $.extend(true, {}, barChartData)
+    var stackedBarChartElement = document.getElementById('stackedBarChart-canvas');
+    if (!stackedBarChartElement) return;
+    var stackedBarChartCanvas = stackedBarChartElement.getContext('2d');
+    
+    // Use vanilla JS object extend instead of jQuery extend
+    var stackedBarChartData = JSON.parse(JSON.stringify(barChartData));
  
     var stackedBarChartOptions = {
       responsive              : true,
@@ -442,9 +457,10 @@ function initializeGeoChart() {
   var mode = 'index'
   var intersect = true
 
-  var $salesChart = $('#geo-chart-canvas')
+  var salesChartElement = document.getElementById('geo-chart-canvas');
+  if (!salesChartElement) return;
 
-  var salesChart = new Chart($salesChart, {
+  var salesChart = new Chart(salesChartElement, {
     type: 'bar',
     data: {
       labels: <?php 
@@ -579,14 +595,18 @@ $.extend($.fn.DataTable.defaults, {
 });
 
   $(function () {
-    $("#enroltable").DataTable({
+    // Wait for DataTables to be loaded before initializing
+    (function checkDataTables() {
+        if (typeof jQuery !== 'undefined' && jQuery.fn.DataTable) {
+            jQuery(function ($) {
+                $("#enroltable").DataTable({
 
-      responsive: true,
-      lengthChange: true,
-      autoWidth: false,
-      processing: true,
-      lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "Todos"] ],
-      language: {
+                  responsive: true,
+                  lengthChange: true,
+                  autoWidth: false,
+                  processing: true,
+                  lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "Todos"] ],
+                  language: {
         "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
         "datetime": {
         "previous": "Anterior",
@@ -683,6 +703,11 @@ $.extend($.fn.DataTable.defaults, {
       }
 
     }).buttons().container().prependTo('#exportbuttons');
+            });
+        } else {
+            setTimeout(checkDataTables, 100);
+        }
+    })();
   });
 </script>
 <script>
