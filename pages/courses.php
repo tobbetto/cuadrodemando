@@ -1,11 +1,6 @@
 <?php
 /**
- * Dashboard courses page content
- *
- * @package    local_cuadrodemando
- * @author     Thorvaldur Konradsson
- * @version    1.0.0
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Dashboard courses page content - Updated for AMD compatibility
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -17,11 +12,7 @@ require_once($CFG->dirroot . '/local/cuadrodemando/classes/navbar_helper.php');
 include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/getdata.php');
 
 echo html_writer::start_div('dashboard-wrapper');
-
-// Use navbar helper
 echo \local_cuadrodemando\navbar_helper::render_navbar('courses');
-
-// Content Wrapper
 echo html_writer::start_div('content-wrapper');
 
 // Content Header
@@ -185,178 +176,138 @@ if (isset($_GET['courseid'])) {
 }
 
 echo html_writer::end_div(); // row
-
-// Yearly courses data
-echo html_writer::start_div('row');
-
-if (isset($_GET['courseid'])) {
-    $course_data = adminlte_getdata::get_yearly_courses($_GET['courseid']);
-} else {
-    $course_data = adminlte_getdata::get_yearly_courses(null);
-}
-echo $course_data;
-
-echo html_writer::end_div(); // row
-
 echo html_writer::end_div(); // container-fluid
 echo html_writer::end_tag('section'); // content
 echo html_writer::end_div(); // content-wrapper
-
 echo html_writer::end_div(); // dashboard-wrapper
-
-// JavaScript for interactivity
 ?>
+
+<style>
+/* Chart.js fixes for AMD compatibility */
+.chart-container {
+    position: relative;
+    width: 100% !important;
+    height: 400px !important;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+canvas {
+    display: block;
+    box-sizing: border-box;
+}
+
+.fas, .fab, .far, .fal {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+</style>
+
 <script>
+// AMD-safe initialization
 $(document).ready(function() {
-    // Check if libraries are loaded
-    console.log('Chart.js available:', typeof Chart !== 'undefined');
-    console.log('jQuery Knob available:', typeof $.fn.knob !== 'undefined');
-    console.log('jQuery UI available:', typeof $.fn.sortable !== 'undefined');
-    console.log('DataTables available:', typeof $.fn.DataTable !== 'undefined');
-
-    // Initialize sortable widgets
-    if (typeof $.fn.sortable !== 'undefined') {
-        $('.connectedSortable').sortable({
-            placeholder: 'sort-highlight',
-            connectWith: '.connectedSortable',
-            handle: '.card-header, .nav-tabs',
-            forcePlaceholderSize: true,
-            zIndex: 999999
-        });
-        $('.connectedSortable .card-header').css('cursor', 'move');
-
-        $('.todo-list').sortable({
-            placeholder: 'sort-highlight',
-            handle: '.handle',
-            forcePlaceholderSize: true,
-            zIndex: 999999
-        });
-    }
-
-    // Initialize jQuery Knob
-    if (typeof $.fn.knob !== 'undefined') {
-        $('.knob').knob({
-            draw: function () {
-                if (this.$.data('skin') == 'tron') {
-                    var a = this.angle(this.cv),
-                        sa = this.startAngle,
-                        sat = this.startAngle,
-                        ea,
-                        eat = sat + a,
-                        r = true;
-
-                    this.g.lineWidth = this.lineWidth;
-
-                    this.o.cursor && (sat = eat - 0.3) && (eat = eat + 0.3);
-
-                    if (this.o.displayPrevious) {
-                        ea = this.startAngle + this.angle(this.value);
-                        this.o.cursor && (sa = ea - 0.3) && (ea = ea + 0.3);
-                        this.g.beginPath();
-                        this.g.strokeStyle = this.previousColor;
-                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
-                        this.g.stroke();
-                    }
-
-                    this.g.beginPath();
-                    this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
-                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
-                    this.g.stroke();
-
-                    this.g.lineWidth = 2;
-                    this.g.beginPath();
-                    this.g.strokeStyle = this.o.fgColor;
-                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
-                    this.g.stroke();
-
-                    return false;
-                }
-            }
-        });
-    }
-
-    // Initialize Charts
+    console.log('Courses page initializing...');
+    
+    // Wait for Chart.js to be loaded
+    $(document).on('chartjs-loaded', function() {
+        console.log('Chart.js ready, initializing charts...');
+        initializeCharts();
+    });
+    
+    // Wait for jQuery UI to be loaded
+    $(document).on('jqueryui-loaded', function() {
+        console.log('jQuery UI ready, initializing sortables...');
+        initializeSortables();
+    });
+    
+    // Wait for jQuery Knob to be loaded
+    $(document).on('knob-loaded', function() {
+        console.log('jQuery Knob ready, initializing knobs...');
+        initializeKnobs();
+    });
+    
+    // Wait for DataTables to be loaded
+    $(document).on('datatables-loaded', function() {
+        console.log('DataTables ready, initializing tables...');
+        initializeDataTables();
+    });
+    
+    // Check if libraries are already loaded
     if (typeof Chart !== 'undefined') {
-        // PIE CHART
-        if ($('#pieChart').length) {
-            var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
-            var pieData = {
-                labels: <?php echo json_encode($courseEnrolment->pieChartLabel ?? []); ?>,
-                datasets: [{
-                    data: <?php echo json_encode($courseEnrolment->pieChartData ?? []); ?>,
-                    backgroundColor: <?php echo json_encode($courseEnrolment->background_color ?? ['#dc3545', '#28a745', '#ffc107', '#17a2b8']); ?>
-                }]
-            };
-            var pieOptions = {
-                plugins: {
-                    legend: {
-                        display: false
+        $(document).trigger('chartjs-loaded');
+    }
+    if (typeof $.fn.sortable !== 'undefined') {
+        $(document).trigger('jqueryui-loaded');
+    }
+    if (typeof $.fn.knob !== 'undefined') {
+        $(document).trigger('knob-loaded');
+    }
+    if (typeof $.fn.DataTable !== 'undefined') {
+        $(document).trigger('datatables-loaded');
+    }
+});
+
+function initializeCharts() {
+    if (typeof Chart === 'undefined') {
+        console.error('Chart.js not available for initialization');
+        return;
+    }
+    
+    // Set Chart.js defaults
+    Chart.defaults.responsive = true;
+    Chart.defaults.maintainAspectRatio = false;
+    Chart.defaults.devicePixelRatio = 1;
+    
+    // PIE CHART
+    if ($('#pieChart').length) {
+        try {
+            var pieChartCanvas = $('#pieChart').get(0);
+            if (pieChartCanvas && pieChartCanvas.getContext) {
+                pieChartCanvas.width = pieChartCanvas.parentElement.clientWidth || 400;
+                pieChartCanvas.height = 300;
+                
+                var ctx = pieChartCanvas.getContext('2d');
+                var pieData = {
+                    labels: <?php echo json_encode($courseEnrolment->pieChartLabel ?? []); ?>,
+                    datasets: [{
+                        data: <?php echo json_encode($courseEnrolment->pieChartData ?? []); ?>,
+                        backgroundColor: <?php echo json_encode($courseEnrolment->background_color ?? ['#dc3545', '#28a745', '#ffc107', '#17a2b8']); ?>
+                    }]
+                };
+                
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: pieData,
+                    options: {
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        responsive: true,
+                        maintainAspectRatio: false
                     }
-                },
-                responsive: true,
-                maintainAspectRatio: false
-            };
-            
-            new Chart(pieChartCanvas, {
-                type: 'doughnut',
-                data: pieData,
-                options: pieOptions
-            });
+                });
+                console.log('Pie chart initialized successfully');
+            }
+        } catch (e) {
+            console.error('Pie chart initialization error:', e);
         }
-
-        // STACKED BAR CHART
-        if ($('#stackedBarChart-canvas').length) {
-            var barChartData = {
-                labels: <?php 
-                    if (!isset($_GET['courseid'])) { 
-                        $get_course_categories = adminlte_getdata::get_category_name_number(); 
-                        echo json_encode($get_course_categories['name'] ?? []); 
-                    } else { 
-                        $get_course_categories = adminlte_getdata::get_course_enrolments($_GET['courseid']); 
-                        echo json_encode($get_course_categories['name'] ?? []); 
-                    } ?>,
-                datasets: [
-                    {
-                        label: 'Finalizados',
-                        backgroundColor: '#28a745',
-                        borderColor: '#28a745',
-                        data: <?php echo json_encode($get_course_categories['count'] ?? []); ?>
-                    },
-                    {
-                        label: 'No finalizados',
-                        backgroundColor: '#dc3545',
-                        borderColor: '#dc3545',
-                        data: <?php echo json_encode($get_course_categories['students'] ?? []); ?>
-                    }
-                ]
-            };
-
-            var stackedBarChartCanvas = $('#stackedBarChart-canvas').get(0).getContext('2d');
-            var stackedBarChartOptions = {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: { stacked: true },
-                    y: { 
-                        stacked: true,
-                        beginAtZero: true
-                    }
-                }
-            };
-
-            new Chart(stackedBarChartCanvas, {
-                type: 'bar',
-                data: barChartData,
-                options: stackedBarChartOptions
-            });
-        }
-
-        // GEO CHART
-        if ($('#geo-chart-canvas').length) {
-            var $salesChart = $('#geo-chart-canvas');
-            new Chart($salesChart, {
-                type: 'bar',
-                data: {
+    }
+    
+    // STACKED BAR CHART
+    if ($('#stackedBarChart-canvas').length) {
+        try {
+            var stackedCanvas = $('#stackedBarChart-canvas').get(0);
+            if (stackedCanvas && stackedCanvas.getContext) {
+                stackedCanvas.width = stackedCanvas.parentElement.clientWidth || 400;
+                stackedCanvas.height = 300;
+                
+                var barChartData = {
                     labels: <?php 
                         if (!isset($_GET['courseid'])) { 
                             $get_course_categories = adminlte_getdata::get_category_name_number(); 
@@ -365,93 +316,199 @@ $(document).ready(function() {
                             $get_course_categories = adminlte_getdata::get_course_enrolments($_GET['courseid']); 
                             echo json_encode($get_course_categories['name'] ?? []); 
                         } ?>,
-                    datasets: [{
-                        label: <?php
-                            if (!isset($_GET['courseid'])) { 
-                                echo "'# de cursos en categoría'"; 
-                            } else {
-                                echo "'# de provincias de los alumnos'"; 
-                            } ?>,
-                        backgroundColor: '#28a745',
-                        data: <?php echo json_encode($get_course_categories['count'] ?? []); ?>
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
-                    scales: {
-                        y: { beginAtZero: true },
-                        x: { beginAtZero: true }
-                    }
-                }
-            });
-        }
-
-        // TIME CHART
-        if ($('#time-chart-canvas').length) {
-            var timeChartCanvas = document.getElementById('time-chart-canvas').getContext('2d');
-            new Chart(timeChartCanvas, { 
-                type: 'line',
-                data: {
-                    labels: <?php
-                        if (!isset($_GET['courseid'])) { 
-                            $get_site_times = adminlte_getdata::get_site_times(); 
-                            echo json_encode($get_site_times['course'] ?? []); 
-                        } else { 
-                            $get_course_times = adminlte_getdata::get_course_times($_GET['courseid']); 
-                            echo json_encode($get_course_times['time'] ?? []); 
-                        } ?>, 
                     datasets: [
                         {
-                            label: 'Media de Finalización en días',
-                            backgroundColor: 'rgba(60,141,188,0.9)',
-                            borderColor: 'rgba(60,141,188,0.8)',
-                            pointRadius: false,
-                            data: <?php 
-                                if (!isset($_GET['courseid'])) { 
-                                    $get_site_times = adminlte_getdata::get_site_times(); 
-                                    echo json_encode($get_site_times['avgavg'] ?? []); 
-                                } else { 
-                                    $get_course_times = adminlte_getdata::get_course_times($_GET['courseid']); 
-                                    echo json_encode($get_course_times['avg'] ?? []); 
-                                } ?>
+                            label: 'Finalizados',
+                            backgroundColor: '#28a745',
+                            borderColor: '#28a745',
+                            data: <?php echo json_encode($get_course_categories['count'] ?? []); ?>
                         },
                         {
-                            label: 'Finalización en días',
-                            backgroundColor: 'rgba(210, 214, 222, 1)',
-                            borderColor: 'rgba(210, 214, 222, 1)',
-                            pointRadius: false,
-                            data: <?php 
-                                if (!isset($_GET['courseid'])) { 
-                                    echo json_encode($get_site_times['avg'] ?? []); 
-                                } else { 
-                                    echo json_encode($get_course_times['time'] ?? []); 
-                                } ?>,
-                            fill: true,
-                            tension: 0.4
+                            label: 'No finalizados',
+                            backgroundColor: '#dc3545',
+                            borderColor: '#dc3545',
+                            data: <?php echo json_encode($get_course_categories['students'] ?? []); ?>
                         }
                     ]
-                },
-                options: {
+                };
+
+                var stackedBarChartOptions = {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
                     scales: {
-                        x: { grid: { display: false } },
-                        y: { grid: { display: false } }
+                        x: { stacked: true },
+                        y: { 
+                            stacked: true,
+                            beginAtZero: true
+                        }
                     }
-                }
-            });
+                };
+
+                new Chart(stackedCanvas.getContext('2d'), {
+                    type: 'bar',
+                    data: barChartData,
+                    options: stackedBarChartOptions
+                });
+                console.log('Stacked bar chart initialized successfully');
+            }
+        } catch (e) {
+            console.error('Stacked bar chart initialization error:', e);
         }
     }
 
-    // Initialize DataTables
-    if (typeof $.fn.DataTable !== 'undefined' && $('#enroltable').length) {
+    // GEO CHART
+    if ($('#geo-chart-canvas').length) {
+        try {
+            var geoCanvas = $('#geo-chart-canvas').get(0);
+            if (geoCanvas && geoCanvas.getContext) {
+                geoCanvas.width = geoCanvas.parentElement.clientWidth || 400;
+                geoCanvas.height = 300;
+                
+                new Chart(geoCanvas.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: <?php 
+                            if (!isset($_GET['courseid'])) { 
+                                $get_course_categories = adminlte_getdata::get_category_name_number(); 
+                                echo json_encode($get_course_categories['name'] ?? []); 
+                            } else { 
+                                $get_course_categories = adminlte_getdata::get_course_enrolments($_GET['courseid']); 
+                                echo json_encode($get_course_categories['name'] ?? []); 
+                            } ?>,
+                        datasets: [{
+                            label: <?php
+                                if (!isset($_GET['courseid'])) { 
+                                    echo "'# de cursos en categoría'"; 
+                                } else {
+                                    echo "'# de provincias de los alumnos'"; 
+                                } ?>,
+                            backgroundColor: '#28a745',
+                            data: <?php echo json_encode($get_course_categories['count'] ?? []); ?>
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: { beginAtZero: true },
+                            x: { beginAtZero: true }
+                        }
+                    }
+                });
+                console.log('Geo chart initialized successfully');
+            }
+        } catch (e) {
+            console.error('Geo chart initialization error:', e);
+        }
+    }
+
+    // TIME CHART
+    if ($('#time-chart-canvas').length) {
+        try {
+            var timeCanvas = document.getElementById('time-chart-canvas');
+            if (timeCanvas && timeCanvas.getContext) {
+                timeCanvas.width = timeCanvas.parentElement.clientWidth || 400;
+                timeCanvas.height = 300;
+                
+                new Chart(timeCanvas.getContext('2d'), { 
+                    type: 'line',
+                    data: {
+                        labels: <?php
+                            if (!isset($_GET['courseid'])) { 
+                                $get_site_times = adminlte_getdata::get_site_times(); 
+                                echo json_encode($get_site_times['course'] ?? []); 
+                            } else { 
+                                $get_course_times = adminlte_getdata::get_course_times($_GET['courseid']); 
+                                echo json_encode($get_course_times['time'] ?? []); 
+                            } ?>, 
+                        datasets: [
+                            {
+                                label: 'Media de Finalización en días',
+                                backgroundColor: 'rgba(60,141,188,0.9)',
+                                borderColor: 'rgba(60,141,188,0.8)',
+                                pointRadius: false,
+                                data: <?php 
+                                    if (!isset($_GET['courseid'])) { 
+                                        $get_site_times = adminlte_getdata::get_site_times(); 
+                                        echo json_encode($get_site_times['avgavg'] ?? []); 
+                                    } else { 
+                                        $get_course_times = adminlte_getdata::get_course_times($_GET['courseid']); 
+                                        echo json_encode($get_course_times['avg'] ?? []); 
+                                    } ?>
+                            },
+                            {
+                                label: 'Finalización en días',
+                                backgroundColor: 'rgba(210, 214, 222, 1)',
+                                borderColor: 'rgba(210, 214, 222, 1)',
+                                pointRadius: false,
+                                data: <?php 
+                                    if (!isset($_GET['courseid'])) { 
+                                        echo json_encode($get_site_times['avg'] ?? []); 
+                                    } else { 
+                                        echo json_encode($get_course_times['time'] ?? []); 
+                                    } ?>,
+                                fill: true,
+                                tension: 0.4
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            x: { grid: { display: false } },
+                            y: { grid: { display: false } }
+                        }
+                    }
+                });
+                console.log('Time chart initialized successfully');
+            }
+        } catch (e) {
+            console.error('Time chart initialization error:', e);
+        }
+    }
+}
+
+function initializeSortables() {
+    if (typeof $.fn.sortable === 'undefined') {
+        console.error('jQuery UI sortable not available');
+        return;
+    }
+    
+    $('.connectedSortable').sortable({
+        placeholder: 'sort-highlight',
+        connectWith: '.connectedSortable',
+        handle: '.card-header, .nav-tabs',
+        forcePlaceholderSize: true,
+        zIndex: 999999
+    });
+    $('.connectedSortable .card-header').css('cursor', 'move');
+    console.log('Sortables initialized successfully');
+}
+
+function initializeKnobs() {
+    if (typeof $.fn.knob === 'undefined') {
+        console.error('jQuery Knob not available');
+        return;
+    }
+    
+    $('.knob').knob();
+    console.log('Knobs initialized successfully');
+}
+
+function initializeDataTables() {
+    if (typeof $.fn.DataTable === 'undefined') {
+        console.error('DataTables not available');
+        return;
+    }
+    
+    if ($('#enroltable').length) {
         $("#enroltable").DataTable({
             responsive: true,
             lengthChange: true,
@@ -462,18 +519,15 @@ $(document).ready(function() {
                 "url": "//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json"
             },
             dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print', 'colvis'
-            ]
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print', 'colvis']
         });
+        console.log('DataTables initialized successfully');
     }
-});
+}
 
-// Language selector functionality
 function changeDashboardLanguage(lang) {
     var url = new URL(window.location);
     url.searchParams.set('lang', lang);
     window.location.href = url.href;
 }
 </script>
-<?php

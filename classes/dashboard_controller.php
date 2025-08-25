@@ -92,92 +92,124 @@ class dashboard_controller {
         global $PAGE;
         
         // Load CSS libraries first
-        // Font Awesome CSS
         $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/fontawesome/css/all.min.css');
-        
-        // AdminLTE CSS
         $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/adminlte/css/adminlte.min.css');
-        
-        // jQuery UI CSS
         $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/jquery-ui/themes/ui-lightness/jquery-ui.css');
-        
-        // DataTables CSS
         $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/datatables/css/dataTables.bootstrap4.min.css');
         $PAGE->requires->css('/local/cuadrodemando/thirdpartylibs/datatables-buttons/css/buttons.bootstrap4.min.css');
-        
-        // Custom dashboard CSS
         $PAGE->requires->css('/local/cuadrodemando/assets/css/dashboard.css');
         
-        // Load JavaScript libraries in correct order
-        // 1. Chart.js (load first)
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/chart/chart.min.js');
-        
-        // 2. jQuery Knob
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js');
-        
-        // 3. jQuery UI
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jquery-ui/jquery-ui.min.js');
-        
-        // 4. AdminLTE JavaScript
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/adminlte/js/adminlte.min.js');
-        
-        // 5. Font Awesome JavaScript (if needed)
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js');
-        
-        // 6. DataTables and related libraries
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/js/jquery.dataTables.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables/js/dataTables.bootstrap4.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/dataTables.buttons.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.bootstrap4.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/jszip/jszip.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/pdfmake/pdfmake.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/pdfmake/vfs_fonts.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.html5.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.print.min.js');
-        $PAGE->requires->js('/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.colVis.min.js');
-
-        // Library loading check and initialization
+        // Use Moodle's AMD system for loading JS modules safely
+        // This prevents conflicts with RequireJS
         $PAGE->requires->js_init_code('
-        console.log("=== Dashboard Library Loading Check ===");
+        // Disable AMD temporarily to avoid conflicts
+        var amdBackup = window.define;
+        window.define = undefined;
         
+        // Load libraries after DOM is ready
         $(document).ready(function() {
-            console.log("Chart.js available:", typeof Chart !== "undefined");
-            console.log("jQuery available:", typeof $ !== "undefined");
-            console.log("jQuery Knob available:", typeof $.fn.knob !== "undefined");
-            console.log("jQuery UI available:", typeof $.fn.sortable !== "undefined");
-            console.log("DataTables available:", typeof $.fn.DataTable !== "undefined");
-            console.log("AdminLTE available:", typeof AdminLTE !== "undefined");
-
+            console.log("=== Dashboard Library Loading (AMD Safe) ===");
+            
+            // Load Chart.js safely
             if (typeof Chart === "undefined") {
-                console.error("Chart.js failed to load from: /local/cuadrodemando/thirdpartylibs/chart/chart.min.js");
-            } else {
-                // Set Chart.js defaults
-                Chart.defaults.responsive = true;
-                Chart.defaults.maintainAspectRatio = false;
-                console.log("Chart.js defaults set successfully");
-            }
-
-            // Initialize sortable widgets when jQuery UI is available
-            if (typeof $.fn.sortable !== "undefined") {
-                $(".connectedSortable").sortable({
-                    placeholder: "sort-highlight",
-                    connectWith: ".connectedSortable",
-                    handle: ".card-header, .nav-tabs",
-                    forcePlaceholderSize: true,
-                    zIndex: 999999
+                $.getScript("/local/cuadrodemando/thirdpartylibs/chart/chart.min.js")
+                .done(function() {
+                    console.log("Chart.js loaded successfully");
+                    Chart.defaults.responsive = true;
+                    Chart.defaults.maintainAspectRatio = false;
+                    Chart.defaults.devicePixelRatio = 1;
+                    
+                    // Trigger custom event when Chart.js is ready
+                    $(document).trigger("chartjs-loaded");
+                })
+                .fail(function() {
+                    console.error("Failed to load Chart.js");
                 });
-                $(".connectedSortable .card-header").css("cursor", "move");
-                console.log("Sortable widgets initialized");
-            }
-
-            // Initialize jQuery Knob when available
-            if (typeof $.fn.knob !== "undefined") {
-                $(".knob").knob();
-                console.log("jQuery Knob initialized");
+            } else {
+                console.log("Chart.js already available");
+                $(document).trigger("chartjs-loaded");
             }
             
-            console.log("=== Dashboard initialization complete ===");
+            // Load jQuery Knob safely
+            if (typeof $.fn.knob === "undefined") {
+                $.getScript("/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js")
+                .done(function() {
+                    console.log("jQuery Knob loaded successfully");
+                    $(".knob").knob();
+                    $(document).trigger("knob-loaded");
+                })
+                .fail(function() {
+                    console.error("Failed to load jQuery Knob");
+                });
+            } else {
+                console.log("jQuery Knob already available");
+                $(".knob").knob();
+                $(document).trigger("knob-loaded");
+            }
+            
+            // Load jQuery UI safely
+            if (typeof $.fn.sortable === "undefined") {
+                $.getScript("/local/cuadrodemando/thirdpartylibs/jquery-ui/jquery-ui.min.js")
+                .done(function() {
+                    console.log("jQuery UI loaded successfully");
+                    initializeSortable();
+                    $(document).trigger("jqueryui-loaded");
+                })
+                .fail(function() {
+                    console.error("Failed to load jQuery UI");
+                });
+            } else {
+                console.log("jQuery UI already available");
+                initializeSortable();
+                $(document).trigger("jqueryui-loaded");
+            }
+            
+            // Load DataTables safely
+            if (typeof $.fn.DataTable === "undefined") {
+                // Load DataTables core first
+                $.getScript("/local/cuadrodemando/thirdpartylibs/datatables/js/jquery.dataTables.min.js")
+                .then(function() {
+                    return $.getScript("/local/cuadrodemando/thirdpartylibs/datatables/js/dataTables.bootstrap4.min.js");
+                })
+                .then(function() {
+                    return $.getScript("/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/dataTables.buttons.min.js");
+                })
+                .then(function() {
+                    return $.getScript("/local/cuadrodemando/thirdpartylibs/jszip/jszip.min.js");
+                })
+                .then(function() {
+                    return $.getScript("/local/cuadrodemando/thirdpartylibs/pdfmake/pdfmake.min.js");
+                })
+                .then(function() {
+                    return $.getScript("/local/cuadrodemando/thirdpartylibs/datatables-buttons/js/buttons.html5.min.js");
+                })
+                .done(function() {
+                    console.log("DataTables loaded successfully");
+                    $(document).trigger("datatables-loaded");
+                })
+                .fail(function() {
+                    console.error("Failed to load DataTables");
+                });
+            } else {
+                console.log("DataTables already available");
+                $(document).trigger("datatables-loaded");
+            }
+            
+            // Restore AMD
+            window.define = amdBackup;
         });
+        
+        // Helper function to initialize sortable
+        function initializeSortable() {
+            $(".connectedSortable").sortable({
+                placeholder: "sort-highlight",
+                connectWith: ".connectedSortable",
+                handle: ".card-header, .nav-tabs",
+                forcePlaceholderSize: true,
+                zIndex: 999999
+            });
+            $(".connectedSortable .card-header").css("cursor", "move");
+        }
         ');
     }
     
@@ -195,24 +227,11 @@ class dashboard_controller {
         if (file_exists($contentfile)) {
             include($contentfile);
         } else {
-            // Display 404 error or default content
             echo \html_writer::tag('h1', 'Page not found');
             echo \html_writer::tag('p', "The requested page '{$page}' could not be found.");
         }
     }
     
-    /**
-     * Get dashboard statistics
-     * 
-     * @return array Array of statistics
-     */
-    public static function get_statistics() {
-        if (function_exists('local_cuadrodemando_get_stats')) {
-            return local_cuadrodemando_get_stats();
-        }
-        return [];
-    }
-
     /**
      * Handle language switching
      * 
