@@ -292,44 +292,34 @@
   })
 </script>
 <script>
-
+document.addEventListener('DOMContentLoaded', function() {
   //-------------
   // - PIE CHART -
-  //------------- courseEnrolment
-  // Get context with jQuery - using jQuery's .get() method.
+  //-------------
   var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
   var pieData = {
     labels: <?php echo json_encode($courseEnrolment->pieChartLabel) ?>,
     datasets: [
       {
-        data: <?php echo json_encode($courseEnrolment->pieChartData) ?>, // [700, 500, 400, 600, 300, 100],
-        //backgroundColor: ['#dc3545', '#17a2b8', '#28a745', '#ffc107']
+        data: <?php echo json_encode($courseEnrolment->pieChartData) ?>,
         backgroundColor: <?php echo json_encode($courseEnrolment->background_color) ?> 
       }
     ]
   }
   var pieOptions = {
-    legend: {
-      display: false
-    },
+    legend: { display: false },
     offset : 1
   }
-  // Create pie or douhnut chart
-  // You can switch between pie and douhnut using the method below.
-  // eslint-disable-next-line no-unused-vars
   var pieChart = new Chart(pieChartCanvas, {
     type: 'doughnut',
     data: pieData,
     options: pieOptions
   })
-
   //-----------------
   // - END PIE CHART -
   //-----------------
-
+});
 </script>
-
-
 <script>
 
 var barChartData = {
