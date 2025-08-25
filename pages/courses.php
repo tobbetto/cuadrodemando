@@ -214,7 +214,7 @@
 
 
 <script>
-
+document.addEventListener('DOMContentLoaded', function() {
     // Make the dashboard widgets sortable Using jquery UI
     $('.connectedSortable').sortable({
     placeholder: 'sort-highlight',
@@ -232,6 +232,7 @@
     forcePlaceholderSize: true,
     zIndex: 999999
   })
+});
 </script>
 <script>
   $(function () {
@@ -321,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script>
-
+document.addEventListener('DOMContentLoaded', function() {
 var barChartData = {
       labels  :  <?php 
         if (!isset($_GET['courseid'])) { 
@@ -390,10 +391,11 @@ var barChartData = {
       data: stackedBarChartData,
       options: stackedBarChartOptions
     })
+});
   </script>
 
 <script>
-$(function () {
+document.addEventListener('DOMContentLoaded', function() {
   'use strict'
 
   var ticksStyle = {
@@ -483,9 +485,7 @@ $(function () {
       }
     }
   })
-})
-
-
+});
 </script>
 <script>
 <!-- Page specific script -->
@@ -650,6 +650,7 @@ $.extend($.fn.DataTable.defaults, {
   });
 </script>
 <script>
+document.addEventListener('DOMContentLoaded', function() {
 /* Chart.js Charts */
   // Sales chart
   var salesChartCanvas = document.getElementById('time-chart-canvas').getContext('2d')
@@ -728,4 +729,5 @@ $.extend($.fn.DataTable.defaults, {
       }
     }
   })
+});
   </script>
