@@ -131,17 +131,6 @@ class dashboard_controller {
         $PAGE->requires->css('/local/cuadrodemando/assets/scripts/adminlte/adminlte.min.css');
         $PAGE->requires->js('/local/cuadrodemando/assets/scripts/adminlte/adminlte.min.js');
 
-        // Initialization script (no AMD hack needed)
-        $PAGE->requires->js_init_code('
-            $(function() {
-                // Now all libraries are loaded as globals
-                // You can safely use Chart, $.fn.knob, $.fn.sortable, $.fn.DataTable, etc.
-                console.log("Chart.js available:", typeof Chart !== "undefined");
-                console.log("jQuery UI available:", typeof $.fn.sortable !== "undefined");
-                console.log("jQuery Knob available:", typeof $.fn.knob !== "undefined");
-                console.log("DataTables available:", typeof $.fn.DataTable !== "undefined");
-            });
-        ');
     }
     
     /**
