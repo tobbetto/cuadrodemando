@@ -1,40 +1,34 @@
-
+<?php global $DB, $CFG; include_once 'views/getdata/getdata.php'; require_once($CFG->dirroot . '/local/cuadrodemando/classes/navbar_helper.php');?>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
 <?php
-global $DB, $CFG;
-include_once 'views/getdata/getdata.php';
-require_once($CFG->dirroot . '/local/cuadrodemando/classes/navbar_helper.php');
-
-echo html_writer::start_div('content-wrapper');
-
-// Content Header
-echo html_writer::start_tag('section', ['class' => 'content-header']);
-echo html_writer::start_div('container-fluid');
-echo html_writer::start_div('row mb-2');
-echo html_writer::start_div('col-sm-6');
 echo html_writer::start_div('dashboard-wrapper');
 echo \local_cuadrodemando\navbar_helper::render_navbar('courses');
-echo html_writer::start_div('content-wrapper');
-if (isset($_GET['courseid'])) {
-  $course_info = $DB->get_record('course', [ 'id' => $_GET['courseid'] ]);
-  echo html_writer::tag('h1', 'Detalles del curso: <b>' . $course_info->fullname . '</b> ( ' . $course_info->shortname . ' )');
-} else {
-  echo html_writer::tag('h1', 'Vista general de los cursos de ' . date('Y'));
-}
-echo html_writer::end_div(); // content-wrapper
-echo html_writer::end_div(); // dashboard-wrapper
-echo html_writer::end_div(); // col-sm-6
-echo html_writer::start_div('col-sm-6');
-echo html_writer::start_tag('ol', ['class' => 'breadcrumb float-sm-right']);
-echo html_writer::tag('li', html_writer::link($CFG->wwwroot . '/adminlte/', 'Inicio'), ['class' => 'breadcrumb-item']);
-echo html_writer::tag('li', html_writer::link($CFG->wwwroot . '/adminlte/courses', 'Cursos'), ['class' => 'breadcrumb-item active']);
-echo html_writer::end_tag('ol');
-echo html_writer::end_div(); // col-sm-6
-echo html_writer::end_div(); // row mb-2
-echo html_writer::end_div(); // container-fluid
-echo html_writer::end_tag('section');
+echo html_writer::start_div('content-wrapper'); ?>
+          <?php if (isset($_GET['courseid'])) : $course_info = $DB->get_record('course', [ 'id' => $_GET['courseid'] ]); endif ?>
+          <?php if (isset($_GET['courseid'])) : ?>
+            <h1>Detalles del curso: <b><?php echo $course_info->fullname ?></b> ( <?php echo $course_info->shortname ?> )</h1>
+          <?php  else : ?>
+            <h1>Vista general de los cursos de <?php echo date('Y'); ?></h1>
+          <?php  endif ?>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="<?php echo $CFG->wwwroot ?>/adminlte/">Inicio</a></li>
+              <li class="breadcrumb-item active"><a href="<?php echo $CFG->wwwroot ?>/adminlte/courses">Cursos</a></li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
 
-// Main content
-echo html_writer::start_tag('section', ['class' => 'content']);
+        <!-- Main content -->
+        <section class="content">
 
         <?php
 
@@ -55,24 +49,25 @@ echo html_writer::start_tag('section', ['class' => 'content']);
 
         ?>
 
-echo html_writer::start_div('container-fluid');
+      <div class="container-fluid">
 
-// Small boxes (Stat box)
-$hidden = isset($_GET['courseid']) ? 'hidden' : '';
-echo html_writer::start_div('row ' . $hidden);
-// Created Courses
-echo html_writer::start_div('col-lg-3 col-6');
-echo html_writer::start_div('small-box bg-info');
-echo html_writer::start_div('inner');
-echo html_writer::tag('h3', $countCreatedCourses);
-echo html_writer::tag('p', '');
-echo html_writer::end_div(); // inner
-echo html_writer::start_div('icon');
-echo html_writer::tag('i', '', ['class' => 'fas fa-calendar-plus']);
-echo html_writer::end_div(); // icon
-echo html_writer::tag('p', 'Cursos creados (' . date('Y') . ')', ['class' => 'small-box-footer']);
-echo html_writer::end_div(); // small-box
-echo html_writer::end_div(); // col-lg-3 col-6
+        <!-- Small boxes (Stat box) -->
+        <div class="row" <?php if (isset($_GET['courseid'])) : echo 'hidden'; endif ?>>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3><?php echo $countCreatedCourses ?></h3>
+                <p></p>
+              </div>
+              <div class="icon">
+                <!-- <i class="ion ion:school-sharp"><iconify-icon icon="academicons:moodle"></iconify-icon></i> -->
+                <i class="fas fa-calendar-plus"></i>
+              </div>
+              <p class="small-box-footer" >Cursos creados (<?php echo date('Y'); ?>)</p>
+            </div>
+          </div>
+          <!-- ./col -->
 
           <?php
 
@@ -90,19 +85,20 @@ echo html_writer::end_div(); // col-lg-3 col-6
 
           ?>
 
-// Open Courses
-echo html_writer::start_div('col-lg-3 col-6');
-echo html_writer::start_div('small-box bg-success');
-echo html_writer::start_div('inner');
-echo html_writer::tag('h3', $countOpenCourses);
-echo html_writer::tag('p', '');
-echo html_writer::end_div(); // inner
-echo html_writer::start_div('icon');
-echo html_writer::tag('i', '', ['class' => 'fas fa-calendar-check']);
-echo html_writer::end_div(); // icon
-echo html_writer::tag('p', 'Cursos activos (' . date('Y') . ')', ['class' => 'small-box-footer']);
-echo html_writer::end_div(); // small-box
-echo html_writer::end_div(); // col-lg-3 col-6
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3><?php echo $countOpenCourses ?></h3>
+                <p></p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <p class="small-box-footer" >Cursos activos (<?php echo date('Y'); ?>)</p>
+            </div>
+          </div>
+          <!-- ./col -->
 
           <?php
 
@@ -119,19 +115,20 @@ echo html_writer::end_div(); // col-lg-3 col-6
 
             ?>
 
-// Finished Courses
-echo html_writer::start_div('col-lg-3 col-6');
-echo html_writer::start_div('small-box bg-warning');
-echo html_writer::start_div('inner');
-echo html_writer::tag('h3', $countFinishedCourses);
-echo html_writer::tag('p', '');
-echo html_writer::end_div(); // inner
-echo html_writer::start_div('icon');
-echo html_writer::tag('i', '', ['class' => 'fas fa-calendar-xmark']);
-echo html_writer::end_div(); // icon
-echo html_writer::tag('p', 'Cursos finalizados (' . date('Y') . ')', ['class' => 'small-box-footer']);
-echo html_writer::end_div(); // small-box
-echo html_writer::end_div(); // col-lg-3 col-6
+          <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-warning">
+            <div class="inner">
+              <h3><?php echo $countFinishedCourses ?></h3>
+              <p></p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-calendar-xmark"></i>
+            </div>
+            <p class="small-box-footer" >Cursos finalizados (<?php echo date('Y'); ?>)</p>
+          </div>
+          </div>
+          <!-- ./col -->
 
           <?php
 
@@ -156,19 +153,20 @@ echo html_writer::end_div(); // col-lg-3 col-6
 
             ?>
 
-// Average Course Enrolment
-echo html_writer::start_div('col-lg-3 col-6');
-echo html_writer::start_div('small-box bg-primary');
-echo html_writer::start_div('inner');
-echo html_writer::tag('h3', $avgCourseEnrolment);
-echo html_writer::tag('p', '');
-echo html_writer::end_div(); // inner
-echo html_writer::start_div('icon');
-echo html_writer::tag('i', '', ['class' => 'fas fa-users-line']);
-echo html_writer::end_div(); // icon
-echo html_writer::tag('p', 'Media matriculados', ['class' => 'small-box-footer']);
-echo html_writer::end_div(); // small-box
-echo html_writer::end_div(); // col-lg-3 col-6
+            <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+              <div class="inner">
+                <h3><?php echo $avgCourseEnrolment ?></h3>
+                <p></p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-users-line"></i>
+              </div>
+              <p class="small-box-footer" >Media matriculados</p>
+            </div>
+            </div>
+            <!-- ./col -->
 
         </div>
         <!-- /.row -->
@@ -176,42 +174,51 @@ echo html_writer::end_div(); // col-lg-3 col-6
           <!-- Main row -->
 
           <div class="row">
+              <!-- Left col -->
+              <?php if (isset($_GET['courseid'])) : ?>
+                <?php $category_numbers = new adminlte_getdata(); ?> 
+                <?php echo $category_numbers->get_category_numbers($_GET['courseid']); ?>
+              <?php else : ?>
+                <?php $category_numbers = new adminlte_getdata(); ?> 
+                <?php echo $category_numbers->get_category_numbers($id = NULL); ?>
+              <?php endif; ?>
+              <!-- /.Left col -->
 
-      echo html_writer::end_div(); // row
+              <!-- right col (We are only adding the ID to make the widgets sortable)-->
+              <?php if (isset($_GET['courseid'])) : ?>
+                <?php $courseEnrolment = new adminlte_getdata(); ?> 
+                <?php echo $courseEnrolment->get_course_numbers($_GET['courseid']); ?>
+              <?php else : ?>
+                <?php $courseEnrolment = new adminlte_getdata(); ?> 
+                <?php echo $courseEnrolment->get_course_numbers($id = NULL); ?>
+              <?php endif; ?>  
+            <!-- right col -->
+          </div>
+          
+          <div class="row">
+            <!-- Left col -->
+            <?php if (isset($_GET['courseid'])) : ?>
+              <?php $course_data = adminlte_getdata::get_yearly_courses($_GET['courseid']); ?> 
+            <?php else : ?>
+              <?php $course_data = adminlte_getdata::get_yearly_courses($id = NULL); ?> 
+            <?php endif; ?>
+            <?php echo $course_data; ?>
+          </div>
 
-      // Main row
-      echo html_writer::start_div('row');
-      // Left col
-      if (isset($_GET['courseid'])) {
-        $category_numbers = new adminlte_getdata();
-        echo $category_numbers->get_category_numbers($_GET['courseid']);
-      } else {
-        $category_numbers = new adminlte_getdata();
-        echo $category_numbers->get_category_numbers($id = NULL);
-      }
-      // Right col
-      if (isset($_GET['courseid'])) {
-        $courseEnrolment = new adminlte_getdata();
-        echo $courseEnrolment->get_course_numbers($_GET['courseid']);
-      } else {
-        $courseEnrolment = new adminlte_getdata();
-        echo $courseEnrolment->get_course_numbers($id = NULL);
-      }
-      echo html_writer::end_div(); // row
+          <!-- /.row (main row) -->
+          
+      </div>
+      <!-- ./container fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
 
-      echo html_writer::start_div('row');
-      // Left col yearly courses
-      if (isset($_GET['courseid'])) {
-        $course_data = adminlte_getdata::get_yearly_courses($_GET['courseid']);
-      } else {
-        $course_data = adminlte_getdata::get_yearly_courses($id = NULL);
-      }
-      echo $course_data;
-      echo html_writer::end_div(); // row
 
-      echo html_writer::end_div(); // container-fluid
-      echo html_writer::end_tag('section'); // content
-      echo html_writer::end_div(); // content-wrapper
+
+<script>
+// Wait for Chart.js and jQuery to be fully loaded
+(function checkLibraries() {
     if (typeof Chart !== 'undefined' && typeof $ !== 'undefined' && $.fn.sortable) {
         initializeDashboard();
     } else {
