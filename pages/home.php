@@ -48,6 +48,21 @@ echo html_writer::end_tag('section');
 echo html_writer::start_tag('section', array('class' => 'content'));
 echo html_writer::start_div('container-fluid');
 
+// Get monthly data once and set up helper variables
+$monthly_data = Monthly_numbers_json::get_month_numbers();
+if (isset($_GET['month']) && isset($_GET['year'])) {
+    $selected_month = $_GET['month'];
+    $selected_year = $_GET['year'];
+} else {
+    $selected_month = date('m', time());
+    $selected_year = date('Y', time());
+}
+
+// Helper function to safely get monthly data with fallback to 0
+function get_monthly_stat($data, $month, $year, $stat) {
+    return isset($data[$month][$year][$stat]) ? $data[$month][$year][$stat] : 0;
+}
+
 // Small boxes (Stat box) - First row
 echo html_writer::start_div('row');
 
@@ -118,11 +133,7 @@ echo html_writer::start_div('col-lg-3 col-6');
 echo html_writer::start_div('small-box bg-primary');
 echo html_writer::start_div('inner');
 
-if (isset($_GET['month'])) {
-    $completion_info = Monthly_numbers_json::get_month_numbers()[$_GET['month']][$_GET['year']]['totalaccess'];
-} else {
-    $completion_info = Monthly_numbers_json::get_month_numbers()[date('m', time())][date('Y', time())]['totalaccess'];
-}
+$completion_info = get_monthly_stat($monthly_data, $selected_month, $selected_year, 'totalaccess');
 
 echo html_writer::tag('h3', $completion_info);
 echo html_writer::tag('p', ' ');
@@ -165,11 +176,7 @@ echo html_writer::end_div(); // info-box
 echo html_writer::end_div(); // col
 
 // Completions this month
-if (isset($_GET['month'])) {
-    $completion_info = Monthly_numbers_json::get_month_numbers()[$_GET['month']][$_GET['year']]['completions'];
-} else {
-    $completion_info = Monthly_numbers_json::get_month_numbers()[date('m', time())][date('Y', time())]['completions'];
-}
+$completion_info = get_monthly_stat($monthly_data, $selected_month, $selected_year, 'completions');
 
 echo html_writer::start_div('col-md-3 col-sm-6 col-6');
 echo html_writer::start_div('info-box shadow-sm', array('style' => 'min-height: 106.5px'));
@@ -184,11 +191,7 @@ echo html_writer::end_div(); // info-box
 echo html_writer::end_div(); // col
 
 // Registrations this month
-if (isset($_GET['month'])) {
-    $registration_info = Monthly_numbers_json::get_month_numbers()[$_GET['month']][$_GET['year']]['registrations'];
-} else {
-    $registration_info = Monthly_numbers_json::get_month_numbers()[date('m', time())][date('Y', time())]['registrations'];
-}
+$registration_info = get_monthly_stat($monthly_data, $selected_month, $selected_year, 'registrations');
 
 echo html_writer::start_div('col-md-3 col-sm-6 col-6');
 echo html_writer::start_div('info-box shadow-sm', array('style' => 'min-height: 106.5px'));
@@ -203,11 +206,7 @@ echo html_writer::end_div(); // info-box
 echo html_writer::end_div(); // col
 
 // Accesses this month
-if (isset($_GET['month'])) {
-    $access_info = Monthly_numbers_json::get_month_numbers()[$_GET['month']][$_GET['year']]['accesses'];
-} else {
-    $access_info = Monthly_numbers_json::get_month_numbers()[date('m', time())][date('Y', time())]['accesses'];
-}
+$access_info = get_monthly_stat($monthly_data, $selected_month, $selected_year, 'accesses');
 
 echo html_writer::start_div('col-md-3 col-sm-6 col-6');
 echo html_writer::start_div('info-box shadow-sm', array('style' => 'min-height: 106.5px'));
@@ -240,11 +239,7 @@ echo html_writer::end_div(); // info-box
 echo html_writer::end_div(); // col
 
 // Enrollments this month
-if (isset($_GET['month'])) {
-    $enrolment_info = Monthly_numbers_json::get_month_numbers()[$_GET['month']][$_GET['year']]['enrolments'];
-} else {
-    $enrolment_info = Monthly_numbers_json::get_month_numbers()[date('m', time())][date('Y', time())]['enrolments'];
-}
+$enrolment_info = get_monthly_stat($monthly_data, $selected_month, $selected_year, 'enrolments');
 
 echo html_writer::start_div('col-md-3 col-sm-6 col-6');
 echo html_writer::start_div('info-box shadow-sm', array('style' => 'min-height: 106.5px'));
@@ -259,11 +254,7 @@ echo html_writer::end_div(); // info-box
 echo html_writer::end_div(); // col
 
 // Suspensions this month
-if (isset($_GET['month'])) {
-    $suspension_info = Monthly_numbers_json::get_month_numbers()[$_GET['month']][$_GET['year']]['suspensions'];
-} else {
-    $suspension_info = Monthly_numbers_json::get_month_numbers()[date('m', time())][date('Y', time())]['suspensions'];
-}
+$suspension_info = get_monthly_stat($monthly_data, $selected_month, $selected_year, 'suspensions');
 
 echo html_writer::start_div('col-md-3 col-sm-6 col-6');
 echo html_writer::start_div('info-box shadow-sm', array('style' => 'min-height: 106.5px'));
@@ -278,11 +269,7 @@ echo html_writer::end_div(); // info-box
 echo html_writer::end_div(); // col
 
 // Messages this month
-if (isset($_GET['month'])) {
-    $message_info = Monthly_numbers_json::get_month_numbers()[$_GET['month']][$_GET['year']]['messages'];
-} else {
-    $message_info = Monthly_numbers_json::get_month_numbers()[date('m', time())][date('Y', time())]['messages'];
-}
+$message_info = get_monthly_stat($monthly_data, $selected_month, $selected_year, 'messages');
 
 echo html_writer::start_div('col-md-3 col-sm-6 col-6');
 echo html_writer::start_div('info-box shadow-sm', array('style' => 'min-height: 106.5px'));
