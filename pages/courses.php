@@ -25,8 +25,8 @@ echo html_writer::end_div(); // dashboard-wrapper
 echo html_writer::end_div(); // col-sm-6
 echo html_writer::start_div('col-sm-6');
 echo html_writer::start_tag('ol', ['class' => 'breadcrumb float-sm-right']);
-echo html_writer::tag('li', html_writer::link($CFG->wwwroot . '/adminlte/', 'Inicio'), ['class' => 'breadcrumb-item']);
-echo html_writer::tag('li', html_writer::link($CFG->wwwroot . '/adminlte/courses', 'Cursos'), ['class' => 'breadcrumb-item active']);
+echo html_writer::tag('li', html_writer::link($CFG->wwwroot . '/local/cuadrodemando/', 'Inicio'), ['class' => 'breadcrumb-item']);
+echo html_writer::tag('li', html_writer::link($CFG->wwwroot . '/local/cuadrodemando/index.php?page=courses', 'Cursos'), ['class' => 'breadcrumb-item active']);
 echo html_writer::end_tag('ol');
 echo html_writer::end_div(); // col-sm-6
 echo html_writer::end_div(); // row mb-2
