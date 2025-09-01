@@ -390,10 +390,10 @@ var barChartData = {
       labels  :  <?php 
         if (!isset($_GET['courseid'])) { 
           $get_course_categories = adminlte_getdata::get_category_name_number(); 
-          echo  $get_course_categories['name']; 
+          echo  !empty($get_course_categories['name']) ? $get_course_categories['name'] : '[]'; 
         } else { 
           $get_course_categories = adminlte_getdata::get_course_enrolments($_GET['courseid']); 
-          echo $get_course_categories['name']; 
+          echo  !empty($get_course_categories['name']) ? $get_course_categories['name'] : '[]'; 
         } ?>, //['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
         {
@@ -405,7 +405,7 @@ var barChartData = {
           pointStrokeColor    : 'rgba(60,141,188,1)',
           pointHighlightFill  : '#fff',
           pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : <?php echo $get_course_categories['count']; ?> //[28, 48, 40, 19, 86, 27, 90]
+          data                : <?php echo !empty($get_course_categories['count']) ? $get_course_categories['count'] : '[0]'; ?> //[28, 48, 40, 19, 86, 27, 90]
         },
         {
           label               : 'No finalizados',
@@ -416,8 +416,8 @@ var barChartData = {
           pointStrokeColor    : '#c1c7d1',
           pointHighlightFill  : '#fff',
           pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : <?php echo $get_course_categories['students']; ?> //[65, 59, 80, 81, 56, 55, 40]
-        },
+          data                : <?php echo !empty($get_course_categories['students']) ? $get_course_categories['students'] : '[0]'; ?> //[65, 59, 80, 81, 56, 55, 40]
+        }
       ]
     }
 
@@ -501,10 +501,10 @@ function initializeGeoChart() {
       labels: <?php 
         if (!isset($_GET['courseid'])) { 
           $get_course_categories = adminlte_getdata::get_category_name_number(); 
-          echo  $get_course_categories['name']; 
+          echo  !empty($get_course_categories['name']) ? $get_course_categories['name'] : '[]'; 
         } else { 
           $get_course_categories = adminlte_getdata::get_course_enrolments($_GET['courseid']); 
-          echo $get_course_categories['name']; 
+          echo  !empty($get_course_categories['name']) ? $get_course_categories['name'] : '[]'; 
         } ?>, //['JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
       color: '#000',
       datasets: [
@@ -516,7 +516,7 @@ function initializeGeoChart() {
             echo "'# de provincias de los alumnos'" ; 
           } ?>,
           backgroundColor: '#28a745',
-          data: <?php echo $get_course_categories['count']; ?> //[1000, 2000, 3000, 2500, 2700, 2500, 3000]
+          data: <?php echo !empty($get_course_categories['count']) ? $get_course_categories['count'] : '[0]'; ?> //[1000, 2000, 3000, 2500, 2700, 2500, 3000]
         }
         // ,{
         //   backgroundColor: '#ced4da',
