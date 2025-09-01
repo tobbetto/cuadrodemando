@@ -209,6 +209,9 @@ echo html_writer::end_div(); // row
       echo html_writer::end_div(); // content-wrapper
 ?>
 <script>
+// Use a namespace to avoid conflicts and track initialization
+window.coursesPageInitialized = window.coursesPageInitialized || false;
+
 (function checkLibraries() {
     if (typeof Chart !== 'undefined' && typeof $ !== 'undefined' && $.fn.sortable) {
         initializeDashboard();
@@ -218,6 +221,11 @@ echo html_writer::end_div(); // row
 })();
 
 function initializeDashboard() {
+    // Prevent multiple initialization
+    if (window.coursesPageInitialized) {
+        return;
+    }
+    
     // Make the dashboard widgets sortable Using jquery UI
     $('.connectedSortable').sortable({
     placeholder: 'sort-highlight',
@@ -235,12 +243,16 @@ function initializeDashboard() {
     forcePlaceholderSize: true,
     zIndex: 999999
   })
+  
+  window.coursesPageInitialized = true;
 }
 </script>
 <script>
 // Wait for jQuery and jQuery Knob to be loaded before initializing knob elements
+window.knobInitialized = window.knobInitialized || false;
+
 (function checkKnob() {
-    if (typeof jQuery !== 'undefined' && jQuery.fn.knob) {
+    if (typeof jQuery !== 'undefined' && jQuery.fn.knob && !window.knobInitialized) {
         jQuery(function ($) {
             /* jQueryKnob */
 
@@ -296,19 +308,22 @@ function initializeDashboard() {
               }
             })
             /* END JQUERY KNOB */
+            window.knobInitialized = true;
         });
     } else {
         setTimeout(checkKnob, 100);
     }
 })();
 </script>
-</script>
 <script>
 // Wait for Chart.js to be loaded before initializing charts
+window.pieChartInitialized = window.pieChartInitialized || false;
+window.pieChartInstance = window.pieChartInstance || null;
+
 (function checkChart() {
-    if (typeof Chart !== 'undefined') {
+    if (typeof Chart !== 'undefined' && !window.pieChartInitialized) {
         initializePieChart();
-    } else {
+    } else if (typeof Chart === 'undefined') {
         setTimeout(checkChart, 100);
     }
 })();
@@ -319,6 +334,12 @@ function initializePieChart() {
   //-------------
   var pieChartElement = document.getElementById('pieChart');
   if (!pieChartElement) return;
+  
+  // Destroy existing chart if it exists
+  if (window.pieChartInstance) {
+    window.pieChartInstance.destroy();
+  }
+  
   var pieChartCanvas = pieChartElement.getContext('2d');
   
   var pieData = {
@@ -334,11 +355,13 @@ function initializePieChart() {
     legend: { display: false },
     offset : 1
   }
-  var pieChart = new Chart(pieChartCanvas, {
+  window.pieChartInstance = new Chart(pieChartCanvas, {
     type: 'doughnut',
     data: pieData,
     options: pieOptions
   })
+  
+  window.pieChartInitialized = true;
   //-----------------
   // - END PIE CHART -
   //-----------------
@@ -346,15 +369,23 @@ function initializePieChart() {
 </script>
 <script>
 // Wait for Chart.js before initializing bar chart
+window.barChartInitialized = window.barChartInitialized || false;
+window.barChartInstance = window.barChartInstance || null;
+
 (function checkChartForBar() {
-    if (typeof Chart !== 'undefined') {
+    if (typeof Chart !== 'undefined' && !window.barChartInitialized) {
         initializeBarChart();
-    } else {
+    } else if (typeof Chart === 'undefined') {
         setTimeout(checkChartForBar, 100);
     }
 })();
 
 function initializeBarChart() {
+    // Destroy existing chart if it exists
+    if (window.barChartInstance) {
+        window.barChartInstance.destroy();
+    }
+    
 var barChartData = {
       labels  :  <?php 
         if (!isset($_GET['courseid'])) { 
@@ -422,26 +453,36 @@ var barChartData = {
       }
     }
  
-    new Chart(stackedBarChartCanvas, {
+    window.barChartInstance = new Chart(stackedBarChartCanvas, {
       type: 'bar',
       data: stackedBarChartData,
       options: stackedBarChartOptions
     })
+    
+    window.barChartInitialized = true;
 }
   </script>
 
 <script>
 // Wait for Chart.js before initializing geo chart
+window.geoChartInitialized = window.geoChartInitialized || false;
+window.geoChartInstance = window.geoChartInstance || null;
+
 (function checkChartForGeo() {
-    if (typeof Chart !== 'undefined') {
+    if (typeof Chart !== 'undefined' && !window.geoChartInitialized) {
         initializeGeoChart();
-    } else {
+    } else if (typeof Chart === 'undefined') {
         setTimeout(checkChartForGeo, 100);
     }
 })();
 
 function initializeGeoChart() {
   'use strict'
+  
+  // Destroy existing chart if it exists
+  if (window.geoChartInstance) {
+    window.geoChartInstance.destroy();
+  }
 
   var ticksStyle = {
     fontColor: '#FFFFFF',
@@ -454,7 +495,7 @@ function initializeGeoChart() {
   var salesChartElement = document.getElementById('geo-chart-canvas');
   if (!salesChartElement) return;
 
-  var salesChart = new Chart(salesChartElement, {
+  window.geoChartInstance = new Chart(salesChartElement, {
     type: 'bar',
     data: {
       labels: <?php 
@@ -531,6 +572,8 @@ function initializeGeoChart() {
       }
     }
   })
+  
+  window.geoChartInitialized = true;
 }
 </script>
 <script>
@@ -590,9 +633,16 @@ $.extend($.fn.DataTable.defaults, {
 
   $(function () {
     // Wait for DataTables to be loaded before initializing
+    window.dataTableInitialized = window.dataTableInitialized || false;
+    
     (function checkDataTables() {
-        if (typeof jQuery !== 'undefined' && jQuery.fn.DataTable) {
+        if (typeof jQuery !== 'undefined' && jQuery.fn.DataTable && !window.dataTableInitialized) {
             jQuery(function ($) {
+                // Destroy existing DataTable if it exists
+                if ($.fn.DataTable.isDataTable('#enroltable')) {
+                    $('#enroltable').DataTable().destroy();
+                }
+                
                 $("#enroltable").DataTable({
 
                   responsive: true,
@@ -697,8 +747,10 @@ $.extend($.fn.DataTable.defaults, {
       }
 
     }).buttons().container().prependTo('#exportbuttons');
+                
+                window.dataTableInitialized = true;
             });
-        } else {
+        } else if (typeof jQuery === 'undefined' || !jQuery.fn.DataTable) {
             setTimeout(checkDataTables, 100);
         }
     })();
@@ -706,20 +758,27 @@ $.extend($.fn.DataTable.defaults, {
 </script>
 <script>
 // Wait for Chart.js before initializing time chart
+window.timeChartInitialized = window.timeChartInitialized || false;
+window.timeChartInstance = window.timeChartInstance || null;
+
 (function checkChartForTime() {
-    if (typeof Chart !== 'undefined') {
+    if (typeof Chart !== 'undefined' && !window.timeChartInitialized) {
         initializeTimeChart();
-    } else {
+    } else if (typeof Chart === 'undefined') {
         setTimeout(checkChartForTime, 100);
     }
 })();
 
 function initializeTimeChart() {
+  // Destroy existing chart if it exists
+  if (window.timeChartInstance) {
+    window.timeChartInstance.destroy();
+  }
 /* Chart.js Charts */
   // Sales chart
   var salesChartCanvas = document.getElementById('time-chart-canvas').getContext('2d')
   // $('#time-chart').get(0).getContext('2d');
-  var salesChart2 = new Chart(salesChartCanvas, { 
+  window.timeChartInstance = new Chart(salesChartCanvas, { 
     type: 'line',
     data: {
       labels: //['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -793,5 +852,7 @@ function initializeTimeChart() {
       }
     }
   })
+  
+  window.timeChartInitialized = true;
 }
   </script>
