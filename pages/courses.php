@@ -12,7 +12,7 @@ echo html_writer::start_div('container-fluid');
 echo html_writer::start_div('row mb-2');
 echo html_writer::start_div('col-sm-6');
 echo html_writer::start_div('dashboard-wrapper');
-echo \local_cuadrodemando\navbar_helper::render_navbar('courses');
+
 echo html_writer::start_div('content-wrapper');
 if (isset($_GET['courseid'])) {
   $course_info = $DB->get_record('course', [ 'id' => $_GET['courseid'] ]);
@@ -36,8 +36,6 @@ echo html_writer::end_tag('section');
 // Main content
 echo html_writer::start_tag('section', ['class' => 'content']);
 
-        <?php
-
               // Construct the SQL query
               $sql_mysql = "SELECT COUNT(*) 
                             FROM {course} 
@@ -53,7 +51,6 @@ echo html_writer::start_tag('section', ['class' => 'content']);
               // Execute the SQL query
               $countCreatedCourses = $DB->count_records_sql($sql, null);
 
-        ?>
 
 echo html_writer::start_div('container-fluid');
 
@@ -74,7 +71,6 @@ echo html_writer::tag('p', 'Cursos creados (' . date('Y') . ')', ['class' => 'sm
 echo html_writer::end_div(); // small-box
 echo html_writer::end_div(); // col-lg-3 col-6
 
-          <?php
 
             // Get the current date and first of year
             // $currentDate = date('Y-m-d');
@@ -88,7 +84,6 @@ echo html_writer::end_div(); // col-lg-3 col-6
             // Execute the SQL query
             $countOpenCourses = $DB->count_records_sql($sql, null);
 
-          ?>
 
 // Open Courses
 echo html_writer::start_div('col-lg-3 col-6');
@@ -104,7 +99,6 @@ echo html_writer::tag('p', 'Cursos activos (' . date('Y') . ')', ['class' => 'sm
 echo html_writer::end_div(); // small-box
 echo html_writer::end_div(); // col-lg-3 col-6
 
-          <?php
 
             // Get the current date and first of year
             $currentDate = date('Y-m-d');
@@ -116,8 +110,6 @@ echo html_writer::end_div(); // col-lg-3 col-6
             $sql = ($DB->get_dbfamily() === 'oracle') ? $sql_oracle : $sql_mysql;
             // Execute the SQL query
             $countFinishedCourses = $DB->count_records_sql($sql, null);
-
-            ?>
 
 // Finished Courses
 echo html_writer::start_div('col-lg-3 col-6');
@@ -133,7 +125,6 @@ echo html_writer::tag('p', 'Cursos finalizados (' . date('Y') . ')', ['class' =>
 echo html_writer::end_div(); // small-box
 echo html_writer::end_div(); // col-lg-3 col-6
 
-          <?php
 
             // Construct the SQL query
 
@@ -154,7 +145,6 @@ echo html_writer::end_div(); // col-lg-3 col-6
             $avgCourseEnrolment = $DB->count_records_sql($sql, null);
             //$avgCourseEnrolment = $DB->execute($sql, $params_array);($sql, null);
 
-            ?>
 
 // Average Course Enrolment
 echo html_writer::start_div('col-lg-3 col-6');
@@ -170,14 +160,13 @@ echo html_writer::tag('p', 'Media matriculados', ['class' => 'small-box-footer']
 echo html_writer::end_div(); // small-box
 echo html_writer::end_div(); // col-lg-3 col-6
 
-        </div>
-        <!-- /.row -->
+echo html_writer::end_div(); // row
+echo html_writer::comment('/.row');
 
-          <!-- Main row -->
+echo html_writer::comment('Main row');
+echo html_writer::start_div('row');
 
-          <div class="row">
-
-      echo html_writer::end_div(); // row
+echo html_writer::end_div(); // row
 
       // Main row
       echo html_writer::start_div('row');
@@ -212,6 +201,9 @@ echo html_writer::end_div(); // col-lg-3 col-6
       echo html_writer::end_div(); // container-fluid
       echo html_writer::end_tag('section'); // content
       echo html_writer::end_div(); // content-wrapper
+?>
+<script>
+(function checkLibraries() {
     if (typeof Chart !== 'undefined' && typeof $ !== 'undefined' && $.fn.sortable) {
         initializeDashboard();
     } else {
