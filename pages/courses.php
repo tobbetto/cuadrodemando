@@ -590,47 +590,6 @@ function initializeGeoChart() {
   </script>
 
 <script>
-  // Invoke Buttons plugin (Bfrtip...)
-$.extend($.fn.DataTable.defaults, {
-  buttons: [
-            {
-                extend:    'copyHtml5',
-                text:      '<i class="fas fa-copy"></i>',
-                titleAttr: 'Copiar tabla'
-            },
-            {
-                extend:    'csvHtml5',
-                text:      '<i class="fas fa-file-csv"></i>',
-                titleAttr: 'Exportar CSV'
-            },
-            {
-                extend:    'excelHtml5',
-                text:      '<i class="fas fa-file-excel"></i>',
-                titleAttr: 'Exportar Excel'
-            },
-            {
-              extend: 'pdfHtml5',
-              orientation: 'landscape',
-              text: '<i class="fas fa-file-pdf"></i>',
-              titleAttr: 'Exportar PDF'
-            },
-            {
-              extend: 'pdfHtml5',
-              orientation: 'landscape',
-              text: '<i class="fas fa-print"></i>',
-              download: 'open',
-              titleAttr: 'Imprimir tabla'
-            },
-            'colvis'
-          ],
-          language: {
-            //url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
-            buttons: {
-                colvis: 'Filtrar columnas'
-            }
-        }
-});
-
   $(function () {
     // Wait for DataTables to be loaded before initializing
     window.dataTableInitialized = window.dataTableInitialized || false;
@@ -638,6 +597,47 @@ $.extend($.fn.DataTable.defaults, {
     (function checkDataTables() {
         if (typeof jQuery !== 'undefined' && jQuery.fn.DataTable && !window.dataTableInitialized) {
             jQuery(function ($) {
+                // Set DataTable defaults only after DataTable is loaded
+                $.extend($.fn.DataTable.defaults, {
+                  buttons: [
+                            {
+                                extend:    'copyHtml5',
+                                text:      '<i class="fas fa-copy"></i>',
+                                titleAttr: 'Copiar tabla'
+                            },
+                            {
+                                extend:    'csvHtml5',
+                                text:      '<i class="fas fa-file-csv"></i>',
+                                titleAttr: 'Exportar CSV'
+                            },
+                            {
+                                extend:    'excelHtml5',
+                                text:      '<i class="fas fa-file-excel"></i>',
+                                titleAttr: 'Exportar Excel'
+                            },
+                            {
+                              extend: 'pdfHtml5',
+                              orientation: 'landscape',
+                              text: '<i class="fas fa-file-pdf"></i>',
+                              titleAttr: 'Exportar PDF'
+                            },
+                            {
+                              extend: 'pdfHtml5',
+                              orientation: 'landscape',
+                              text: '<i class="fas fa-print"></i>',
+                              download: 'open',
+                              titleAttr: 'Imprimir tabla'
+                            },
+                            'colvis'
+                          ],
+                          language: {
+                            //url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                            buttons: {
+                                colvis: 'Filtrar columnas'
+                            }
+                        }
+                });
+                
                 // Destroy existing DataTable if it exists
                 if ($.fn.DataTable.isDataTable('#enroltable')) {
                     $('#enroltable').DataTable().destroy();
