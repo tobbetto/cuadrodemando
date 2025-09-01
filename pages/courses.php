@@ -209,6 +209,16 @@ echo html_writer::end_div(); // row
       echo html_writer::end_div(); // content-wrapper
 ?>
 <script>
+// Fix for RequireJS/AMD conflicts - disable AMD detection temporarily
+if (typeof define === 'function' && define.amd) {
+    var originalDefine = define;
+    define = undefined;
+    window.requirejsVars = {
+        originalDefine: originalDefine
+    };
+}
+</script>
+<script>
 // Use a namespace to avoid conflicts and track initialization
 window.coursesPageInitialized = window.coursesPageInitialized || false;
 
@@ -856,3 +866,10 @@ function initializeTimeChart() {
   window.timeChartInitialized = true;
 }
   </script>
+<script>
+// Restore RequireJS if it was originally present
+if (window.requirejsVars && window.requirejsVars.originalDefine) {
+    define = window.requirejsVars.originalDefine;
+    delete window.requirejsVars;
+}
+</script>
