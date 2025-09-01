@@ -4,6 +4,12 @@ global $DB, $CFG;
 include_once 'views/getdata/getdata.php';
 require_once($CFG->dirroot . '/local/cuadrodemando/classes/navbar_helper.php');
 
+echo html_writer::start_div('dashboard-wrapper');
+
+// Use navbar helper
+echo \local_cuadrodemando\navbar_helper::render_navbar('courses');
+
+// Content Wrapper
 echo html_writer::start_div('content-wrapper');
 
 // Content Header
