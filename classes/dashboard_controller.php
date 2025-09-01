@@ -67,7 +67,7 @@ class dashboard_controller {
         require_capability('local/cuadrodemando:view', $context);
         
         $PAGE->set_context($context);
-        $PAGE->set_url("/local/cuadrodemando/{$page}.php");
+        $PAGE->set_url("/local/cuadrodemando/index.php", ['page' => $page]);
         $PAGE->set_title(get_string($page, 'local_cuadrodemando'));
         $PAGE->set_heading(get_string($page, 'local_cuadrodemando'));
         $PAGE->set_pagelayout('admin');
