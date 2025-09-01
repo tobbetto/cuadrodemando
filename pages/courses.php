@@ -161,9 +161,9 @@ echo html_writer::end_div(); // small-box
 echo html_writer::end_div(); // col-lg-3 col-6
 
 echo html_writer::end_div(); // row
-echo html_writer::comment('/.row');
+echo '<!-- /.row -->';
 
-echo html_writer::comment('Main row');
+echo '<!-- Main row -->';
 echo html_writer::start_div('row');
 
 echo html_writer::end_div(); // row
