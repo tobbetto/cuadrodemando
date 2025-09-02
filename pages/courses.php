@@ -1,13 +1,5 @@
 
 <?php
-echo '<script>';
-echo 'if (typeof define === "function" && define.amd) {';
-echo '    var originalDefine = define;';
-echo '    define = undefined;';
-echo '    window.requirejsVars = { originalDefine: originalDefine };';
-echo '}';
-echo '</script>';
-
 
 global $DB, $CFG;
 include_once 'views/getdata/getdata.php';
@@ -875,12 +867,3 @@ function initializeTimeChart() {
   window.timeChartInitialized = true;
 }
   </script>
-<script>
-<?php
-echo '<script>';
-echo 'if (window.requirejsVars && window.requirejsVars.originalDefine) {';
-echo '    define = window.requirejsVars.originalDefine;';
-echo '    delete window.requirejsVars;';
-echo '}';
-echo '</script>';
-?>
