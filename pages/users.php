@@ -65,43 +65,6 @@ echo \local_cuadrodemando\navbar_helper::render_navbar('users');
 // Content Wrapper
 echo html_writer::start_div('content-wrapper');
 
-// Content Header
-echo html_writer::start_tag('section', ['class' => 'content-header']);
-echo html_writer::start_div('container-fluid');
-echo html_writer::start_div('row mb-2');
-echo html_writer::start_div('col-sm-6');
-
-// Check if viewing specific user
-if (isset($_GET['userid'])) {
-    $user_info = $DB->get_record('user', ['id' => $_GET['userid']]);
-    $username = $user_info->firstname . ' ' . $user_info->lastname;
-    
-    if (isset($_GET['roleid']) && $_GET['roleid'] == 5) {
-        echo html_writer::tag('h1', get_string('userdetails_student', 'local_cuadrodemando', html_writer::tag('b', $username)));
-    } elseif (isset($_GET['roleid']) && $_GET['roleid'] == 3) {
-        echo html_writer::tag('h1', get_string('userdetails_teacher', 'local_cuadrodemando', html_writer::tag('b', $username)));
-    } else {
-        echo html_writer::tag('h1', get_string('userdetails_user', 'local_cuadrodemando', html_writer::tag('b', $username)));
-    }
-} else {
-    echo html_writer::tag('h1', get_string('users_overview', 'local_cuadrodemando'));
-}
-
-echo html_writer::end_div();
-echo html_writer::start_div('col-sm-6');
-echo html_writer::start_tag('ol', ['class' => 'breadcrumb float-sm-right']);
-echo html_writer::start_tag('li', ['class' => 'breadcrumb-item']);
-echo html_writer::link($CFG->wwwroot . '/local/cuadrodemando/', get_string('home', 'local_cuadrodemando'));
-echo html_writer::end_tag('li');
-echo html_writer::start_tag('li', ['class' => 'breadcrumb-item active']);
-echo html_writer::link($CFG->wwwroot . '/local/cuadrodemando/users', get_string('users', 'local_cuadrodemando'));
-echo html_writer::end_tag('li');
-echo html_writer::end_tag('ol');
-echo html_writer::end_div();
-echo html_writer::end_div();
-echo html_writer::end_div();
-echo html_writer::end_tag('section');
-
 // Main content
 echo html_writer::start_tag('section', ['class' => 'content']);
 echo html_writer::start_div('container-fluid');
