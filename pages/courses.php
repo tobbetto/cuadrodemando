@@ -60,7 +60,6 @@ echo html_writer::start_div('container-fluid');
 echo html_writer::start_div('row mb-2');
 echo html_writer::start_div('col-sm-6');
 
-echo html_writer::start_div('content-wrapper');
 if (isset($_GET['courseid'])) {
   $course_info = $DB->get_record('course', [ 'id' => $_GET['courseid'] ]);
   echo html_writer::tag('h1', get_string('coursedetails', 'local_cuadrodemando', $course_info->fullname . ' (' . $course_info->shortname . ')'));
