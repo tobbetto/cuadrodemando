@@ -1,4 +1,13 @@
 
+
+echo '<script>';
+echo 'if (typeof define === "function" && define.amd) {';
+echo '    var originalDefine = define;';
+echo '    define = undefined;';
+echo '    window.requirejsVars = { originalDefine: originalDefine };';
+echo '}';
+echo '</script>';
+
 <?php
 global $DB, $CFG;
 include_once 'views/getdata/getdata.php';
@@ -867,9 +876,10 @@ function initializeTimeChart() {
 }
   </script>
 <script>
-// Restore RequireJS if it was originally present
-if (window.requirejsVars && window.requirejsVars.originalDefine) {
-    define = window.requirejsVars.originalDefine;
-    delete window.requirejsVars;
-}
-</script>
+<?php
+echo '<script>';
+echo 'if (window.requirejsVars && window.requirejsVars.originalDefine) {';
+echo '    define = window.requirejsVars.originalDefine;';
+echo '    delete window.requirejsVars;';
+echo '}';
+echo '</script>';
