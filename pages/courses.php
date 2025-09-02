@@ -49,9 +49,9 @@ echo html_writer::start_div('dashboard-wrapper');
 // Generate custom title based on whether we're viewing a specific course
 if (isset($_GET['courseid'])) {
     $course_info = $DB->get_record('course', ['id' => $_GET['courseid']]);
-    $custom_title = 'Detalles del curso ' . $course_info->fullname . ' (' . $course_info->shortname . ')';
+    $custom_title = get_string('coursedetails', 'local_cuadrodemando') . ' ' . $course_info->fullname . ' (' . $course_info->shortname . ')';
 } else {
-    $custom_title = 'Vista general de los cursos ' . date('Y');
+    $custom_title = get_string('coursesoverview', 'local_cuadrodemando') . ' ' . date('Y');
 }
 
 // Use navbar helper with custom title
@@ -542,9 +542,9 @@ function initializeGeoChart() {
         {
           label: <?php
           if (!isset($_GET['courseid'])) { 
-            echo "'# de cursos en categoría'" ;
+            echo "'" . get_string('numbercoursesincategory', 'local_cuadrodemando') . "'" ;
           } else {
-            echo "'# de provincias de los alumnos'" ; 
+            echo "'" . get_string('numberstudentprovinces', 'local_cuadrodemando') . "'" ; 
           } ?>,
           backgroundColor: '#28a745',
           data: <?php echo !empty($get_course_categories['count']) ? $get_course_categories['count'] : '[0]'; ?> //[1000, 2000, 3000, 2500, 2700, 2500, 3000]
@@ -634,37 +634,37 @@ function initializeGeoChart() {
                             {
                                 extend:    'copyHtml5',
                                 text:      '<i class="fas fa-copy"></i>',
-                                titleAttr: 'Copiar tabla'
+                                titleAttr: get_string('copytable', 'local_cuadrodemando')
                             },
                             {
                                 extend:    'csvHtml5',
                                 text:      '<i class="fas fa-file-csv"></i>',
-                                titleAttr: 'Exportar CSV'
+                                titleAttr: get_string('exportcsv', 'local_cuadrodemando')
                             },
                             {
                                 extend:    'excelHtml5',
                                 text:      '<i class="fas fa-file-excel"></i>',
-                                titleAttr: 'Exportar Excel'
+                                titleAttr: get_string('exportexcel', 'local_cuadrodemando')
                             },
                             {
                               extend: 'pdfHtml5',
                               orientation: 'landscape',
                               text: '<i class="fas fa-file-pdf"></i>',
-                              titleAttr: 'Exportar PDF'
+                              titleAttr: get_string('exportpdf', 'local_cuadrodemando')
                             },
                             {
                               extend: 'pdfHtml5',
                               orientation: 'landscape',
                               text: '<i class="fas fa-print"></i>',
                               download: 'open',
-                              titleAttr: 'Imprimir tabla'
+                              titleAttr: get_string('printtable', 'local_cuadrodemando')
                             },
                             'colvis'
                           ],
                           language: {
                             //url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
                             buttons: {
-                                colvis: 'Filtrar columnas'
+                                colvis: get_string('filtercolumns', 'local_cuadrodemando')
                             }
                         }
                 });
@@ -680,11 +680,11 @@ function initializeGeoChart() {
                   lengthChange: true,
                   autoWidth: false,
                   processing: true,
-                  lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "Todos"] ],
+                  lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, get_string('all', 'local_cuadrodemando')] ],
                   language: {
-        "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+        "info": get_string('showingrecords', 'local_cuadrodemando'),
         "datetime": {
-        "previous": "Anterior",
+        "previous": get_string('previous', 'local_cuadrodemando'),
         "next": "Proximo",
         "hours": "Horas",
         "minutes": "Minutos",
@@ -695,51 +695,51 @@ function initializeGeoChart() {
           "PM"
         ],
         "months": {
-          "0": "Enero",
-          "1": "Febrero",
-          "2": "Marzo",
-          "3": "Abril",
-          "4": "Mayo",
-          "5": "Junio",
-          "6": "Julio",
-          "7": "Agosto",
-          "8": "Septiembre",
-          "9": "Octubre",
-          "10": "Noviembre",
-          "11": "Diciembre"
+          "0": get_string('january', 'local_cuadrodemando'),
+          "1": get_string('february', 'local_cuadrodemando'),
+          "2": get_string('march', 'local_cuadrodemando'),
+          "3": get_string('april', 'local_cuadrodemando'),
+          "4": get_string('may', 'local_cuadrodemando'),
+          "5": get_string('june', 'local_cuadrodemando'),
+          "6": get_string('july', 'local_cuadrodemando'),
+          "7": get_string('august', 'local_cuadrodemando'),
+          "8": get_string('september', 'local_cuadrodemando'),
+          "9": get_string('october', 'local_cuadrodemando'),
+          "10": get_string('november', 'local_cuadrodemando'),
+          "11": get_string('december', 'local_cuadrodemando')
         },
         "weekdays": [
-          "Dom",
-          "Lun",
-          "Mar",
-          "Mie",
-          "Jue",
-          "Vie",
-          "Sab"
+          get_string('sunday', 'local_cuadrodemando'),
+          get_string('monday', 'local_cuadrodemando'),
+          get_string('tuesday', 'local_cuadrodemando'),
+          get_string('wednesday', 'local_cuadrodemando'),
+          get_string('thursday', 'local_cuadrodemando'),
+          get_string('friday', 'local_cuadrodemando'),
+          get_string('saturday', 'local_cuadrodemando')
         ]
       },
       "paginate": {
-        "first": "Primero",
-        "last": "Último",
-        "next": "Siguiente",
-        "previous": "Anterior"
+        "first": get_string('first', 'local_cuadrodemando'),
+        "last": get_string('last', 'local_cuadrodemando'),
+        "next": get_string('next', 'local_cuadrodemando'),
+        "previous": get_string('previous', 'local_cuadrodemando')
       },
       "buttons": {
-        "copy": "Copiar",
-        "colvis": "Ocultar columnas",
-        "collection": "Colección",
-        "colvisRestore": "Restaurar visibilidad",
-        "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br /> <br /> Para cancelar, haga clic en este mensaje o presione escape.",
+        "copy": get_string('copy', 'local_cuadrodemando'),
+        "colvis": get_string('hidecolumns', 'local_cuadrodemando'),
+        "collection": get_string('collection', 'local_cuadrodemando'),
+        "colvisRestore": get_string('restorevisibility', 'local_cuadrodemando'),
+        "copyKeys": get_string('copykeys', 'local_cuadrodemando'),
         "copySuccess": {
-          "1": "Copiada 1 fila al portapapeles",
-          "_": "Copiadas %ds fila al portapapeles"
+          "1": get_string('copyrow', 'local_cuadrodemando'),
+          "_": get_string('copyrows', 'local_cuadrodemando')
         },
-        "copyTitle": "Copiar al portapapeles",
+        "copyTitle": get_string('copytitle', 'local_cuadrodemando'),
         "csv": "CSV",
         "excel": "Excel",
         "pageLength": {
-          "-1": "Mostrar todas las filas",
-          "_": "Mostrar %d filas"
+          "-1": get_string('showallrows', 'local_cuadrodemando'),
+          "_": get_string('showrows', 'local_cuadrodemando')
         },
         "pdf": "PDF",
         "print": "Imprimir",
@@ -752,28 +752,28 @@ function initializeGeoChart() {
         "stateRestore": "Estado %d"
       },
       "searchPanes": {
-        "clearMessage": "Borrar todo",
+        "clearMessage": get_string('clearmessage', 'local_cuadrodemando'),
         "collapse": {
-          "0": "Paneles de búsqueda",
-          "_": "Paneles de búsqueda (%d)"
+          "0": get_string('searchpanes', 'local_cuadrodemando'),
+          "_": get_string('searchpanesplural', 'local_cuadrodemando')
         },
         "count": "{total}",
         "countFiltered": "{shown} ({total})",
-        "emptyPanes": "Sin paneles de búsqueda",
-        "loadMessage": "Cargando paneles de búsqueda",
-        "title": "Filtros Activos - %d",
-        "showMessage": "Mostrar Todo",
-        "collapseMessage": "Colapsar Todo"
+        "emptyPanes": get_string('emptypanes', 'local_cuadrodemando'),
+        "loadMessage": get_string('loadmessage', 'local_cuadrodemando'),
+        "title": get_string('title', 'local_cuadrodemando'),
+        "showMessage": get_string('showmessage', 'local_cuadrodemando'),
+        "collapseMessage": get_string('collapsemessage', 'local_cuadrodemando'),
       },
-      "processing": "Procesando...",
-      "lengthMenu": "Mostrar _MENU_ registros",
-      "zeroRecords": "No se encontraron resultados",
-      "emptyTable": "Ningún dato disponible en esta tabla",
-      "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-      "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-      "search": "Buscar:",
+      "processing": get_string('processing', 'local_cuadrodemando'),
+      "lengthMenu": get_string('lengthmenu', 'local_cuadrodemando'),
+      "zeroRecords": get_string('zerorecords', 'local_cuadrodemando'),
+      "emptyTable": get_string('emptytable', 'local_cuadrodemando'),
+      "infoEmpty": get_string('infoempty', 'local_cuadrodemando'),
+      "infoFiltered": get_string('infofiltered', 'local_cuadrodemando'),
+      "search": get_string('search', 'local_cuadrodemando'),
       "infoThousands": ",",
-      "loadingRecords": "Cargando...",
+      "loadingRecords": get_string('loadingrecords', 'local_cuadrodemando'),
       //  url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
       }
 
@@ -823,7 +823,7 @@ function initializeTimeChart() {
                   } ?>, 
       datasets: [
         {
-          label: 'Media de Finalización en días',
+          label: get_string('averagecompletionindays', 'local_cuadrodemando'),
           backgroundColor: 'rgba(60,141,188,0.9)',
           borderColor: 'rgba(60,141,188,0.8)',
           pointRadius: false,
@@ -842,7 +842,7 @@ function initializeTimeChart() {
           //data: [28, 48, 40, 19, 86, 27, 90]
         },
         {
-          label: 'Finalización en días',
+          label: get_string('completionindays', 'local_cuadrodemando'),
           backgroundColor: 'rgba(210, 214, 222, 1)',
           borderColor: 'rgba(210, 214, 222, 1)',
           pointRadius: false,

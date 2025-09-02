@@ -141,3 +141,80 @@ $string['messagesthismonth'] = 'Skilaboð þennan mánuð:';
 $string['nomessagesthismonth'] = 'Engin skilaboð þennan mánuð 😭';
 $string['calendar'] = 'Dagatal';
 $string['noopensessions'] = 'Engar opnar lotur';
+
+// Courses.php strings
+$string['coursedetails'] = 'Námskeiðsupplýsingar';
+$string['coursesoverview'] = 'Yfirlit yfir námskeið';
+$string['numbercoursesincategory'] = '# af námskeiðum í flokki';
+$string['numberstudentprovinces'] = '# af nemendasýslum';
+$string['averagecompletionindays'] = 'Meðalending lokunar í dögum';
+$string['completionindays'] = 'Lokin í dögum';
+
+// DataTables strings
+$string['copytable'] = 'Afrita töflu';
+$string['exportcsv'] = 'Flytja út CSV';
+$string['exportexcel'] = 'Flytja út Excel';
+$string['exportpdf'] = 'Flytja út PDF';
+$string['printtable'] = 'Prenta töflu';
+$string['filtercolumns'] = 'Sía dálka';
+$string['showingrecords'] = 'Sýni _START_ til _END_ af _TOTAL_ færslum';
+$string['previous'] = 'Fyrri';
+$string['first'] = 'Fyrsta';
+$string['last'] = 'Síðasta';
+$string['next'] = 'Næsta';
+$string['copy'] = 'Afrita';
+$string['hidecolumns'] = 'Fela dálka';
+$string['collection'] = 'Safn';
+$string['restorevisibility'] = 'Endurheimta sýnileika';
+$string['copykeys'] = 'Ýttu á ctrl eða ⌘ + C til að afrita töflugögnin í klippiborðið þitt.<br /><br />Til að hætta við, smelltu á þessi skilaboð eða ýttu á escape.';
+$string['copytitle'] = 'Afrita í klippiborð';
+$string['csv'] = 'CSV';
+$string['excel'] = 'Excel';
+$string['showallrows'] = 'Sýna allar raðir';
+$string['showrows'] = 'Sýna %d raðir';
+$string['pdf'] = 'PDF';
+$string['print'] = 'Prenta';
+$string['processing'] = 'Vinnur...';
+$string['lengthmenu'] = 'Sýna _MENU_ færslur';
+$string['zerorecords'] = 'Engar samsvarandi færslur fundust';
+$string['emptytable'] = 'Engin gögn tiltæk í töflu';
+$string['infoempty'] = 'Sýni 0 til 0 af 0 færslum';
+$string['infofiltered'] = '(síað frá _MAX_ samtals færslum)';
+$string['search'] = 'Leita:';
+$string['loadingrecords'] = 'Hleður...';
+$string['copyrow'] = 'Afrita 1 röð í klippiborð';
+$string['copyrows'] = 'Afrita %d raðir í klippiborð';
+
+// Viðbótar DataTables strengir
+$string['loadmessage'] = 'Hleður leitarsvæðum';
+$string['showmessage'] = 'Sýna allt';
+$string['emptypanes'] = 'Engin leitarsvæði';
+$string['title'] = 'Virkir síur - %d';
+$string['collapsemessage'] = 'Fella allt saman';
+$string['clearmessage'] = 'Hreinsa allt';
+$string['searchpanes'] = 'Leitarsvæði';
+$string['searchpanesplural'] = 'Leitarsvæði (%d)';
+$string['all'] = 'Allt';
+
+// Mánuðir fyrir alþjóðavæðingu DataTables
+$string['january'] = 'Janúar';
+$string['february'] = 'Febrúar';
+$string['march'] = 'Mars';
+$string['april'] = 'Apríl';
+$string['may'] = 'Maí';
+$string['june'] = 'Júní';
+$string['july'] = 'Júlí';
+$string['august'] = 'Ágúst';
+$string['september'] = 'September';
+$string['october'] = 'Október';
+$string['november'] = 'Nóvember';
+$string['december'] = 'Desember';
+
+// Vikudagar fyrir alþjóðavæðingu DataTables
+$string['sunday'] = 'Sun';
+$string['monday'] = 'Mán';
+$string['tuesday'] = 'Þri';
+$string['wednesday'] = 'Mið';
+$string['thursday'] = 'Fim';
+$string['friday'] = 'Fös';
+$string['saturday'] = 'Lau';

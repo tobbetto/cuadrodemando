@@ -180,8 +180,8 @@ $string['login_statistics'] = 'Login statistics';
 $string['user_changes'] = 'User changes';
 
 // Course details
-$string['coursedetails'] = 'Course details: {$a}';
-$string['coursesoverview'] = 'Courses overview for {$a}';
+$string['coursedetails'] = 'Course details';
+$string['coursesoverview'] = 'Courses overview';
 $string['coursescreated'] = 'Courses created ({$a})';
 $string['coursesactive'] = 'Active courses ({$a})';
 $string['coursesfinished'] = 'Finished courses ({$a})';
@@ -238,3 +238,68 @@ $string['nosuspensionsthismonth'] = 'No suspensions this month 😀';
 $string['messagesthismonth'] = 'Messages this month:';
 $string['nomessagesthismonth'] = 'No messages this month 😭';
 $string['calendar'] = 'Calendar';
+
+// DataTables strings
+$string['copytable'] = 'Copy table';
+$string['exportcsv'] = 'Export CSV';
+$string['exportexcel'] = 'Export Excel';
+$string['exportpdf'] = 'Export PDF';
+$string['printtable'] = 'Print table';
+$string['filtercolumns'] = 'Filter columns';
+$string['showingrecords'] = 'Showing _START_ to _END_ of _TOTAL_ records';
+$string['previous'] = 'Previous';
+$string['first'] = 'First';
+$string['last'] = 'Last';
+$string['next'] = 'Next';
+$string['copy'] = 'Copy';
+$string['hidecolumns'] = 'Hide columns';
+$string['collection'] = 'Collection';
+$string['restorevisibility'] = 'Restore visibility';
+$string['copykeys'] = 'Press ctrl or ⌘ + C to copy the table data to your system clipboard.<br /><br />To cancel, click this message or press escape.';
+$string['copytitle'] = 'Copy to clipboard';
+$string['csv'] = 'CSV';
+$string['excel'] = 'Excel';
+$string['showallrows'] = 'Show all rows';
+$string['showrows'] = 'Show %d rows';
+$string['pdf'] = 'PDF';
+$string['print'] = 'Print';
+$string['processing'] = 'Processing...';
+$string['lengthmenu'] = 'Show _MENU_ entries per page';
+$string['zerorecords'] = 'No matching records found';
+$string['emptytable'] = 'No data available in table';
+$string['infoempty'] = 'Showing 0 to 0 of 0 entries';
+$string['infofiltered'] = '(filtered from _MAX_ total entries)';
+$string['search'] = 'Search:';
+$string['loadingrecords'] = 'Loading...';
+$string['loadmessage'] = 'Loading search panes';
+$string['showmessage'] = 'Show All';
+$string['emptypanes'] = 'No search panes';
+$string['title'] = 'Active Filters - %d';
+$string['collapsemessage'] = 'Collapse All';
+$string['clearmessage'] = 'Clear all';
+$string['searchpanes'] = 'Search Panes';
+$string['searchpanesplural'] = 'Search Panes (%d)';
+$string['all'] = 'All';
+
+// Month names for DataTables internationalization
+$string['january'] = 'January';
+$string['february'] = 'February';
+$string['march'] = 'March';
+$string['april'] = 'April';
+$string['may'] = 'May';
+$string['june'] = 'June';
+$string['july'] = 'July';
+$string['august'] = 'August';
+$string['september'] = 'September';
+$string['october'] = 'October';
+$string['november'] = 'November';
+$string['december'] = 'December';
+
+// Weekday abbreviations for DataTables internationalization
+$string['sunday'] = 'Sun';
+$string['monday'] = 'Mon';
+$string['tuesday'] = 'Tue';
+$string['wednesday'] = 'Wed';
+$string['thursday'] = 'Thu';
+$string['friday'] = 'Fri';
+$string['saturday'] = 'Sat';
