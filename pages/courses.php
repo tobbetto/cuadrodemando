@@ -2,6 +2,8 @@
 
 <?php
 
+defined('MOODLE_INTERNAL') || die();
+
 // Disable AMD/RequireJS before loading third-party scripts
 echo '<script>';
 echo 'if (typeof define === "function" && define.amd) {';
@@ -57,18 +59,15 @@ echo html_writer::start_tag('section', ['class' => 'content-header']);
 echo html_writer::start_div('container-fluid');
 echo html_writer::start_div('row mb-2');
 echo html_writer::start_div('col-sm-6');
-echo html_writer::start_div('dashboard-wrapper');
 
 echo html_writer::start_div('content-wrapper');
 if (isset($_GET['courseid'])) {
   $course_info = $DB->get_record('course', [ 'id' => $_GET['courseid'] ]);
-  echo html_writer::tag('h1', 'Detalles del curso: <b>' . $course_info->fullname . '</b> ( ' . $course_info->shortname . ' )');
+  echo html_writer::tag('h1', get_string('coursedetails', 'local_cuadrodemando', $course_info->fullname . ' (' . $course_info->shortname . ')'));
 } else {
-  echo html_writer::tag('h1', 'Vista general de los cursos de ' . date('Y'));
+  echo html_writer::tag('h1', get_string('coursesoverview', 'local_cuadrodemando', date('Y')));
 }
 echo html_writer::end_div(); // content-wrapper
-echo html_writer::end_div(); // dashboard-wrapper
-echo html_writer::end_div(); // col-sm-6
 echo html_writer::start_div('col-sm-6');
 echo html_writer::start_tag('ol', ['class' => 'breadcrumb float-sm-right']);
 //echo html_writer::tag('li', html_writer::link($CFG->wwwroot . '/adminlte/', 'Inicio'), ['class' => 'breadcrumb-item']);
@@ -113,7 +112,7 @@ echo html_writer::end_div(); // inner
 echo html_writer::start_div('icon');
 echo html_writer::tag('i', '', ['class' => 'fas fa-calendar-plus']);
 echo html_writer::end_div(); // icon
-echo html_writer::tag('p', 'Cursos creados (' . date('Y') . ')', ['class' => 'small-box-footer']);
+echo html_writer::tag('p', get_string('coursescreated', 'local_cuadrodemando', date('Y')), ['class' => 'small-box-footer']);
 echo html_writer::end_div(); // small-box
 echo html_writer::end_div(); // col-lg-3 col-6
 
@@ -141,7 +140,7 @@ echo html_writer::end_div(); // inner
 echo html_writer::start_div('icon');
 echo html_writer::tag('i', '', ['class' => 'fas fa-calendar-check']);
 echo html_writer::end_div(); // icon
-echo html_writer::tag('p', 'Cursos activos (' . date('Y') . ')', ['class' => 'small-box-footer']);
+echo html_writer::tag('p', get_string('coursesactive', 'local_cuadrodemando', date('Y')), ['class' => 'small-box-footer']);
 echo html_writer::end_div(); // small-box
 echo html_writer::end_div(); // col-lg-3 col-6
 
@@ -167,7 +166,7 @@ echo html_writer::end_div(); // inner
 echo html_writer::start_div('icon');
 echo html_writer::tag('i', '', ['class' => 'fas fa-calendar-xmark']);
 echo html_writer::end_div(); // icon
-echo html_writer::tag('p', 'Cursos finalizados (' . date('Y') . ')', ['class' => 'small-box-footer']);
+echo html_writer::tag('p', get_string('coursesfinished', 'local_cuadrodemando', date('Y')), ['class' => 'small-box-footer']);
 echo html_writer::end_div(); // small-box
 echo html_writer::end_div(); // col-lg-3 col-6
 
@@ -202,7 +201,7 @@ echo html_writer::end_div(); // inner
 echo html_writer::start_div('icon');
 echo html_writer::tag('i', '', ['class' => 'fas fa-users-line']);
 echo html_writer::end_div(); // icon
-echo html_writer::tag('p', 'Media matriculados', ['class' => 'small-box-footer']);
+echo html_writer::tag('p', get_string('averageenrollment', 'local_cuadrodemando'), ['class' => 'small-box-footer']);
 echo html_writer::end_div(); // small-box
 echo html_writer::end_div(); // col-lg-3 col-6
 
