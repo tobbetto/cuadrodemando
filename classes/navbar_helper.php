@@ -154,31 +154,31 @@ class navbar_helper {
         global $CFG;
         
         $html = '';
-        $html .= html_writer::start_tag('ol', ['class' => 'breadcrumb float-sm-right']);
+        $html .= \html_writer::start_tag('ol', ['class' => 'breadcrumb float-sm-right']);
         
         // Home breadcrumb (always present unless we're on home)
         if ($current_page !== 'home') {
-            $html .= html_writer::start_tag('li', ['class' => 'breadcrumb-item']);
-            $html .= html_writer::link(
+            $html .= \html_writer::start_tag('li', ['class' => 'breadcrumb-item']);
+            $html .= \html_writer::link(
                 $CFG->wwwroot . '/local/cuadrodemando/', 
                 get_string('home', 'local_cuadrodemando')
             );
-            $html .= html_writer::end_tag('li');
+            $html .= \html_writer::end_tag('li');
         }
         
         // Additional breadcrumb items
         foreach ($additional_items as $item) {
-            $html .= html_writer::start_tag('li', ['class' => 'breadcrumb-item']);
-            $html .= html_writer::link($item['url'], $item['text']);
-            $html .= html_writer::end_tag('li');
+            $html .= \html_writer::start_tag('li', ['class' => 'breadcrumb-item']);
+            $html .= \html_writer::link($item['url'], $item['text']);
+            $html .= \html_writer::end_tag('li');
         }
         
         // Current page (active)
-        $html .= html_writer::start_tag('li', ['class' => 'breadcrumb-item active']);
+        $html .= \html_writer::start_tag('li', ['class' => 'breadcrumb-item active']);
         $html .= get_string($current_page, 'local_cuadrodemando');
-        $html .= html_writer::end_tag('li');
+        $html .= \html_writer::end_tag('li');
         
-        $html .= html_writer::end_tag('ol');
+        $html .= \html_writer::end_tag('ol');
         
         return $html;
     }
