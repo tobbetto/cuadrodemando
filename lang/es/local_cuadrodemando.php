@@ -214,3 +214,21 @@ $string['numberusedresources'] = '# de recursos utilizados';
 $string['completionstatus'] = 'Estado de finalización';
 $string['categoriesandtimes'] = 'Categorías y tiempos';
 $string['withoutinstitution'] = 'Sin institución';
+
+// Cadenas añadidas para home.php
+$string['opensessionsnow'] = 'Sesiones abiertas ahora:';
+$string['completionsthismonth'] = 'Finalizaciones este mes:';
+$string['nocompletionsthismonth'] = 'No hay finalizaciones este mes 😭';
+$string['registrationsthismonth'] = 'Altas este mes:';
+$string['noregistrationsthismonth'] = 'No hay altas este mes 😭';
+$string['accessesthismonth'] = 'Accesos este mes:';
+$string['noaccessesthismonth'] = 'No hay accesos este mes 😭';
+$string['activeuserslasthour'] = 'Usuarios activos última hora:';
+$string['noactiveusers'] = 'No hay usuarios activos 😭';
+$string['enrollmentsthismonth'] = 'Matriculaciones este mes:';
+$string['noenrollmentsthismonth'] = 'No hay matriculaciones este mes 😭';
+$string['suspensionsthismonth'] = 'Bajas este mes:';
+$string['nosuspensionsthismonth'] = 'No hay bajas este mes 😀';
+$string['messagesthismonth'] = 'Mensajes este mes:';
+$string['nomessagesthismonth'] = 'No hay mensajes este mes 😭';
+$string['calendar'] = 'Calendario';

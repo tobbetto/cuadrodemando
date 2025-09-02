@@ -220,3 +220,21 @@ $string['numberusedresources'] = '# of used resources';
 $string['completionstatus'] = 'Completion status';
 $string['categoriesandtimes'] = 'Categories and times';
 $string['withoutinstitution'] = 'Without institution';
+
+// Hardcoded strings for home.php
+$string['opensessionsnow'] = 'Open sessions now:';
+$string['completionsthismonth'] = 'Completions this month:';
+$string['nocompletionsthismonth'] = 'No completions this month 😭';
+$string['registrationsthismonth'] = 'Registrations this month:';
+$string['noregistrationsthismonth'] = 'No registrations this month 😭';
+$string['accessesthismonth'] = 'Accesses this month:';
+$string['noaccessesthismonth'] = 'No accesses this month 😭';
+$string['activeuserslasthour'] = 'Active users last hour:';
+$string['noactiveusers'] = 'No active users 😭';
+$string['enrollmentsthismonth'] = 'Enrollments this month:';
+$string['noenrollmentsthismonth'] = 'No enrollments this month 😭';
+$string['suspensionsthismonth'] = 'Suspensions this month:';
+$string['nosuspensionsthismonth'] = 'No suspensions this month 😀';
+$string['messagesthismonth'] = 'Messages this month:';
+$string['nomessagesthismonth'] = 'No messages this month 😭';
+$string['calendar'] = 'Calendar';

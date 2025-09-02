@@ -185,12 +185,12 @@ echo html_writer::start_div('col-md-3 col-sm-6 col-6');
 echo html_writer::start_div('info-box shadow-sm', array('style' => 'min-height: 106.5px'));
 echo html_writer::tag('span', html_writer::tag('i', '', array('class' => 'fas fa-solid fa-right-to-bracket')), array('class' => 'info-box-icon bg-success'));
 echo html_writer::start_div('info-box-content');
-echo html_writer::tag('span', 'Sesiones abiertas ahora:', array('class' => 'info-box-text'));
+echo html_writer::tag('span', get_string('opensessionsnow', 'local_cuadrodemando'), array('class' => 'info-box-text'));
 
 $sql = "SELECT count(userid) AS userid FROM {sessions} WHERE userid > 1";
 $sessions = $DB->get_record_sql($sql);
 
-echo html_writer::tag('span', !empty($sessions) ? $sessions->userid : 'No hay sesiones abiertas', array('class' => 'info-box-number'));
+echo html_writer::tag('span', !empty($sessions) ? $sessions->userid : get_string('noopensessions', 'local_cuadrodemando'), array('class' => 'info-box-number'));
 echo html_writer::end_div(); // info-box-content
 echo html_writer::end_div(); // info-box
 echo html_writer::end_div(); // col
@@ -203,8 +203,8 @@ echo html_writer::start_div('info-box shadow-sm', array('style' => 'min-height: 
 $icon_class = !empty($completion_info) ? 'bg-success' : 'bg-danger';
 echo html_writer::tag('span', html_writer::tag('i', '', array('class' => 'fas fa-solid fa-award')), array('class' => 'info-box-icon ' . $icon_class));
 echo html_writer::start_div('info-box-content');
-echo html_writer::tag('span', 'Finalizaciones este mes:', array('class' => 'info-box-text'));
-$completion_text = !empty($completion_info) ? $completion_info : 'No hay finalizaciones este mes 😭';
+echo html_writer::tag('span', get_string('completionsthismonth', 'local_cuadrodemando'), array('class' => 'info-box-text'));
+$completion_text = !empty($completion_info) ? $completion_info : get_string('nocompletionsthismonth', 'local_cuadrodemando');
 echo html_writer::tag('span', $completion_text, array('class' => 'info-box-number'));
 echo html_writer::end_div(); // info-box-content
 echo html_writer::end_div(); // info-box
@@ -218,8 +218,8 @@ echo html_writer::start_div('info-box shadow-sm', array('style' => 'min-height: 
 $icon_class = !empty($registration_info) ? 'bg-success' : 'bg-danger';
 echo html_writer::tag('span', html_writer::tag('i', '', array('class' => 'fas fa-solid fa-user-plus')), array('class' => 'info-box-icon ' . $icon_class));
 echo html_writer::start_div('info-box-content');
-echo html_writer::tag('span', 'Altas este mes:', array('class' => 'info-box-text'));
-$registration_text = !empty($registration_info) ? $registration_info : 'No hay altas este mes 😭';
+echo html_writer::tag('span', get_string('registrationsthismonth', 'local_cuadrodemando'), array('class' => 'info-box-text'));
+$registration_text = !empty($registration_info) ? $registration_info : get_string('noregistrationsthismonth', 'local_cuadrodemando');
 echo html_writer::tag('span', $registration_text, array('class' => 'info-box-number'));
 echo html_writer::end_div(); // info-box-content
 echo html_writer::end_div(); // info-box
@@ -233,8 +233,8 @@ echo html_writer::start_div('info-box shadow-sm', array('style' => 'min-height: 
 $icon_class = !empty($access_info) ? 'bg-success' : 'bg-danger';
 echo html_writer::tag('span', html_writer::tag('i', '', array('class' => 'fas fa-solid fa-key')), array('class' => 'info-box-icon ' . $icon_class));
 echo html_writer::start_div('info-box-content');
-echo html_writer::tag('span', 'Accesos este mes:', array('class' => 'info-box-text'));
-$access_text = !empty($access_info) ? $access_info : 'No hay accesos este mes 😭';
+echo html_writer::tag('span', get_string('accessesthismonth', 'local_cuadrodemando'), array('class' => 'info-box-text'));
+$access_text = !empty($access_info) ? $access_info : get_string('noaccessesthismonth', 'local_cuadrodemando');
 echo html_writer::tag('span', $access_text, array('class' => 'info-box-number'));
 echo html_writer::end_div(); // info-box-content
 echo html_writer::end_div(); // info-box
@@ -250,9 +250,9 @@ echo html_writer::start_div('col-md-3 col-sm-12 col-12');
 echo html_writer::start_div('info-box shadow-sm', array('style' => 'min-height: 106.5px'));
 echo html_writer::tag('span', html_writer::tag('i', '', array('class' => 'fas fa-solid fa-user-clock')), array('class' => 'info-box-icon bg-success'));
 echo html_writer::start_div('info-box-content');
-echo html_writer::tag('span', 'Usuarios activos última hora:', array('class' => 'info-box-text'));
+echo html_writer::tag('span', get_string('activeuserslasthour', 'local_cuadrodemando'), array('class' => 'info-box-text'));
 $views_info = Total_views_json::get_total_hourly_views();
-$views_text = !empty($views_info) ? $views_info : 'No hay usuarios activos 😭';
+$views_text = !empty($views_info) ? $views_info : get_string('noactiveusers', 'local_cuadrodemando');
 echo html_writer::tag('span', $views_text, array('class' => 'info-box-number'));
 echo html_writer::end_div(); // info-box-content
 echo html_writer::end_div(); // info-box
@@ -266,8 +266,8 @@ echo html_writer::start_div('info-box shadow-sm', array('style' => 'min-height: 
 $icon_class = !empty($enrolment_info) ? 'bg-success' : 'bg-danger';
 echo html_writer::tag('span', html_writer::tag('i', '', array('class' => 'fas fa-solid fa-user-graduate')), array('class' => 'info-box-icon ' . $icon_class));
 echo html_writer::start_div('info-box-content');
-echo html_writer::tag('span', 'Matriculaciones este mes:', array('class' => 'info-box-text'));
-$enrolment_text = !empty($enrolment_info) ? $enrolment_info : 'No hay matriculaciones este mes 😭';
+echo html_writer::tag('span', get_string('enrollmentsthismonth', 'local_cuadrodemando'), array('class' => 'info-box-text'));
+$enrolment_text = !empty($enrolment_info) ? $enrolment_info : get_string('noenrollmentsthismonth', 'local_cuadrodemando');
 echo html_writer::tag('span', $enrolment_text, array('class' => 'info-box-number'));
 echo html_writer::end_div(); // info-box-content
 echo html_writer::end_div(); // info-box
@@ -281,8 +281,8 @@ echo html_writer::start_div('info-box shadow-sm', array('style' => 'min-height: 
 $icon_class = !empty($suspension_info) ? 'bg-danger' : 'bg-success';
 echo html_writer::tag('span', html_writer::tag('i', '', array('class' => 'fas fa-solid fa-user-minus')), array('class' => 'info-box-icon ' . $icon_class));
 echo html_writer::start_div('info-box-content');
-echo html_writer::tag('span', 'Bajas este mes:', array('class' => 'info-box-text'));
-$suspension_text = !empty($suspension_info) ? $suspension_info : 'No hay bajas este mes 😀';
+echo html_writer::tag('span', get_string('suspensionsthismonth', 'local_cuadrodemando'), array('class' => 'info-box-text'));
+$suspension_text = !empty($suspension_info) ? $suspension_info : get_string('nosuspensionsthismonth', 'local_cuadrodemando');
 echo html_writer::tag('span', $suspension_text, array('class' => 'info-box-number'));
 echo html_writer::end_div(); // info-box-content
 echo html_writer::end_div(); // info-box
@@ -296,8 +296,8 @@ echo html_writer::start_div('info-box shadow-sm', array('style' => 'min-height: 
 $icon_class = !empty($message_info) ? 'bg-success' : 'bg-danger';
 echo html_writer::tag('span', html_writer::tag('i', '', array('class' => 'fas fa-solid fa-envelopes-bulk')), array('class' => 'info-box-icon ' . $icon_class));
 echo html_writer::start_div('info-box-content');
-echo html_writer::tag('span', 'Mensajes este mes:', array('class' => 'info-box-text'));
-$message_text = !empty($message_info) ? $message_info : 'No hay mensajes este mes 😭';
+echo html_writer::tag('span', get_string('messagesthismonth', 'local_cuadrodemando'), array('class' => 'info-box-text'));
+$message_text = !empty($message_info) ? $message_info : get_string('nomessagesthismonth', 'local_cuadrodemando');
 echo html_writer::tag('span', $message_text, array('class' => 'info-box-number'));
 echo html_writer::end_div(); // info-box-content
 echo html_writer::end_div(); // info-box
@@ -310,7 +310,7 @@ echo html_writer::start_div('row align-items-center');
 echo html_writer::start_tag('section', array('class' => 'col-lg-12 connectedSortable'));
 echo html_writer::start_div('card bg-gradient-muted card-indigo card-outline', array('data-toggle' => 'tooltip', 'data-placement' => 'center'));
 echo html_writer::start_div('card-header border-0');
-echo html_writer::tag('h3', html_writer::tag('i', '', array('class' => 'fas fa-calendar-alt mr-1')) . ' Calendario', array('class' => 'card-title'));
+echo html_writer::tag('h3', html_writer::tag('i', '', array('class' => 'fas fa-calendar-alt mr-1')) . ' ' . get_string('calendar', 'local_cuadrodemando'), array('class' => 'card-title'));
 echo html_writer::start_div('card-tools');
 echo html_writer::tag('button', html_writer::tag('i', '', array('class' => 'fas fa-minus')), array('type' => 'button', 'class' => 'btn btn-indigo btn-tool', 'data-card-widget' => 'collapse', 'title' => 'Collapse'));
 echo html_writer::end_div(); // card-tools

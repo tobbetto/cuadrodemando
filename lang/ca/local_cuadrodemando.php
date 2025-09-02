@@ -122,3 +122,22 @@ $string['numberusedresources'] = '# de recursos utilitzats';
 $string['completionstatus'] = 'Estat de finalització';
 $string['categoriesandtimes'] = 'Categories i temps';
 $string['withoutinstitution'] = 'Sense institució';
+
+// Cadenes per a home.php
+$string['opensessionsnow'] = 'Sessions obertes ara:';
+$string['completionsthismonth'] = 'Finalitzacions aquest mes:';
+$string['nocompletionsthismonth'] = 'No hi ha finalitzacions aquest mes 😭';
+$string['registrationsthismonth'] = 'Altes aquest mes:';
+$string['noregistrationsthismonth'] = 'No hi ha altes aquest mes 😭';
+$string['accessesthismonth'] = 'Accesos aquest mes:';
+$string['noaccessesthismonth'] = 'No hi ha accesos aquest mes 😭';
+$string['activeuserslasthour'] = 'Usuaris actius última hora:';
+$string['noactiveusers'] = 'No hi ha usuaris actius 😭';
+$string['enrollmentsthismonth'] = 'Matriculacions aquest mes:';
+$string['noenrollmentsthismonth'] = 'No hi ha matriculacions aquest mes 😭';
+$string['suspensionsthismonth'] = 'Baixes aquest mes:';
+$string['nosuspensionsthismonth'] = 'No hi ha baixes aquest mes 😀';
+$string['messagesthismonth'] = 'Missatges aquest mes:';
+$string['nomessagesthismonth'] = 'No hi ha missatges aquest mes 😭';
+$string['calendar'] = 'Calendari';
+$string['noopensessions'] = 'No hi ha sessions obertes';
