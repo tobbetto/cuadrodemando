@@ -31,8 +31,9 @@ class navbar_helper {
         $html .= \html_writer::start_div('container-fluid');
 
         // Dashboard header/brand
+        $page_name = get_string($active_page, 'local_cuadrodemando');
         $html .= \html_writer::tag('span', 
-            get_string('welcometodashboard', 'local_cuadrodemando'), 
+            get_string('pagetitle', 'local_cuadrodemando', $page_name), 
             ['class' => 'navbar-brand h3 mb-0']
         );
 
