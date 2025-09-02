@@ -1,5 +1,5 @@
 
-
+<?php
 echo '<script>';
 echo 'if (typeof define === "function" && define.amd) {';
 echo '    var originalDefine = define;';
@@ -8,7 +8,7 @@ echo '    window.requirejsVars = { originalDefine: originalDefine };';
 echo '}';
 echo '</script>';
 
-<?php
+
 global $DB, $CFG;
 include_once 'views/getdata/getdata.php';
 require_once($CFG->dirroot . '/local/cuadrodemando/classes/navbar_helper.php');
