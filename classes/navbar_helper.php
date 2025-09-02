@@ -86,63 +86,9 @@ class navbar_helper {
         
         $html .= \html_writer::end_div(); // navbar-nav
 
-        // Language selector
-        $html .= self::render_language_selector();
-
         $html .= \html_writer::end_div(); // container-fluid
         $html .= \html_writer::end_tag('nav');
         $html .= \html_writer::end_div(); // dashboard-nav
-
-        return $html;
-    }
-
-    /**
-     * Generate the language selector dropdown
-     * 
-     * @return string HTML for language selector
-     */
-    private static function render_language_selector() {
-        $html = '';
-        
-        $html .= \html_writer::start_div('d-flex align-items-center');
-        $html .= \html_writer::tag('label', 
-            get_string('language_selector', 'local_cuadrodemando'), 
-            ['for' => 'language-select', 'class' => 'form-label me-2 mb-0']
-        );
-
-        $languages = [
-            'en' => get_string('lang_english', 'local_cuadrodemando'),
-            'es' => get_string('lang_spanish', 'local_cuadrodemando'),
-            'is' => get_string('lang_icelandic', 'local_cuadrodemando'),
-            'ca' => get_string('lang_catalan', 'local_cuadrodemando')
-        ];
-
-        $current_lang = current_language();
-        if (!$current_lang) {
-            $current_lang = ''; // No language selected, show "Select language"
-        }
-
-        $select_options = \html_writer::tag(
-            'option',
-            get_string('selectlanguage', 'local_cuadrodemando'),
-            ['value' => '', 'disabled' => 'disabled', 'selected' => ($current_lang === '')]
-        );
-
-        foreach ($languages as $lang_code => $lang_name) {
-            $selected = ($lang_code === $current_lang) ? 'selected' : '';
-            $select_options .= \html_writer::tag('option', $lang_name, [
-                'value' => $lang_code, 
-                'selected' => $selected
-            ]);
-        }
-
-        $html .= \html_writer::tag('select', $select_options, [
-            'id' => 'language-select',
-            'class' => 'form-select',
-            'onchange' => 'changeDashboardLanguage(this.value)'
-        ]);
-        
-        $html .= \html_writer::end_div(); // d-flex
 
         return $html;
     }
