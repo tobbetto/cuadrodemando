@@ -48,8 +48,16 @@ require_once($CFG->dirroot . '/local/cuadrodemando/classes/navbar_helper.php');
 
 echo html_writer::start_div('dashboard-wrapper');
 
-// Use navbar helper
-echo \local_cuadrodemando\navbar_helper::render_navbar('courses');
+// Generate custom title based on whether we're viewing a specific course
+if (isset($_GET['courseid'])) {
+    $course_info = $DB->get_record('course', ['id' => $_GET['courseid']]);
+    $custom_title = 'Detalles del curso ' . $course_info->fullname . ' (' . $course_info->shortname . ')';
+} else {
+    $custom_title = 'Vista general de los cursos ' . date('Y');
+}
+
+// Use navbar helper with custom title
+echo \local_cuadrodemando\navbar_helper::render_navbar('courses', $custom_title);
 
 // Content Wrapper
 echo html_writer::start_div('content-wrapper');

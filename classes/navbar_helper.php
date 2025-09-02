@@ -18,9 +18,10 @@ class navbar_helper {
      * Generate the dashboard navbar with language selector
      * 
      * @param string $active_page Current active page (home, courses, users, geo)
+     * @param string $custom_title Optional custom title to override the default page title
      * @return string HTML for the navbar
      */
-    public static function render_navbar($active_page = 'home') {
+    public static function render_navbar($active_page = 'home', $custom_title = null) {
         global $CFG;
         
         $html = '';
@@ -31,9 +32,17 @@ class navbar_helper {
         $html .= \html_writer::start_div('container-fluid');
 
         // Dashboard header/brand
-        $page_name = get_string($active_page, 'local_cuadrodemando');
+        if ($custom_title !== null) {
+            // Use custom title if provided
+            $display_title = $custom_title;
+        } else {
+            // Use default page title
+            $page_name = get_string($active_page, 'local_cuadrodemando');
+            $display_title = get_string('pagetitle', 'local_cuadrodemando', $page_name);
+        }
+        
         $html .= \html_writer::tag('span', 
-            get_string('pagetitle', 'local_cuadrodemando', $page_name), 
+            $display_title, 
             ['class' => 'navbar-brand h3 mb-0']
         );
 
