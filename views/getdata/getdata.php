@@ -36,7 +36,7 @@ class adminlte_getdata {
         $sessions = $DB->get_record_sql($sql);    
 
         if ($sessions->userid == 0) {
-            echo 'No hay sesiones abiertas';
+            echo get_string('noopensessions', 'local_cuadrodemando');
         } else {
             echo $sessions->userid;
         }
@@ -87,7 +87,7 @@ class adminlte_getdata {
           <div class="col-12">
             <div class="card card-outline card-indigo">
               <div class="card-header">
-                <h3 class="card-title">Navega por los datos del último año</h3>
+                <h3 class="card-title">' . get_string('navigateyeardata', 'local_cuadrodemando') . '</h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
@@ -105,7 +105,7 @@ class adminlte_getdata {
                         if ($formatter->formatObject($date, "MM", "es_ES.utf8") == $month) { 
                             $home_calendar .='active ';
                         }; $home_calendar .='">
-                      <a class="page-link"  '; $monthobject0 = $formatter->formatObject($date, "MMMM", "es_ES.utf8"); $yearobject = $formatter->formatObject($date, "y", "es_ES.utf8"); $home_calendar .= ' title="Ver estatísticas de ' . $monthobject0 . ' de ' . $yearobject . '" href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?month='; $monthobject1 = $formatter->formatObject($date, "MM", "es_ES.utf8"); $home_calendar .= '' . $monthobject1 . '&year=' . $yearobject . '">
+                      <a class="page-link"  '; $monthobject0 = $formatter->formatObject($date, "MMMM", "es_ES.utf8"); $yearobject = $formatter->formatObject($date, "y", "es_ES.utf8"); $params = (object)['month' => $monthobject0, 'year' => $yearobject]; $home_calendar .= ' title="' . get_string('viewstatisticsof', 'local_cuadrodemando', $params) . '" href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?month='; $monthobject1 = $formatter->formatObject($date, "MM", "es_ES.utf8"); $home_calendar .= '' . $monthobject1 . '&year=' . $yearobject . '">
                         <p class="page-month">'; $monthobject2 = $formatter->formatObject($date, "MMM", "es_ES.utf8"); $home_calendar .= '' . $monthobject2 . '</p>
                         <p class="page-year">' . $yearobject . '</p>
                       </a>
@@ -399,7 +399,7 @@ class adminlte_getdata {
                             c.shortname, 
                             c.startdate, 
                             c.enddate, 
-                            CASE WHEN cc.timecompleted = NULL THEN 'No finalizado'
+                            CASE WHEN cc.timecompleted = NULL THEN '" . get_string('notcompleted', 'local_cuadrodemando') . "'
                             ELSE to_char(TO_TIMESTAMP('1970-01-01', 'YYYY-MM-DD') + numtodsinterval(cc.timecompleted, 'SECOND'), 'dd/mm/yyyy Dy', 'nls_date_language=spanish')
                             END AS fechafin
                     FROM {course}           c
@@ -414,7 +414,7 @@ class adminlte_getdata {
                             c.shortname, 
                             c.startdate, 
                             c.enddate, 
-                            CASE WHEN cc.timecompleted = NULL THEN 'No finalizado'
+                            CASE WHEN cc.timecompleted = NULL THEN '" . get_string('notcompleted', 'local_cuadrodemando') . "'
                             ELSE DATE_FORMAT(FROM_UNIXTIME(cc.timecompleted), '%d.%m.%Y')
                             END AS fechafin
                     FROM {course}           c
@@ -457,7 +457,7 @@ class adminlte_getdata {
             $usertable .= '</h3>
                     <div class="card-tools">
                     <a href="' . $CFG->wwwroot . '/local/cuadrodemando/users">
-                        <button type="button" class="btn btn-primary btn-sm" data-card-widget="back" title="Atrás a listado completo de usuarios" href="' . $CFG->wwwroot . '/local/cuadrodemando/users" >
+                        <button type="button" class="btn btn-primary btn-sm" data-card-widget="back" title="' . get_string('backtolist', 'local_cuadrodemando') . '" href="' . $CFG->wwwroot . '/local/cuadrodemando/users" >
                                 <i class="fas fa-solid fa-circle-left"></i>
                         </button>
                     </a>
@@ -473,10 +473,10 @@ class adminlte_getdata {
                     <th>ID</th>
                     <th>Nombre largo</th>
                     <th>Nombre corto</th>
-                    <th>Fecha inicio curso</th>
-                    <th>Fecha fin del curso</th>';
+                    <th>' . get_string('coursestartdate', 'local_cuadrodemando') . '</th>
+                    <th>' . get_string('courseenddate', 'local_cuadrodemando') . '</th>';
                     if ($roleid == 5) {
-                        $usertable .= '<th>Fecha finalización</th>';
+                        $usertable .= '<th>' . get_string('completiondate', 'local_cuadrodemando') . '</th>';
                     }
             $usertable .= '</tr>
             </thead>
@@ -484,7 +484,7 @@ class adminlte_getdata {
             foreach ($studentcourses as $studentcourse) {
             
                 $usertable .= '<tr>';
-                $usertable .= '<td><a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=courses&courseid=' . $studentcourse->id .  '" title="Haz clic aquí para ver los estudiantes matriculados">' . $studentcourse->id . '</a></td>';
+                $usertable .= '<td><a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=courses&courseid=' . $studentcourse->id .  '" title="' . get_string('viewenrolledstudents', 'local_cuadrodemando') . '">' . $studentcourse->id . '</a></td>';
                 $usertable .= '<td>' . $studentcourse->fullname . '</a></td>';
                 $usertable .= '<td>' . $studentcourse->shortname . '</a></td>';
                 $usertable .= '<td>' . date('d.m.Y', $studentcourse->startdate) . '</a></td>'; 
@@ -529,22 +529,22 @@ class adminlte_getdata {
                <div id="exportbuttons" style="padding-bottom:0.5em;"><div>
         <thead>
         <tr>
-          <th>Identifiación</th>
-          <th>Nombre</th>
-          <th>email</th>
-          <th>Ciudad</th>
-          <th>Departamento</th>
-          <th>Provincia</th>
-          <th>Dirección</th>
+          <th>' . get_string('identification', 'local_cuadrodemando') . '</th>
+          <th>' . get_string('name', 'local_cuadrodemando') . '</th>
+          <th>' . get_string('email', 'local_cuadrodemando') . '</th>
+          <th>' . get_string('city', 'local_cuadrodemando') . '</th>
+          <th>' . get_string('department', 'local_cuadrodemando') . '</th>
+          <th>' . get_string('province', 'local_cuadrodemando') . '</th>
+          <th>' . get_string('address', 'local_cuadrodemando') . '</th>
         </tr>
         </thead>
         <tbody>';
         foreach ($users as $user) {
             
             $usertable .= '<tr>';
-            $usertable .= '<td><a href="' . $CFG->wwwroot . '/local/cuadrodemando/users?userid=' . $user->id .  '&roleid=5" title="Haz click aquí para ver su información detallada">' . $user->username . '</a></td>';
+            $usertable .= '<td><a href="' . $CFG->wwwroot . '/local/cuadrodemando/users?userid=' . $user->id .  '&roleid=5" title="' . get_string('viewuserdetail', 'local_cuadrodemando') . '">' . $user->username . '</a></td>';
             $usertable .= '<td>' . $user->firstname . ' ' . $user->lastname . '</td>';
-            $usertable .= '<td><a href="mailto:' . $user->email .  '" title="Enviar email a la persona">' . $user->email . '</a></td>';
+            $usertable .= '<td><a href="mailto:' . $user->email .  '" title="' . get_string('sendemailtoperson', 'local_cuadrodemando') . '">' . $user->email . '</a></td>';
             $usertable .= '<td>' . $user->city . '</td>';
             $usertable .= '<td>' . $user->institution . '</td>';
             $usertable .= '<td>' . $user->department . '</td>';
@@ -865,7 +865,7 @@ class adminlte_getdata {
                                     </div>
                                     <small>';
                                     if (empty($completeEnroled->students)) :
-                                        $yearlyCoursesTable .= '0 matriculados';
+                                        $yearlyCoursesTable .= get_string('noenrolled', 'local_cuadrodemando');
                                         else :
                                             $yearlyCoursesTable .= $percentage . '%';
                                         endif;
@@ -874,26 +874,26 @@ class adminlte_getdata {
                                 <td class="project-state">';
                                 if ($yearlyCourse->startdate < $yearlyCourse->enddate) :
                                     if ($yearlyCourse->startdate > time()) : 
-                                        $yearlyCoursesTable .= '<span class="badge badge-warning">No empezado</span>';
+                                        $yearlyCoursesTable .= '<span class="badge badge-warning">' . get_string('notstarted', 'local_cuadrodemando') . '</span>';
                                     elseif ($yearlyCourse->enddate < time()) :
-                                        $yearlyCoursesTable .= '<span class="badge badge-danger">Finalizado</span>';
+                                        $yearlyCoursesTable .= '<span class="badge badge-danger">' . get_string('finished', 'local_cuadrodemando') . '</span>';
                                     else :
-                                        $yearlyCoursesTable .= '<span class="badge badge-success">Activo</span>';
+                                        $yearlyCoursesTable .= '<span class="badge badge-success">' . get_string('active', 'local_cuadrodemando') . '</span>';
                                     endif;
                                 else :
-                                    $yearlyCoursesTable .= '<span class="badge badge-warning">Sin fecha fin</span>';
+                                    $yearlyCoursesTable .= '<span class="badge badge-warning">' . get_string('noenddate', 'local_cuadrodemando') . '</span>';
                                 endif;
                                 $yearlyCoursesTable .= '</td>
                                 <td class="project-actions text-right">
-                                    <a class="btn btn-primary btn-sm" href="' . $CFG->wwwroot . '/course/view.php?id=' . $yearlyCourse->id . '" title="Ver curso"  target="_blank">
+                                    <a class="btn btn-primary btn-sm" href="' . $CFG->wwwroot . '/course/view.php?id=' . $yearlyCourse->id . '" title="' . get_string('viewcourse', 'local_cuadrodemando') . '"  target="_blank">
                                         <i class="fas fa-eye">
                                         </i>
                                     </a>
-                                    <a class="btn btn-info btn-sm" href="' . $CFG->wwwroot . '/course/edit.php?id=' . $yearlyCourse->id . '" title="Configurar curso"  target="_blank">
+                                    <a class="btn btn-info btn-sm" href="' . $CFG->wwwroot . '/course/edit.php?id=' . $yearlyCourse->id . '" title="' . get_string('configurecourse', 'local_cuadrodemando') . '"  target="_blank">
                                         <i class="fas fa-sliders">
                                         </i>
                                     </a>
-                                    <a class="btn btn-success btn-sm" href="' . $CFG->wwwroot . '/user/index.php?id=' . $yearlyCourse->id . '" title="Ver matriculados"  target="_blank">
+                                    <a class="btn btn-success btn-sm" href="' . $CFG->wwwroot . '/user/index.php?id=' . $yearlyCourse->id . '" title="' . get_string('viewenrolled', 'local_cuadrodemando') . '"  target="_blank">
                                         <i class="fas fa-user-graduate">
                                         </i>
                                     </a>

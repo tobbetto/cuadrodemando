@@ -92,6 +92,29 @@ $string['user'] = 'User';
 // Messages
 $string['noactiveusers'] = 'No active users';
 $string['noenrolled'] = '0 enrolled';
+$string['noopensessions'] = 'No open sessions';
+$string['notcompleted'] = 'Not completed';
+
+// Navigation and titles  
+$string['navigateyeardata'] = 'Navigate year data';
+$string['viewstatisticsof'] = 'View statistics of {$a->month} {$a->year}';
+$string['back'] = 'Back';
+$string['viewdetail'] = 'View detail';
+$string['collapse'] = 'Collapse';
+$string['remove'] = 'Remove';
+
+// Dates
+$string['startdate'] = 'Start date';
+$string['enddate'] = 'End date';
+$string['enrolldate'] = 'Enrollment date';
+$string['completiondate'] = 'Completion date';
+$string['coursestartdate'] = 'Course start date';
+$string['courseenddate'] = 'Course end date';
+
+// Button actions
+$string['viewcourse'] = 'View course';
+$string['configurecourse'] = 'Configure course';
+$string['viewenrolled'] = 'View enrolled';
 $string['totalcourses'] = 'Total Courses';
 $string['totalenrollments'] = 'Total Enrollments';
 $string['activeusers'] = 'Active Users';

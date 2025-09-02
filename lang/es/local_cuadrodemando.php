@@ -155,9 +155,12 @@ $string['user'] = 'Usuario';
 // Mensajes
 $string['noactiveusers'] = 'No hay usuarios activos';
 $string['noenrolled'] = '0 matriculados';
+$string['noopensessions'] = 'No hay sesiones abiertas';
+$string['notcompleted'] = 'No finalizado';
 
 // Navegación y títulos
 $string['navigateyeardata'] = 'Navega por los datos del último año';
+$string['viewstatisticsof'] = 'Ver estatísticas de {$a->month} de {$a->year}';
 $string['back'] = 'Atrás';
 $string['viewdetail'] = 'Ver detalle';
 $string['collapse'] = 'Colapsar';
@@ -168,6 +171,8 @@ $string['startdate'] = 'Fecha inicio';
 $string['enddate'] = 'Fecha fin';
 $string['enrolldate'] = 'Fecha matriculación';
 $string['completiondate'] = 'Fecha finalización';
+$string['coursestartdate'] = 'Fecha inicio curso';
+$string['courseenddate'] = 'Fecha fin del curso';
 
 // Acciones de botones
 $string['viewcourse'] = 'Ver curso';
