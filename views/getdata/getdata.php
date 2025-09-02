@@ -89,7 +89,7 @@ class adminlte_getdata {
               <div class="card-header">
                 <h3 class="card-title">' . get_string('navigateyeardata', 'local_cuadrodemando') . '</h3>
                 <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="' . get_string('collapse', 'local_cuadrodemando') . '">
                     <i class="fas fa-minus"></i>
                     </button>
                 </div>
@@ -470,9 +470,9 @@ class adminlte_getdata {
             <thead>
 
                 <tr>
-                    <th>ID</th>
-                    <th>Nombre largo</th>
-                    <th>Nombre corto</th>
+                    <th>' . get_string('id', 'local_cuadrodemando') . '</th>
+                    <th>' . get_string('fullname', 'local_cuadrodemando') . '</th>
+                    <th>' . get_string('shortname', 'local_cuadrodemando') . '</th>
                     <th>' . get_string('coursestartdate', 'local_cuadrodemando') . '</th>
                     <th>' . get_string('courseenddate', 'local_cuadrodemando') . '</th>';
                     if ($roleid == 5) {
@@ -649,7 +649,7 @@ class adminlte_getdata {
                 <!-- Default box -->
                 <div class="card card-outline card-success">
                     <div class="card-header">
-                    <h3 class="card-title" id="courses_table">Listado de cursos (' . date('Y') . ') </h3>
+                    <h3 class="card-title" id="courses_table">' . get_string('courselist', 'local_cuadrodemando', date('Y')) . '</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -673,10 +673,10 @@ class adminlte_getdata {
                         <h3 class="card-title" id="courses_table">' . get_string('courselist', 'local_cuadrodemando', date('Y')) . '</h3>
 
                         <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="' . get_string('collapse', 'local_cuadrodemando') . '">
                             <i class="fas fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="' . get_string('remove', 'local_cuadrodemando') . '">
                             <i class="fas fa-times"></i>
                             </button>
                         </div>
@@ -765,8 +765,8 @@ class adminlte_getdata {
                                     <a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=courses&courseid=' . $yearlyCourse->id . '" title="' . get_string('viewcoursedetail', 'local_cuadrodemando') . '"> ' . $yearlyCourse->shortname . '</a>
                                     <br/>
                                     <small>
-                                    Fecha inicio: ' . date('d-m-Y', $yearlyCourse->startdate) . '<br />
-                                    Fecha fin: ' . date('d-m-Y', $yearlyCourse->enddate) . 
+                                    ' . get_string('startdate', 'local_cuadrodemando') . ': ' . date('d-m-Y', $yearlyCourse->startdate) . '<br />
+                                    ' . get_string('enddate', 'local_cuadrodemando') . ': ' . date('d-m-Y', $yearlyCourse->enddate) . 
                                     '</small>
                                 </td>
                                 <td>
@@ -813,7 +813,7 @@ class adminlte_getdata {
                                     $yearlyCoursesTable .= '<li class="list-inline-item">';
                                         foreach($courseTeachers as $courseTeacher) :
 
-                                            $yearlyCoursesTable .= $OUTPUT->user_picture($courseTeacher, ['size' => 35, 'class' => 'userpicture']) . ' <a href="' . $CFG->wwwroot . '/local/cuadrodemando/users?userid=' . $courseTeacher->id . '&roleid=3" title="Ver detalle del ponente" > ' . $courseTeacher->firstname . ' ' . $courseTeacher->lastname . '</a> ' . '<br />';
+                                            $yearlyCoursesTable .= $OUTPUT->user_picture($courseTeacher, ['size' => 35, 'class' => 'userpicture']) . ' <a href="' . $CFG->wwwroot . '/local/cuadrodemando/users?userid=' . $courseTeacher->id . '&roleid=3" title="' . get_string('viewteacherdetail', 'local_cuadrodemando') . '" > ' . $courseTeacher->firstname . ' ' . $courseTeacher->lastname . '</a> ' . '<br />';
                                         
                                         endforeach;
                                     $yearlyCoursesTable .= '</li>
@@ -960,10 +960,10 @@ class adminlte_getdata {
                         <h3 class="card-title" id="courses_table">' . get_string('enrolledinacourse', 'local_cuadrodemando', $course->fullname) . '</h3>
 
                         <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="' . get_string('collapse', 'local_cuadrodemando') . '">
                             <i class="fas fa-minus"></i>
                             </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="' . get_string('remove', 'local_cuadrodemando') . '">
                             <i class="fas fa-times"></i>
                             </button>
                         </div>
@@ -978,13 +978,13 @@ class adminlte_getdata {
                                     <th colspan="3"><a href="' . $CFG->wwwroot . '/course/view.php?id=' . $course->id . '">' . get_string('viewinmoodle', 'local_cuadrodemando') . '</a></th>
                                 </tr>
                                 <tr>
-                                    <th>Usuario</th>
-                                    <th>Nombre</th>
-                                    <th>email</th>
-                                    <th>Departamento</th>
-                                    <th>Fecha matriculación</th>
-                                    <th>Fecha fin curso</th>
-                                    <th>Curso finalizado</th>
+                                    <th>' . get_string('user', 'local_cuadrodemando') . '</th>
+                                    <th>' . get_string('name', 'local_cuadrodemando') . '</th>
+                                    <th>' . get_string('email', 'local_cuadrodemando') . '</th>
+                                    <th>' . get_string('department', 'local_cuadrodemando') . '</th>
+                                    <th>' . get_string('enrollmentdate', 'local_cuadrodemando') . '</th>
+                                    <th>' . get_string('courseenddate', 'local_cuadrodemando') . '</th>
+                                    <th>' . get_string('coursefinished', 'local_cuadrodemando') . '</th>
                                 </tr>
                             </thead>
                                 <tbody>';
@@ -992,9 +992,9 @@ class adminlte_getdata {
                     $yearlyCoursesTable .= '
                                     
                                 <tr>
-                                    <td><a href="' . $CFG->wwwroot . '/local/cuadrodemando/users?userid=' . $enrolledUser->id . '&roleid=5" title="Ver detalle del estudiante">' . $enrolledUser->username . '</a></td>
+                                    <td><a href="' . $CFG->wwwroot . '/local/cuadrodemando/users?userid=' . $enrolledUser->id . '&roleid=5" title="' . get_string('viewstudentdetail', 'local_cuadrodemando') . '">' . $enrolledUser->username . '</a></td>
                                     <td>' . $enrolledUser->firstname . ' ' . $enrolledUser->lastname . '</td>
-                                    <td><a href="mailto:' .  $enrolledUser->email . '" title="Enviar email" >' . $enrolledUser->email . '</a</td>
+                                    <td><a href="mailto:' .  $enrolledUser->email . '" title="' . get_string('sendemail', 'local_cuadrodemando') . '" >' . $enrolledUser->email . '</a</td>
                                     <td>' . $enrolledUser->department . '</td>
                                     <td>' . $enrolledUser->enrolled . '</td>
                                     <td>' . $enrolledUser->enddate . '</td>
@@ -1017,8 +1017,10 @@ class adminlte_getdata {
 public static function get_course_enrolments($courseid) {
     global $DB;
 
+    $withoutinstitution = get_string('withoutinstitution', 'local_cuadrodemando');
+
     $sql = "SELECT
-            COALESCE(u.department, u.institution, 'Sin institucion') AS institution,
+            COALESCE(u.department, u.institution, '$withoutinstitution') AS institution,
             SUM(CASE WHEN cc.timecompleted IS NULL THEN 1 ELSE 0 END) AS not_completed,
             SUM(CASE WHEN cc.timecompleted IS NOT NULL AND cc.timestarted > 0 THEN 1 ELSE 0 END) AS completed
         FROM {role_assignments} ra
@@ -1027,7 +1029,7 @@ public static function get_course_enrolments($courseid) {
         JOIN {user} u ON u.id = ra.userid
         LEFT JOIN {course_completions} cc ON cc.course = c.id AND cc.userid = u.id
         WHERE ra.roleid = 5
-        GROUP BY COALESCE(u.department, u.institution, 'Sin institucion')
+        GROUP BY COALESCE(u.department, u.institution, '$withoutinstitution')
         ORDER BY completed DESC";
 
     $params = ['courseid' => $courseid];
@@ -1292,15 +1294,15 @@ public static function get_category_name_number() {
                   <div class="card-header">
                     <h3 class="card-title">
                       <i class="fas fa-chart-pie mr-1"></i>
-                      Categorías y tiempos
+                      ' . get_string('categoriesandtimes', 'local_cuadrodemando') . '
                     </h3>
                     <div class="card-tools">
                       <ul class="nav nav-pills ml-auto">
                         <li class="nav-item">
-                          <a class="nav-link active" href="#geo-chart" data-bs-toggle="tab" role="tab">Categorías</a>
+                          <a class="nav-link active" href="#geo-chart" data-bs-toggle="tab" role="tab">' . get_string('categories', 'local_cuadrodemando') . '</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="#time-chart" data-bs-toggle="tab" role="tab">Tiempos</a>
+                          <a class="nav-link" href="#time-chart" data-bs-toggle="tab" role="tab">' . get_string('times', 'local_cuadrodemando') . '</a>
                         </li>
                       </ul>
                     </div>
@@ -1326,7 +1328,7 @@ public static function get_category_name_number() {
                     $popularcategories = $DB->get_records_sql($sql, null, 0, 4);
 
                     $categoryNumbersSection .= '<div class="card-footer bg-transparent">
-                    <div class="row mb-2">% del total de los cursos de la plataforma</div>
+                    <div class="row mb-2">' . get_string('percenttotalplatformcourses', 'local_cuadrodemando') . '</div>
                     <div class="row">';
 
                     foreach ($popularcategories as $category) :
@@ -1337,7 +1339,7 @@ public static function get_category_name_number() {
                         <input type="text" class="knob" data-readOnly="true" data-skin="tron" data-thickness="0.2" value="' . $percent . '" data-width="90" data-height="90"
                                 data-fgColor="#28a745">
 
-                        <div class="knob-label"><a href="/course/management.php?categoryid=' . $category->id . '"  target="_blank" style="color:#28a745;" title="Ir a la categoría en la plataforma"> ' . $category->name . '</a></div>
+                        <div class="knob-label"><a href="/course/management.php?categoryid=' . $category->id . '"  target="_blank" style="color:#28a745;" title="' . get_string('gotocategoryinplatform', 'local_cuadrodemando') . '"> ' . $category->name . '</a></div>
                         </div>';
 
                     endforeach;
@@ -1354,16 +1356,16 @@ public static function get_category_name_number() {
                     <div class="card-header border-0">
                         <h3 class="card-title">
                             <i class="fas fa-map mr-1"></i>
-                            Geografía y tiempos del curso
+                            ' . get_string('coursegeographyandtimes', 'local_cuadrodemando') . '
                         </h3>
 
                         <div class="card-tools">
                         <ul class="nav nav-pills ml-auto">
                             <li class="nav-item">
-                            <a class="nav-link active" href="#stackedBarChart" data-bs-toggle="tab" role="tab">Geografía</a>
+                            <a class="nav-link active" href="#stackedBarChart" data-bs-toggle="tab" role="tab">' . get_string('geography', 'local_cuadrodemando') . '</a>
                             </li>
                             <li class="nav-item">
-                            <a class="nav-link" href="#time-chart" data-bs-toggle="tab" role="tab">Tiempos</a>
+                            <a class="nav-link" href="#time-chart" data-bs-toggle="tab" role="tab">' . get_string('times', 'local_cuadrodemando') . '</a>
                             </li>
                         </ul>
                         </div>
@@ -1417,7 +1419,7 @@ public static function get_category_name_number() {
                     $number_resources = $DB->get_record_sql($sql);
 
                     $categoryNumbersSection .= '<div class="card-footer bg-transparent">
-                    <div class="row mb-2">Información varia del curso</div>
+                    <div class="row mb-2">' . get_string('variouscourseinformation', 'local_cuadrodemando') . '</div>
                     <div class="row">
 
                         <div class="col-sm-3">
@@ -1425,7 +1427,7 @@ public static function get_category_name_number() {
                                 <div class="ribbon-wrapper ribbon">
                                 </div>
                                 <b>' . $never_entered->count . '</b><br />
-                                <small class="text-success"># de alumnos que nunca entraron</small>
+                                <small class="text-success">' . get_string('numberstudentsneverentered', 'local_cuadrodemando') . '</small>
                             </div>
                         </div>
 
@@ -1434,7 +1436,7 @@ public static function get_category_name_number() {
                                 <div class="ribbon-wrapper ribbon">
                                 </div>
                                 <b>' . $distinct_province->count . '</b><br />
-                                <small class="text-success"># de provincias de los alumnos</small>
+                                <small class="text-success">' . get_string('numberstudentprovinces', 'local_cuadrodemando') . '</small>
                             </div>
                         </div>
 
@@ -1443,7 +1445,7 @@ public static function get_category_name_number() {
                                 <div class="ribbon-wrapper ribbon">
                                 </div>
                                 <b>' . $number_teachers->count . '</b><br />
-                                <small class="text-success"># de profesores matriculados</small>
+                                <small class="text-success">' . get_string('numberenrolledteachers', 'local_cuadrodemando') . '</small>
                             </div>
                         </div>
 
@@ -1452,7 +1454,7 @@ public static function get_category_name_number() {
                                 <div class="ribbon-wrapper ribbon">
                                 </div>
                                 <b>' . $number_resources->count . '</b><br />
-                                <small class="text-success"># de recursos utilizados</small>
+                                <small class="text-success">' . get_string('numberusedresources', 'local_cuadrodemando') . '</small>
                             </div>
                         </div>
                     </div>
@@ -1482,9 +1484,9 @@ public static function get_category_name_number() {
             <div class="card-header">
               <h3 class="card-title">';
               if (isset($courseid)) {
-                $pieCategorySection .= 'Estado de finalización';
+                $pieCategorySection .= get_string('completionstatus', 'local_cuadrodemando');
               } else {
-                $pieCategorySection .= 'Cursos con mayor # de matriculados último año';
+                $pieCategorySection .= get_string('coursesmostenrollmentslastyear', 'local_cuadrodemando');
               };       
         $pieCategorySection .= '      </h3>
 
@@ -1541,20 +1543,20 @@ public static function get_category_name_number() {
                         $notcompleted = $completeEnroled->students - $completePercent->finalizado; 
 
                         $color_array = array('text-success','text-danger');
-                        $this->pieChartLabel = ['Finalizados', 'No finalizados'];
+                        $this->pieChartLabel = [get_string('completed', 'local_cuadrodemando'), get_string('notcompleted', 'local_cuadrodemando')];
                         $this->pieChartData  = [$completePercent->finalizado , $notcompleted];
                         $this->background_color = ['#28a745', '#dc3545'];
                         if ($notcompleted == 0) {
                             $this->pieChartData  = [$completePercent->finalizado , 0];
                             $pieCategorySection .= ' 
-                            <li><i class="fas fa-user-graduate ' . $color_array[0] . '"></i>   Finalizados - ' . $completePercent->finalizado . '</li>
-                            <li><i class="fas fa-user-graduate ' . $color_array[1] . '"></i>   No Finalizados - 0</li>';
+                            <li><i class="fas fa-user-graduate ' . $color_array[0] . '"></i>   ' . get_string('completed', 'local_cuadrodemando') . ' - ' . $completePercent->finalizado . '</li>
+                            <li><i class="fas fa-user-graduate ' . $color_array[1] . '"></i>   ' . get_string('notcompleted', 'local_cuadrodemando') . ' - 0</li>';
 
                         } else {
                             $this->pieChartData  = [$completePercent->finalizado , $notcompleted];
                             $pieCategorySection .= ' 
-                                <li><i class="fas fa-user-graduate ' . $color_array[0] . '"></i>   Finalizados - ' . $completePercent->finalizado . '</li>
-                                <li><i class="fas fa-user ' . $color_array[1] . '"></i></i>   No finalizados - ' . $notcompleted . '</li>';
+                                <li><i class="fas fa-user-graduate ' . $color_array[0] . '"></i>   ' . get_string('completed', 'local_cuadrodemando') . ' - ' . $completePercent->finalizado . '</li>
+                                <li><i class="fas fa-user ' . $color_array[1] . '"></i></i>   ' . get_string('notcompleted', 'local_cuadrodemando') . ' - ' . $notcompleted . '</li>';
                         }
         
                         $pieCategorySection .= '  </ul>
@@ -1568,9 +1570,9 @@ public static function get_category_name_number() {
                     <ul class="nav nav-pills flex-column">';
 
                         $pieCategorySection .= '
-                            <li class="nav-item p-1">Total matriculados: <span class="float-right text-primary">
+                            <li class="nav-item p-1">' . get_string('totalenrolled', 'local_cuadrodemando') . ' <span class="float-right text-primary">
                                 <i class="fas fa-solid fa-user"></i>   ' . $completeEnroled->students . '   </span></li>
-                            <li class="nav-item p-1">Porcentaje finalizados: <span class="float-right text-success">
+                            <li class="nav-item p-1">' . get_string('completedpercentage', 'local_cuadrodemando') . ' <span class="float-right text-success">
                                 <i class="fas fa-solid fa-user-graduate"></i>   ' . $percentage . ' % </span></li>';
 
                     }
@@ -1615,7 +1617,7 @@ ORDER BY enroled DESC";
 
         $pieCategorySection .= ' <li><i class="far fa-circle ' . $color_array[$n] . '';   
                 $n++;
-        $pieCategorySection .= '"></i><a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=courses&courseid=' . $totalEnrolment->id . '" title="Ver detalle del curso"> ' . $totalEnrolment->shortname . '</a> - ' . $totalEnrolment->enroled . '</li>';
+        $pieCategorySection .= '"></i><a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=courses&courseid=' . $totalEnrolment->id . '" title="' . get_string('viewcoursedetail', 'local_cuadrodemando') . '"> ' . $totalEnrolment->shortname . '</a> - ' . $totalEnrolment->enroled . '</li>';
 
                   endforeach;
         
@@ -1630,7 +1632,7 @@ ORDER BY enroled DESC";
               <ul class="nav nav-pills flex-column">';
               for ($i = 0; $i < 4; $i++) :
                 $pieCategorySection .= '<li class="nav-item">
-                <a href="' . $CFG->wwwroot . '/user/index.php?id=' . $pieCourseId[$i] . '"  target="_blank" class="nav-link" title="Ir al curso en la plataforma">
+                <a href="' . $CFG->wwwroot . '/user/index.php?id=' . $pieCourseId[$i] . '"  target="_blank" class="nav-link" title="' . get_string('gotocourseinplatform', 'local_cuadrodemando') . '">
                     ' . $pieCourseFullname[$i] . '
                     <span class="float-right ' . $color_array[$i] . '">
                     <i class="fas fa-solid fa-user-graduate"></i>
@@ -1660,9 +1662,9 @@ ORDER BY enroled DESC";
               <div class="card-header ui-sortable-handle">
                 <h3 class="card-title">';
                 if (empty($userid)) {
-                    $user_access_graph .= 'Accesos únicos a la plataforma el último año por día ';
+                    $user_access_graph .= get_string('uniqueaccessesplatformlastyearbyday', 'local_cuadrodemando');
                 } else {
-                    $user_access_graph .= 'Accesos de <b>' . $user->firstname . '</b> el último año por día';
+                    $user_access_graph .= get_string('accessesofuserlastyearbyday', 'local_cuadrodemando', $user->firstname);
                 }
             $user_access_graph .= '</h3>
                   <div class="card-tools">
@@ -1696,7 +1698,7 @@ ORDER BY enroled DESC";
             $province_user_graph = '
             <div class="card card-primary card-outline">
               <div class="card-header ui-sortable-handle">
-                <h3 class="card-title">Las 10 provincias con más usuarios</h3>
+                <h3 class="card-title">' . get_string('top10provincesmostusers', 'local_cuadrodemando') . '</h3>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                       <i class="fas fa-minus"></i>
@@ -1728,7 +1730,7 @@ ORDER BY enroled DESC";
 
             $province_user_graph = '<div class="card bg-light d-flex flex-fill card-primary card-outline">
             <div class="card-header text-black border-bottom-1">
-            <h3 class="card-title">Persona</h3>
+            <h3 class="card-title">' . get_string('person', 'local_cuadrodemando') . '</h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                         <i class="fas fa-minus"></i>
@@ -1744,12 +1746,12 @@ ORDER BY enroled DESC";
                   <h2 class="lead"><b>' . $user->firstname . ' ' . $user->lastname . '</b></h2>
                   <p class="text-muted text-sm"><b>' . $user->institution .  '</b></p>
                   <ul class="ml-4 mb-0 fa-ul text-muted">
-                    <li class="small mb-1"><span class="fas fa-li"><i class="fas fa-lg fa-building"></i></span> Dirección: <b>' . $user->address .'</b></li> <!-- PRO $user->institution. $user->phone2 es CP. $user->address es dirección -->
-                    <li class="small mb-1"><span class="fas fa-li pr-2"><i class="fas fa-lg fa-city"></i></span> Ciudad: <b>' . $user->city .'</b></li>
-                    <li class="small mb-1"><span class="fas fa-li"><i class="fas fa-lg fa-location-dot"></i></span> Provincia: <b>' . $user->department .'</b></li> <!--  EN PRO $user->department -->
-                    <li class="small mb-1"><span class="fas fa-li"><i class="fas fa-lg fa-phone"></i></span> Telefono: <b>' . $user->phone1 .'</b></li> <!--  EN PRO $user->middlename -->
-                    <li class="small mb-1"><span class="fas fa-li"><i class="fas fa-lg fa-at"></i></span> Email: <b><a href="mailto:' . $user->email . '  " title="Enviar email">' . $user->email .'</a></b></li> 
-                    <li class="small mb-1"><span class="fas fa-li"><i class="fa-brands fa-lg fa-microsoft"></i></span> Teams: <b><a href="https://teams.microsoft.com/l/chat/0/0?users=sgtic041@sepe.es" target="_blank" title="Hablar por Teams">' . strtok($user->email, '@') .'</a></b></li>               
+                    <li class="small mb-1"><span class="fas fa-li"><i class="fas fa-lg fa-building"></i></span> ' . get_string('addresslabel', 'local_cuadrodemando') . ' <b>' . $user->address .'</b></li> <!-- PRO $user->institution. $user->phone2 es CP. $user->address es dirección -->
+                    <li class="small mb-1"><span class="fas fa-li pr-2"><i class="fas fa-lg fa-city"></i></span> ' . get_string('citylabel', 'local_cuadrodemando') . ' <b>' . $user->city .'</b></li>
+                    <li class="small mb-1"><span class="fas fa-li"><i class="fas fa-lg fa-location-dot"></i></span> ' . get_string('provincelabel', 'local_cuadrodemando') . ' <b>' . $user->department .'</b></li> <!--  EN PRO $user->department -->
+                    <li class="small mb-1"><span class="fas fa-li"><i class="fas fa-lg fa-phone"></i></span> ' . get_string('phonelabel', 'local_cuadrodemando') . ' <b>' . $user->phone1 .'</b></li> <!--  EN PRO $user->middlename -->
+                    <li class="small mb-1"><span class="fas fa-li"><i class="fas fa-lg fa-at"></i></span> ' . get_string('emaillabel', 'local_cuadrodemando') . ' <b><a href="mailto:' . $user->email . '  " title="' . get_string('sendemail', 'local_cuadrodemando') . '">' . $user->email .'</a></b></li> 
+                    <li class="small mb-1"><span class="fas fa-li"><i class="fa-brands fa-lg fa-microsoft"></i></span> ' . get_string('teamslabel', 'local_cuadrodemando') . ' <b><a href="https://teams.microsoft.com/l/chat/0/0?users=sgtic041@sepe.es" target="_blank" title="' . get_string('talkonteams', 'local_cuadrodemando') . '">' . strtok($user->email, '@') .'</a></b></li>               
                   </ul>
                 </div>
                 <div class="col-5 text-center">' .
@@ -1759,11 +1761,11 @@ ORDER BY enroled DESC";
             </div>
             <div class="card-footer">
               <div class="text-right">
-                <a href="' . $CFG->wwwroot . '/message/index.php?id=' . $user->id . '  " class="btn btn-sm bg-teal" title="Abrir chat en la plaforma">
+                <a href="' . $CFG->wwwroot . '/message/index.php?id=' . $user->id . '  " class="btn btn-sm bg-teal" title="' . get_string('openchatinplatform', 'local_cuadrodemando') . '">
                   <i class="fas fa-comments"></i>
                 </a>
-                <a href="' . $CFG->wwwroot . '/user/profile.php?id=' . $user->id . '" class="btn btn-sm btn-primary" title="Ver perfil en la plataforma">
-                  <i class="fas fa-user"></i> Ver perfil
+                <a href="' . $CFG->wwwroot . '/user/profile.php?id=' . $user->id . '" class="btn btn-sm btn-primary" title="' . get_string('viewprofileinplatform', 'local_cuadrodemando') . '">
+                  <i class="fas fa-user"></i> ' . get_string('viewprofileinplatform', 'local_cuadrodemando') . '
                 </a>
               </div>
             </div>
@@ -1842,7 +1844,7 @@ ORDER BY enroled DESC";
         <!-- solid sales graph -->
                 <div class="card card-outline card-success">
         <!-- /.card-body --><div class="card-footer bg-transparent">
-        <div class="row mb-2 text-center">Provincias con más % de usuarios</div>
+        <div class="row mb-2 text-center">' . get_string('provincesmorepercentusers', 'local_cuadrodemando') . '</div>
         <div class="row justify-content-center">';
 
         foreach ($popularProvinces as $category) :
