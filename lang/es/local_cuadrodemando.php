@@ -96,3 +96,80 @@ $string['coursescreated'] = 'Cursos creados ({$a})';
 $string['coursesactive'] = 'Cursos activos ({$a})';
 $string['coursesfinished'] = 'Cursos finalizados ({$a})';
 $string['averageenrollment'] = 'Media matriculados';
+
+// Enlaces y acciones
+$string['viewindashboard'] = 'Ver en el Cuadro de Mando';
+$string['viewinmoodle'] = 'Ver en Moodle';
+$string['viewcoursedetail'] = 'Ver detalle del curso';
+$string['viewteacherdetail'] = 'Ver detalle del ponente';
+$string['viewstudentdetail'] = 'Ver detalle del estudiante';
+$string['viewuserdetail'] = 'Ver su información detallada';
+$string['viewenrolledstudents'] = 'Ver los estudiantes matriculados';
+$string['clickhere'] = 'Haz clic aquí para';
+$string['clickherefor'] = 'Haz click aquí para';
+$string['sendemailtoperson'] = 'Enviar email a la persona';
+$string['sendemail'] = 'Enviar email';
+$string['managecourse'] = 'Gestionar curso';
+$string['backtolist'] = 'Atrás a listado completo de usuarios';
+
+// Tablas y listados
+$string['courselist'] = 'Listado de cursos ({$a})';
+$string['enrolledinacourse'] = 'Matriculados en el curso: <strong>{$a}</strong>';
+$string['platformusers'] = 'Usuarios de la plataforma';
+$string['courselistwhereisrole'] = 'Listado de cursos dónde <b>{$a->fullname}</b> es {$a->role}. En total: <b>{$a->count}</b>';
+$string['teacher'] = 'docente o gestor';
+$string['student'] = 'estudiante';
+$string['intotal'] = 'En total';
+
+// Estados de cursos
+$string['notstarted'] = 'No empezado';
+$string['finished'] = 'Finalizado';
+$string['active'] = 'Activo';
+$string['noenddate'] = 'Sin fecha fin';
+$string['notfinished'] = 'No finalizado';
+
+// Encabezados de tablas
+$string['id'] = 'ID';
+$string['identification'] = 'Identificación';
+$string['fullname'] = 'Nombre largo';
+$string['shortname'] = 'Nombre corto';
+$string['name'] = 'Nombre';
+$string['email'] = 'Email';
+$string['city'] = 'Ciudad';
+$string['department'] = 'Departamento';
+$string['province'] = 'Provincia';
+$string['address'] = 'Dirección';
+$string['teachers'] = 'Formador(es)';
+$string['students_count'] = '# de alumnos';
+$string['completed_count'] = '# Finalizados';
+$string['completed_percent'] = '% Finalizados';
+$string['status'] = 'Estatus';
+$string['manageinmoodle'] = 'Gestionar en Moodle';
+$string['coursestartdate'] = 'Fecha inicio curso';
+$string['courseenddate'] = 'Fecha fin del curso';
+$string['completiondate'] = 'Fecha finalización';
+$string['enrollmentdate'] = 'Fecha matriculación';
+$string['coursefinished'] = 'Curso finalizado';
+$string['user'] = 'Usuario';
+
+// Mensajes
+$string['noactiveusers'] = 'No hay usuarios activos';
+$string['noenrolled'] = '0 matriculados';
+
+// Navegación y títulos
+$string['navigateyeardata'] = 'Navega por los datos del último año';
+$string['back'] = 'Atrás';
+$string['viewdetail'] = 'Ver detalle';
+$string['collapse'] = 'Colapsar';
+$string['remove'] = 'Eliminar';
+
+// Fechas
+$string['startdate'] = 'Fecha inicio';
+$string['enddate'] = 'Fecha fin';
+$string['enrolldate'] = 'Fecha matriculación';
+$string['completiondate'] = 'Fecha finalización';
+
+// Acciones de botones
+$string['viewcourse'] = 'Ver curso';
+$string['configurecourse'] = 'Configurar curso';
+$string['viewenrolled'] = 'Ver matriculados';

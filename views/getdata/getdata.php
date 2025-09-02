@@ -8,6 +8,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
 
 /**
  * GetData class.
@@ -58,7 +59,7 @@ class adminlte_getdata {
         if (!empty($statistics)) {
             echo $statistics["viewed"]->viewed;
         } else {
-            echo 'No hay usuarios activos';
+            echo get_string('noactiveusers', 'local_cuadrodemando');
         }
     }
 
@@ -439,9 +440,19 @@ class adminlte_getdata {
                 <div class="card-header ui-sortable-handle">
                     <h3 class="card-title">';
                     if ($roleid == 3) {
-                        $usertable .= 'Listado de cursos dónde <b>' . $usersql->firstname . ' ' . $usersql->lastname . '</b> es docente o gestor. En total: <b>' . $count_teacher_courses->count . '</b>';
+                        $params = (object)[
+                            'fullname' => $usersql->firstname . ' ' . $usersql->lastname,
+                            'role' => get_string('teacher', 'local_cuadrodemando'),
+                            'count' => $count_teacher_courses->count
+                        ];
+                        $usertable .= get_string('courselistwhereisrole', 'local_cuadrodemando', $params);
                     } else {
-                        $usertable .= 'Listado de cursos dónde <b>' . $usersql->firstname . ' ' . $usersql->lastname . '</b> es estudiante En total: <b>' . $count_student_courses->count . '</b>';
+                        $params = (object)[
+                            'fullname' => $usersql->firstname . ' ' . $usersql->lastname,
+                            'role' => get_string('student', 'local_cuadrodemando'),
+                            'count' => $count_student_courses->count
+                        ];
+                        $usertable .= get_string('courselistwhereisrole', 'local_cuadrodemando', $params);
                     }
             $usertable .= '</h3>
                     <div class="card-tools">
@@ -503,7 +514,7 @@ class adminlte_getdata {
         $usertable = '
         <div class="card card-primary card-outline">
                 <div class="card-header ui-sortable-handle">
-                    <h3 class="card-title">Usuarios de la plataforma</h3>
+                    <h3 class="card-title">' . get_string('platformusers', 'local_cuadrodemando') . '</h3>
                     <div class="card-tools">
                     <a href="' . $CFG->wwwroot . '/local/cuadrodemando/users">
                         <!-- <button type="button" class="btn btn-primary btn-sm" data-card-widget="back" title="Atrás" href="' . $CFG->wwwroot . '/local/cuadrodemando/users" >
@@ -659,7 +670,7 @@ class adminlte_getdata {
                     <!-- Default box -->
                     <div class="card card-outline card-success">
                         <div class="card-header">
-                        <h3 class="card-title" id="courses_table">Listado de cursos (' . date('Y') . ') </h3>
+                        <h3 class="card-title" id="courses_table">' . get_string('courselist', 'local_cuadrodemando', date('Y')) . '</h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -676,31 +687,31 @@ class adminlte_getdata {
                         <thead>
                             <tr>
                                 <th style="width: 1%">
-                                    ID
+                                    ' . get_string('id', 'local_cuadrodemando') . '
                                 </th>
                                 <th style="width: 30%">
-                                    Nombre largo
+                                    ' . get_string('fullname', 'local_cuadrodemando') . '
                                 </th>
                                 <th style="width: 10%">
-                                    Nombre corto
+                                    ' . get_string('shortname', 'local_cuadrodemando') . '
                                 </th>
                                 <th style="width: 18%">
-                                    Formador(es)
+                                    ' . get_string('teachers', 'local_cuadrodemando') . '
                                 </th>
                                 <th style="width: 6%">
-                                    # de alumnos
+                                    ' . get_string('students_count', 'local_cuadrodemando') . '
                                 </th>
                                 <th  style="width: 7%">
-                                    # Finalizados
+                                    ' . get_string('completed_count', 'local_cuadrodemando') . '
                                 </th>
                                 <th  style="width: 7%">
-                                    % Finalizados
+                                    ' . get_string('completed_percent', 'local_cuadrodemando') . '
                                 </th>
                                 <th style="width: 6%" class="text-center">
-                                    Estatus
+                                    ' . get_string('status', 'local_cuadrodemando') . '
                                 </th>
                                 <th style="width: 15%" class="text-right">
-                                    Gestionar en Moodle
+                                    ' . get_string('manageinmoodle', 'local_cuadrodemando') . '
                                 </th>
                             </tr>
                         </thead>
@@ -751,7 +762,7 @@ class adminlte_getdata {
                                     . $yearlyCourse->fullname .
                                 '</td>
                                 <td>
-                                    <a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=courses&courseid=' . $yearlyCourse->id . '" title="Ver detalle del curso"> ' . $yearlyCourse->shortname . '</a>
+                                    <a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=courses&courseid=' . $yearlyCourse->id . '" title="' . get_string('viewcoursedetail', 'local_cuadrodemando') . '"> ' . $yearlyCourse->shortname . '</a>
                                     <br/>
                                     <small>
                                     Fecha inicio: ' . date('d-m-Y', $yearlyCourse->startdate) . '<br />
@@ -946,7 +957,7 @@ class adminlte_getdata {
                     <!-- Default box -->
                     <div class="card card-outline card-success">
                         <div class="card-header">
-                        <h3 class="card-title" id="courses_table">Matriculados en el curso: <strong>' . $course->fullname . '</strong></h3>
+                        <h3 class="card-title" id="courses_table">' . get_string('enrolledinacourse', 'local_cuadrodemando', $course->fullname) . '</h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -963,8 +974,8 @@ class adminlte_getdata {
                             <thead>
                                 <tr>
                                     <th>' . $course->fullname . '</th>
-                                    <th colspan="2"><a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=courses&courseid=' . $course->id . '">Ver en el Cuadro de Mando</a></th>
-                                    <th colspan="3"><a href="' . $CFG->wwwroot . '/course/view.php?id=' . $course->id . '">Ver en Moodle</a></th>
+                                    <th colspan="2"><a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=courses&courseid=' . $course->id . '">' . get_string('viewindashboard', 'local_cuadrodemando') . '</a></th>
+                                    <th colspan="3"><a href="' . $CFG->wwwroot . '/course/view.php?id=' . $course->id . '">' . get_string('viewinmoodle', 'local_cuadrodemando') . '</a></th>
                                 </tr>
                                 <tr>
                                     <th>Usuario</th>

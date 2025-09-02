@@ -31,6 +31,70 @@ $string['totalusers'] = 'Total Users';
 $string['totalcourses'] = 'Total Courses';
 $string['totalenrollments'] = 'Total Enrollments';
 $string['activeusers'] = 'Active Users';
+$string['activeenrolments'] = 'Active Enrollments';
+$string['registeredusers'] = 'Registered Users';
+$string['uniqueaccesses'] = 'Unique Accesses';
+
+// Links and actions
+$string['viewindashboard'] = 'View in Dashboard';
+$string['viewinmoodle'] = 'View in Moodle';
+$string['viewcoursedetail'] = 'View course detail';
+$string['viewteacherdetail'] = 'View teacher detail';
+$string['viewstudentdetail'] = 'View student detail';
+$string['viewuserdetail'] = 'View detailed information';
+$string['viewenrolledstudents'] = 'View enrolled students';
+$string['clickhere'] = 'Click here to';
+$string['clickherefor'] = 'Click here to';
+$string['sendemailtoperson'] = 'Send email to person';
+$string['sendemail'] = 'Send email';
+$string['managecourse'] = 'Manage course';
+$string['backtolist'] = 'Back to complete user list';
+
+// Tables and listings
+$string['courselist'] = 'Course list ({$a})';
+$string['enrolledinacourse'] = 'Enrolled in course: <strong>{$a}</strong>';
+$string['platformusers'] = 'Platform users';
+$string['courselistwhereisrole'] = 'Course list where <b>{$a->fullname}</b> is {$a->role}. Total: <b>{$a->count}</b>';
+$string['teacher'] = 'teacher or manager';
+$string['student'] = 'student';
+
+// Course states
+$string['notstarted'] = 'Not started';
+$string['finished'] = 'Finished';
+$string['active'] = 'Active';
+$string['noenddate'] = 'No end date';
+$string['notfinished'] = 'Not finished';
+
+// Table headers
+$string['id'] = 'ID';
+$string['identification'] = 'Identification';
+$string['fullname'] = 'Full name';
+$string['shortname'] = 'Short name';
+$string['name'] = 'Name';
+$string['email'] = 'Email';
+$string['city'] = 'City';
+$string['department'] = 'Department';
+$string['province'] = 'Province';
+$string['address'] = 'Address';
+$string['teachers'] = 'Teacher(s)';
+$string['students_count'] = '# of students';
+$string['completed_count'] = '# Completed';
+$string['completed_percent'] = '% Completed';
+$string['status'] = 'Status';
+$string['manageinmoodle'] = 'Manage in Moodle';
+$string['coursestartdate'] = 'Course start date';
+$string['courseenddate'] = 'Course end date';
+$string['completiondate'] = 'Completion date';
+$string['enrollmentdate'] = 'Enrollment date';
+$string['coursefinished'] = 'Course finished';
+$string['user'] = 'User';
+
+// Messages
+$string['noactiveusers'] = 'No active users';
+$string['noenrolled'] = '0 enrolled';
+$string['totalcourses'] = 'Total Courses';
+$string['totalenrollments'] = 'Total Enrollments';
+$string['activeusers'] = 'Active Users';
 $string['activeenrolments'] = 'Active enrolments';
 $string['registeredusers'] = 'Registered users';
 $string['uniqueaccesses'] = 'Unique accesses';
