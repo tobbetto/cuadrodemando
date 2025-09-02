@@ -80,11 +80,6 @@ class navbar_helper {
         // Language selector
         $html .= self::render_language_selector();
 
-        // Add breadcrumbs to the navbar
-        $html .= \html_writer::start_div('ms-auto');
-        $html .= self::render_breadcrumbs($active_page);
-        $html .= \html_writer::end_div(); // ms-auto
-
         $html .= \html_writer::end_div(); // container-fluid
         $html .= \html_writer::end_tag('nav');
         $html .= \html_writer::end_div(); // dashboard-nav
