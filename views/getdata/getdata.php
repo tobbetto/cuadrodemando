@@ -963,8 +963,8 @@ class adminlte_getdata {
                             <thead>
                                 <tr>
                                     <th>' . $course->fullname . '</th>
-                                    <th colspan="2"><a href=https://formaciononline.sepe.es/local/cuadrodemando/index.php?page=courses&courseid=' . $course->id . '>Ver en el Cuadro de Mando</a></th>
-                                    <th colspan="3"><a href=https://formaciononline.sepe.es/course/view.php?id=' . $course->id . '>Ver en Moodle</a></th>
+                                    <th colspan="2"><a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=courses&courseid=' . $course->id . '">Ver en el Cuadro de Mando</a></th>
+                                    <th colspan="3"><a href="' . $CFG->wwwroot . '/course/view.php?id=' . $course->id . '">Ver en Moodle</a></th>
                                 </tr>
                                 <tr>
                                     <th>Usuario</th>
