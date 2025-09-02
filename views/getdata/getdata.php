@@ -473,7 +473,7 @@ class adminlte_getdata {
             foreach ($studentcourses as $studentcourse) {
             
                 $usertable .= '<tr>';
-                $usertable .= '<td><a href="' . $CFG->wwwroot . '/local/cuadrodemando/courses?courseid=' . $studentcourse->id .  '" title="Haz clic aquí para ver los estudiantes matriculados">' . $studentcourse->id . '</a></td>';
+                $usertable .= '<td><a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=courses&courseid=' . $studentcourse->id .  '" title="Haz clic aquí para ver los estudiantes matriculados">' . $studentcourse->id . '</a></td>';
                 $usertable .= '<td>' . $studentcourse->fullname . '</a></td>';
                 $usertable .= '<td>' . $studentcourse->shortname . '</a></td>';
                 $usertable .= '<td>' . date('d.m.Y', $studentcourse->startdate) . '</a></td>'; 
@@ -751,7 +751,7 @@ class adminlte_getdata {
                                     . $yearlyCourse->fullname .
                                 '</td>
                                 <td>
-                                    <a href="' . $CFG->wwwroot . '/local/cuadrodemando/courses?courseid=' . $yearlyCourse->id . '" title="Ver detalle del curso"> ' . $yearlyCourse->shortname . '</a>
+                                    <a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=courses&courseid=' . $yearlyCourse->id . '" title="Ver detalle del curso"> ' . $yearlyCourse->shortname . '</a>
                                     <br/>
                                     <small>
                                     Fecha inicio: ' . date('d-m-Y', $yearlyCourse->startdate) . '<br />
@@ -963,7 +963,7 @@ class adminlte_getdata {
                             <thead>
                                 <tr>
                                     <th>' . $course->fullname . '</th>
-                                    <th colspan="2"><a href=https://formaciononline.sepe.es/local/cuadrodemando/courses?courseid=' . $course->id . '>Ver en el Cuadro de Mando</a></th>
+                                    <th colspan="2"><a href=https://formaciononline.sepe.es/local/cuadrodemando/index.php?page=courses&courseid=' . $course->id . '>Ver en el Cuadro de Mando</a></th>
                                     <th colspan="3"><a href=https://formaciononline.sepe.es/course/view.php?id=' . $course->id . '>Ver en Moodle</a></th>
                                 </tr>
                                 <tr>
@@ -1604,7 +1604,7 @@ ORDER BY enroled DESC";
 
         $pieCategorySection .= ' <li><i class="far fa-circle ' . $color_array[$n] . '';   
                 $n++;
-        $pieCategorySection .= '"></i><a href="' . $CFG->wwwroot . '/local/cuadrodemando/courses?courseid=' . $totalEnrolment->id . '" title="Ver detalle del curso"> ' . $totalEnrolment->shortname . '</a> - ' . $totalEnrolment->enroled . '</li>';
+        $pieCategorySection .= '"></i><a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=courses&courseid=' . $totalEnrolment->id . '" title="Ver detalle del curso"> ' . $totalEnrolment->shortname . '</a> - ' . $totalEnrolment->enroled . '</li>';
 
                   endforeach;
         
