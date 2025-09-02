@@ -883,4 +883,3 @@ echo '    define = window.requirejsVars.originalDefine;';
 echo '    delete window.requirejsVars;';
 echo '}';
 echo '</script>';
-?>
