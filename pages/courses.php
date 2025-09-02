@@ -69,9 +69,10 @@ if (isset($_GET['courseid'])) {
 }
 echo html_writer::end_div(); // content-wrapper
 echo html_writer::start_div('col-sm-6');
-echo html_writer::start_tag('ol', ['class' => 'breadcrumb float-sm-right']);
-//echo html_writer::tag('li', html_writer::link($CFG->wwwroot . '/adminlte/', 'Inicio'), ['class' => 'breadcrumb-item']);
-//echo html_writer::tag('li', html_writer::link($CFG->wwwroot . '/adminlte/courses', 'Cursos'), ['class' => 'breadcrumb-item active']);
+echo html_writer::start_tag('ol', array('class' => 'breadcrumb float-sm-right'));
+echo html_writer::start_tag('li', array('class' => 'breadcrumb-item active'));
+echo html_writer::link($CFG->wwwroot . '/local/cuadrodemando/', get_string('home', 'local_cuadrodemando'));
+echo html_writer::end_tag('li');
 echo html_writer::end_tag('ol');
 echo html_writer::end_div(); // col-sm-6
 echo html_writer::end_div(); // row mb-2

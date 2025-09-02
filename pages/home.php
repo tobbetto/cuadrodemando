@@ -69,7 +69,9 @@ echo html_writer::start_tag('section', array('class' => 'content-header'));
 echo html_writer::start_div('container-fluid');
 echo html_writer::start_div('row mb-2');
 echo html_writer::start_div('col-sm-6');
+
 echo html_writer::tag('h1', get_string('home', 'local_cuadrodemando'));
+
 echo html_writer::end_div();
 echo html_writer::start_div('col-sm-6');
 echo html_writer::start_tag('ol', array('class' => 'breadcrumb float-sm-right'));
