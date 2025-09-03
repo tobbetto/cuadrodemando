@@ -650,7 +650,7 @@ function initializeGeoChart() {
                               extend: 'pdfHtml5',
                               orientation: 'landscape',
                               text: '<i class="fas fa-file-pdf"></i>',
-                              titleAttr: '<?php get_string('exportpdf', 'local_cuadrodemando') ?>''
+                              titleAttr: '<?php get_string('exportpdf', 'local_cuadrodemando') ?>'
                             },
                             {
                               extend: 'pdfHtml5',
@@ -664,7 +664,7 @@ function initializeGeoChart() {
                           language: {
                             //url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
                             buttons: {
-                                colvis: <?php get_string('filtercolumns', 'local_cuadrodemando') ?>
+                                colvis: '<?php get_string('filtercolumns', 'local_cuadrodemando') ?>'
                             }
                         }
                 });
@@ -682,9 +682,9 @@ function initializeGeoChart() {
                   processing: true,
                   lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, get_string('all', 'local_cuadrodemando')] ],
                   language: {
-        "info": <?php get_string('showingrecords', 'local_cuadrodemando') ?>,
+        "info": "<?php get_string('showingrecords', 'local_cuadrodemando') ?>",
         "datetime": {
-        "previous": <?php get_string('previous', 'local_cuadrodemando') ?>,
+        "previous": "<?php get_string('previous', 'local_cuadrodemando') ?>",
         "next": "Proximo",
         "hours": "Horas",
         "minutes": "Minutos",
@@ -695,51 +695,51 @@ function initializeGeoChart() {
           "PM"
         ],
         "months": {
-          "0": <?php get_string('january', 'local_cuadrodemando') ?>,
-          "1": <?php get_string('february', 'local_cuadrodemando') ?>,
-          "2": <?php get_string('march', 'local_cuadrodemando') ?>,
-          "3": <?php get_string('april', 'local_cuadrodemando') ?>,
-          "4": <?php get_string('may', 'local_cuadrodemando') ?>,
-          "5": <?php get_string('june', 'local_cuadrodemando') ?>,
-          "6": <?php get_string('july', 'local_cuadrodemando') ?>,
-          "7": <?php get_string('august', 'local_cuadrodemando') ?>,
-          "8": <?php get_string('september', 'local_cuadrodemando') ?>,
-          "9": <?php get_string('october', 'local_cuadrodemando') ?>,
-          "10": <?php get_string('november', 'local_cuadrodemando') ?>,
-          "11": <?php get_string('december', 'local_cuadrodemando') ?>
+          "0": "<?php get_string('january', 'local_cuadrodemando') ?>",
+          "1": "<?php get_string('february', 'local_cuadrodemando') ?>",
+          "2": "<?php get_string('march', 'local_cuadrodemando') ?>",
+          "3": "<?php get_string('april', 'local_cuadrodemando') ?>",
+          "4": "<?php get_string('may', 'local_cuadrodemando') ?>",
+          "5": "<?php get_string('june', 'local_cuadrodemando') ?>",
+          "6": "<?php get_string('july', 'local_cuadrodemando') ?>",
+          "7": "<?php get_string('august', 'local_cuadrodemando') ?>",
+          "8": "<?php get_string('september', 'local_cuadrodemando') ?>",
+          "9": "<?php get_string('october', 'local_cuadrodemando') ?>",
+          "10": "<?php get_string('november', 'local_cuadrodemando') ?>",
+          "11": "<?php get_string('december', 'local_cuadrodemando') ?>"
         },
         "weekdays": [
-          <?php get_string('sunday', 'local_cuadrodemando') ?>,
-          <?php get_string('monday', 'local_cuadrodemando') ?>,
-          <?php get_string('tuesday', 'local_cuadrodemando') ?>,
-          <?php get_string('wednesday', 'local_cuadrodemando') ?>,
-          <?php get_string('thursday', 'local_cuadrodemando') ?>,
-          <?php get_string('friday', 'local_cuadrodemando') ?>,
-          <?php get_string('saturday', 'local_cuadrodemando') ?>
+          "<?php get_string('sunday', 'local_cuadrodemando') ?>",
+          "<?php get_string('monday', 'local_cuadrodemando') ?>",
+          "<?php get_string('tuesday', 'local_cuadrodemando') ?>",
+          "<?php get_string('wednesday', 'local_cuadrodemando') ?>",
+          "<?php get_string('thursday', 'local_cuadrodemando') ?>",
+          "<?php get_string('friday', 'local_cuadrodemando') ?>",
+          "<?php get_string('saturday', 'local_cuadrodemando') ?>"
         ]
       },
       "paginate": {
-        "first": <?php get_string('first', 'local_cuadrodemando') ?>,
-        "last": <?php get_string('last', 'local_cuadrodemando') ?>,
-        "next": <?php get_string('next', 'local_cuadrodemando') ?>,
-        "previous": <?php get_string('previous', 'local_cuadrodemando') ?>
+        "first": "<?php get_string('first', 'local_cuadrodemando') ?>",
+        "last": "<?php get_string('last', 'local_cuadrodemando') ?>",
+        "next": "<?php get_string('next', 'local_cuadrodemando') ?>",
+        "previous": "<?php get_string('previous', 'local_cuadrodemando') ?>"
       },
       "buttons": {
-        "copy": <?php get_string('copy', 'local_cuadrodemando') ?>,
-        "colvis": <?php get_string('hidecolumns', 'local_cuadrodemando') ?>,
-        "collection": <?php get_string('collection', 'local_cuadrodemando') ?>,
-        "colvisRestore": <?php get_string('restorevisibility', 'local_cuadrodemando') ?>,
-        "copyKeys": <?php get_string('copykeys', 'local_cuadrodemando') ?>,
+        "copy": "<?php get_string('copy', 'local_cuadrodemando') ?>",
+        "colvis": "<?php get_string('hidecolumns', 'local_cuadrodemando') ?>",
+        "collection": "<?php get_string('collection', 'local_cuadrodemando') ?>",
+        "colvisRestore": "<?php get_string('restorevisibility', 'local_cuadrodemando') ?>",
+        "copyKeys": "<?php get_string('copykeys', 'local_cuadrodemando') ?>",
         "copySuccess": {
-          "1": <?php get_string('copyrow', 'local_cuadrodemando') ?>,
-          "_": <?php get_string('copyrows', 'local_cuadrodemando') ?>
+          "1": "<?php get_string('copyrow', 'local_cuadrodemando') ?>",
+          "_": "<?php get_string('copyrows', 'local_cuadrodemando') ?>"
         },
-        "copyTitle": <?php get_string('copytitle', 'local_cuadrodemando') ?>,
+        "copyTitle": "<?php get_string('copytitle', 'local_cuadrodemando') ?>",
         "csv": "CSV",
         "excel": "Excel",
         "pageLength": {
-          "-1": <?php get_string('showallrows', 'local_cuadrodemando') ?>,
-          "_": <?php get_string('showrows', 'local_cuadrodemando') ?>
+          "-1": "<?php get_string('showallrows', 'local_cuadrodemando') ?>",
+          "_": "<?php get_string('showrows', 'local_cuadrodemando') ?>"
         },
         "pdf": "PDF",
         "print": "Imprimir",
@@ -752,28 +752,28 @@ function initializeGeoChart() {
         "stateRestore": "Estado %d"
       },
       "searchPanes": {
-        "clearMessage": <?php get_string('clearmessage', 'local_cuadrodemando') ?>,
+        "clearMessage": "<?php get_string('clearmessage', 'local_cuadrodemando') ?>",
         "collapse": {
-          "0": <?php get_string('searchpanes', 'local_cuadrodemando') ?>,
-          "_": <?php get_string('searchpanesplural', 'local_cuadrodemando') ?>
+          "0": "<?php get_string('searchpanes', 'local_cuadrodemando') ?>",
+          "_": "<?php get_string('searchpanesplural', 'local_cuadrodemando') ?>"
         },
         "count": "{total}",
         "countFiltered": "{shown} ({total})",
-        "emptyPanes": <?php get_string('emptypanes', 'local_cuadrodemando') ?>,
-        "loadMessage": <?php get_string('loadmessage', 'local_cuadrodemando') ?>,
-        "title": <?php get_string('title', 'local_cuadrodemando') ?>,
-        "showMessage": <?php get_string('showmessage', 'local_cuadrodemando') ?>,
-        "collapseMessage": <?php get_string('collapsemessage', 'local_cuadrodemando') ?>,
+        "emptyPanes": "<?php get_string('emptypanes', 'local_cuadrodemando') ?>",
+        "loadMessage": "<?php get_string('loadmessage', 'local_cuadrodemando') ?>",
+        "title": "<?php get_string('title', 'local_cuadrodemando') ?>",
+        "showMessage": "<?php get_string('showmessage', 'local_cuadrodemando') ?>",
+        "collapseMessage": "<?php get_string('collapsemessage', 'local_cuadrodemando') ?>"
       },
-      "processing": <?php get_string('processing', 'local_cuadrodemando') ?>,
-      "lengthMenu": <?php get_string('lengthmenu', 'local_cuadrodemando') ?>,
-      "zeroRecords": <?php get_string('zerorecords', 'local_cuadrodemando') ?>,
-      "emptyTable": <?php get_string('emptytable', 'local_cuadrodemando') ?>,
-      "infoEmpty": <?php get_string('infoempty', 'local_cuadrodemando') ?>,
-      "infoFiltered": <?php get_string('infofiltered', 'local_cuadrodemando') ?>,
-      "search": <?php get_string('search', 'local_cuadrodemando') ?>,
+      "processing": "<?php get_string('processing', 'local_cuadrodemando') ?>",
+      "lengthMenu": "<?php get_string('lengthmenu', 'local_cuadrodemando') ?>",
+      "zeroRecords": "<?php get_string('zerorecords', 'local_cuadrodemando') ?>",
+      "emptyTable": "<?php get_string('emptytable', 'local_cuadrodemando') ?>",
+      "infoEmpty": "<?php get_string('infoempty', 'local_cuadrodemando') ?>",
+      "infoFiltered": "<?php get_string('infofiltered', 'local_cuadrodemando') ?>",
+      "search": "<?php get_string('search', 'local_cuadrodemando') ?>",
       "infoThousands": ",",
-      "loadingRecords": <?php get_string('loadingrecords', 'local_cuadrodemando') ?>,
+      "loadingRecords": "<?php get_string('loadingrecords', 'local_cuadrodemando') ?>",
       //  url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
       }
 
@@ -823,7 +823,7 @@ function initializeTimeChart() {
                   } ?>, 
       datasets: [
         {
-          label: <?php get_string('averagecompletionindays', 'local_cuadrodemando') ?>,
+          label: '<?php get_string('averagecompletionindays', 'local_cuadrodemando') ?>',
           backgroundColor: 'rgba(60,141,188,0.9)',
           borderColor: 'rgba(60,141,188,0.8)',
           pointRadius: false,
@@ -842,7 +842,7 @@ function initializeTimeChart() {
           //data: [28, 48, 40, 19, 86, 27, 90]
         },
         {
-          label: <?php get_string('completionindays', 'local_cuadrodemando') ?>,
+          label: '<?php get_string('completionindays', 'local_cuadrodemando') ?>',
           backgroundColor: 'rgba(210, 214, 222, 1)',
           borderColor: 'rgba(210, 214, 222, 1)',
           pointRadius: false,
