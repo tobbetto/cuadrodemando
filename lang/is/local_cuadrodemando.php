@@ -57,6 +57,7 @@ $string['lang_english'] = 'English';
 $string['lang_spanish'] = 'Español';
 $string['lang_icelandic'] = 'Íslenska';
 $string['lang_catalan'] = 'Català';
+$string['selectlanguage'] = 'Veldu tungumál';
 
 // Villuskjár
 $string['pagenotfound'] = 'Síða fannst ekki';
@@ -77,9 +78,6 @@ $string['deletions_last_month'] = 'Eyðingar síðasta mánuð';
 $string['geo_data_loading'] = 'Hleð landafræðilegum gögnum...';
 $string['map_loading'] = 'Hleð gagnvirku korti...';
 $string['visiblecourses'] = 'Sýnileg námskeið';
-$string['selectlanguage'] = 'Veldu tungumál';
-
-// Notendaskýrslur
 $string['userdetails_student'] = 'Upplýsingar um nemanda: {$a}';
 $string['userdetails_teacher'] = 'Upplýsingar um kennara: {$a}';
 $string['userdetails_user'] = 'Upplýsingar um notanda: {$a}';
@@ -90,17 +88,109 @@ $string['newusers_month'] = 'Nýir notendur (þessi mánuður)';
 $string['onlineusers'] = 'Notendur á netinu';
 $string['login_statistics'] = 'Innskráningartölfræði';
 $string['user_changes'] = 'Breytingar á notendum';
-$string['coursesmostenrollmentslastyear'] = 'Námskeið með flestar skráningar síðasta ár';
+
+// Detalles del curso
+$string['coursedetails'] = 'Námskeiðsupplýsingar';
+$string['coursesoverview'] = 'Yfirlit yfir námskeið';
+$string['coursescreated'] = 'Námskeið búin til ({$a})';
+$string['coursesactive'] = 'Virk námskeið ({$a})';
+$string['coursesfinished'] = 'Lokið námskeið ({$a})';
+$string['averageenrollment'] = 'Meðalfjöldi innritaðra';
+
+// Enlaces y acciones
+$string['viewindashboard'] = 'Skoða á stjórnborði';
+$string['viewinmoodle'] = 'Skoða á Moodle';
+$string['viewcoursedetail'] = 'Skoða námskeiðaskýringar';
+$string['viewteacherdetail'] = 'Skoða kennaraupplýsingar';
+$string['viewstudentdetail'] = 'Skoða nemandaupplýsingar';
+$string['viewuserdetail'] = 'Skoða nánari upplýsingar';
+$string['viewenrolledstudents'] = 'Skoða innritaða nemendur';
+$string['clickhere'] = 'Smelltu hér til að';
+$string['clickherefor'] = 'Smelltu hér til að';
+$string['sendemailtoperson'] = 'Senda tölvupóst til einstaklings';
+$string['sendemail'] = 'Senda tölvupóst';
+$string['managecourse'] = 'Stjórna námskeiði';
+$string['backtolist'] = 'Til baka í heildarlista notenda';
+
+// Tablas y listados
+$string['courselist'] = 'Listi yfir námskeið ({$a})';
+$string['enrolledinacourse'] = 'Innritaður í námskeið: <strong>{$a}</strong>';
+$string['platformusers'] = 'Notendur á kerfinu';
+$string['courselistwhereisrole'] = 'Listi yfir námskeið þar sem <b>{$a->fullname}</b> er {$a->role}. Samtals: <b>{$a->count}</b>';
+$string['teacher'] = 'kennari eða stjórnandi';
+$string['student'] = 'nemandi';
+$string['intotal'] = 'Samtals';
+
+// Estados de cursos
+$string['notstarted'] = 'Ekki byrjað';
+$string['finished'] = 'Lokið';
+$string['active'] = 'Virkt';
+$string['noenddate'] = 'Engin lokadagsetning';
+$string['notfinished'] = 'Ekki lokið';
+
+// Encabezados de tablas
+$string['id'] = 'ID';
+$string['identification'] = 'Auðkenni';
+$string['fullname'] = 'Fullt nafn';
+$string['shortname'] = 'Stutt nafn';
+$string['name'] = 'Nafn';
+$string['email'] = 'Tölvupóstur';
+$string['city'] = 'Borg';
+$string['department'] = 'Deild';
+$string['province'] = 'Fylki';
+$string['address'] = 'Heimilisfang';
+$string['teachers'] = 'Kennari/kennarar';
+$string['students_count'] = '# nemenda';
+$string['completed_count'] = '# Lokið';
+$string['completed_percent'] = '% Lokið';
+$string['status'] = 'Staða';
+$string['manageinmoodle'] = 'Stjórna í Moodle';
+$string['coursestartdate'] = 'Upphaf námskeiðs';
+$string['courseenddate'] = 'Lok námskeiðs';
+$string['completiondate'] = 'Lokadagsetning';
+$string['enrollmentdate'] = 'Innritunardagur';
+$string['coursefinished'] = 'Námskeiði lokið';
+$string['user'] = 'Notandi';
+
+// Mensajes
+$string['noactiveusers'] = 'Engir virkir notendur';
+$string['noenrolled'] = '0 innritaðir';
+$string['noopensessions'] = 'Engar opnar lotur';
+$string['notcompleted'] = 'Ekki lokið';
+
+// Navegación y títulos
+$string['navigateyeardata'] = 'Fara yfir gögn síðasta árs';
+$string['viewstatisticsof'] = 'Skoða tölfræði fyrir {$a->month} {$a->year}';
+$string['back'] = 'Til baka';
+$string['viewdetail'] = 'Skoða nánar';
+$string['collapse'] = 'Fella saman';
+$string['remove'] = 'Fjarlægja';
+
+// Fechas
+$string['startdate'] = 'Upphafsdagur';
+$string['enddate'] = 'Lokadagur';
+$string['enrolldate'] = 'Innritunardagur';
+$string['completiondate'] = 'Lokadagsetning';
+$string['coursestartdate'] = 'Upphaf námskeiðs';
+$string['courseenddate'] = 'Lok námskeiðs';
+
+// Acciones de botones
+$string['viewcourse'] = 'Skoða námskeið';
+$string['configurecourse'] = 'Stilla námskeið';
+$string['viewenrolled'] = 'Skoða innritaða';
+
+// Nuevas cadenas añadidas
+$string['coursesmostenrollmentslastyear'] = 'Námskeið með flest innritanir síðasta ár';
 $string['completed'] = 'Lokið';
 $string['notcompleted'] = 'Ekki lokið';
-$string['totalenrolled'] = 'Skráðir heildar:';
+$string['totalenrolled'] = 'Samtals innritaðir:';
 $string['completedpercentage'] = 'Hlutfall lokinna:';
 $string['viewcoursedetail'] = 'Skoða námskeiðaskýringar';
-$string['gotocourseinplatform'] = 'Fara í námskeið á vettvangi';
-$string['uniqueaccessesplatformlastyearbyday'] = 'Einstök aðgöng á vettvang síðasta ár eftir dögum';
-$string['accessesofuserlastyearbyday'] = 'Aðgengi <b>{$a}</b> síðasta ár eftir dögum';
+$string['gotocourseinplatform'] = 'Fara í námskeið á kerfinu';
+$string['uniqueaccessesplatformlastyearbyday'] = 'Einstök aðgöng á kerfið síðasta ár eftir dögum';
+$string['accessesofuserlastyearbyday'] = 'Aðgangur <b>{$a}</b> síðasta ár eftir dögum';
 $string['top10provincesmostusers'] = 'Topp 10 fylki með flesta notendur';
-$string['person'] = 'Persóna';
+$string['person'] = 'Aðili';
 $string['addresslabel'] = 'Heimilisfang:';
 $string['citylabel'] = 'Borg:';
 $string['provincelabel'] = 'Fylki:';
@@ -108,47 +198,40 @@ $string['phonelabel'] = 'Sími:';
 $string['emaillabel'] = 'Tölvupóstur:';
 $string['teamslabel'] = 'Teymi:';
 $string['talkonteams'] = 'Tala á Teams';
-$string['openchatinplatform'] = 'Opna spjall á vettvangi';
-$string['viewprofileinplatform'] = 'Skoða prófíl á vettvangi';
-$string['provincesmorepercentusers'] = 'Fylki með meira % af notendum';
+$string['openchatinplatform'] = 'Opna spjall á kerfinu';
+$string['viewprofileinplatform'] = 'Skoða prófíl á kerfinu';
+$string['provincesmorepercentusers'] = 'Fylki með hærra % af notendum';
 $string['categories'] = 'Flokkar';
-$string['times'] = 'Sinnum';
-$string['percenttotalplatformcourses'] = '% af heildarfjölda námskeiða á vettvangi';
-$string['gotocategoryinplatform'] = 'Fara í flokk á vettvangi';
-$string['coursegeographyandtimes'] = 'Landafræði námskeiða og tímasetningar';
+$string['times'] = 'Tímar';
+$string['percenttotalplatformcourses'] = '% af heildarfjölda námskeiða á kerfinu';
+$string['gotocategoryinplatform'] = 'Fara í flokk á kerfinu';
+$string['coursegeographyandtimes'] = 'Landafræði og tímar námskeiðs';
 $string['variouscourseinformation'] = 'Ýmsar upplýsingar um námskeið';
-$string['numberstudentsneverentered'] = '# nemenda sem aldrei fóru inn';
+$string['numberstudentsneverentered'] = '# nemenda sem aldrei mættu';
 $string['numberstudentprovinces'] = '# fylki nemenda';
-$string['numberenrolledteachers'] = '# skráðra kennara';
+$string['numberenrolledteachers'] = '# innritaðra kennara';
 $string['numberusedresources'] = '# notaðra auðlinda';
-$string['completionstatus'] = 'Staða námskeiða';
-$string['categoriesandtimes'] = 'Categories and times';
+$string['completionstatus'] = 'Staða lokunar';
+$string['categoriesandtimes'] = 'Flokkar og tímar';
 $string['withoutinstitution'] = 'Án stofnunar';
+
+// Cadenas añadidas para home.php
 $string['opensessionsnow'] = 'Opnar lotur núna:';
-$string['completionsthismonth'] = 'Lokin þennan mánuð:';
+$string['completionsthismonth'] = 'Lokið námskeið þennan mánuð:';
 $string['nocompletionsthismonth'] = 'Engin lokun þennan mánuð 😭';
-$string['registrationsthismonth'] = 'Skráningar þennan mánuð:';
-$string['noregistrationsthismonth'] = 'Engar skráningar þennan mánuð 😭';
+$string['registrationsthismonth'] = 'Nýskráningar þennan mánuð:';
+$string['noregistrationsthismonth'] = 'Engar nýskráningar þennan mánuð 😭';
 $string['accessesthismonth'] = 'Aðgangar þennan mánuð:';
 $string['noaccessesthismonth'] = 'Engir aðgangar þennan mánuð 😭';
 $string['activeuserslasthour'] = 'Virkir notendur síðustu klukkustund:';
 $string['noactiveusers'] = 'Engir virkir notendur 😭';
-$string['enrollmentsthismonth'] = 'Innskráningar þennan mánuð:';
+$string['enrollmentsthismonth'] = 'Innritanir þennan mánuð:';
 $string['noenrollmentsthismonth'] = 'Engar innskráningar þennan mánuð 😭';
 $string['suspensionsthismonth'] = 'Frestanir þennan mánuð:';
 $string['nosuspensionsthismonth'] = 'Engar frestanir þennan mánuð 😀';
 $string['messagesthismonth'] = 'Skilaboð þennan mánuð:';
 $string['nomessagesthismonth'] = 'Engin skilaboð þennan mánuð 😭';
 $string['calendar'] = 'Dagatal';
-$string['noopensessions'] = 'Engar opnar lotur';
-
-// Courses.php strings
-$string['coursedetails'] = 'Námskeiðsupplýsingar';
-$string['coursesoverview'] = 'Yfirlit yfir námskeið';
-$string['numbercoursesincategory'] = '# af námskeiðum í flokki';
-$string['numberstudentprovinces'] = '# af nemendasýslum';
-$string['averagecompletionindays'] = 'Meðalending lokunar í dögum';
-$string['completionindays'] = 'Lokin í dögum';
 
 // DataTables strings
 $string['copytable'] = 'Afrita töflu';
@@ -182,10 +265,6 @@ $string['infoempty'] = 'Sýni 0 til 0 af 0 færslum';
 $string['infofiltered'] = '(síað frá _MAX_ samtals færslum)';
 $string['search'] = 'Leita:';
 $string['loadingrecords'] = 'Hleður...';
-$string['copyrow'] = 'Afrita 1 röð í klippiborð';
-$string['copyrows'] = 'Afrita %d raðir í klippiborð';
-
-// Viðbótar DataTables strengir
 $string['loadmessage'] = 'Hleður leitarsvæðum';
 $string['showmessage'] = 'Sýna allt';
 $string['emptypanes'] = 'Engin leitarsvæði';
@@ -218,3 +297,10 @@ $string['wednesday'] = 'Mið';
 $string['thursday'] = 'Fim';
 $string['friday'] = 'Fös';
 $string['saturday'] = 'Lau';
+
+// Additional missing strings
+$string['copyrow'] = 'Afrita 1 röð í klippiborð';
+$string['copyrows'] = 'Afrita %d raðir í klippiborð';
+$string['averagecompletionindays'] = 'Meðalending lokunar í dögum';
+$string['completionindays'] = 'Lokin í dögum';
+$string['numbercoursesincategory'] = '# af námskeiðum í flokki';

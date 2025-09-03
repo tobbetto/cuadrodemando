@@ -680,7 +680,7 @@ function initializeGeoChart() {
                   lengthChange: true,
                   autoWidth: false,
                   processing: true,
-                  lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, '<?php get_string('all', 'local_cuadrodemando') ?>'] ],
+                  lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, <?php get_string('all', 'local_cuadrodemando') ?>] ],
                   language: {
         "info": "<?php get_string('showingrecords', 'local_cuadrodemando') ?>",
         "datetime": {
