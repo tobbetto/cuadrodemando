@@ -22,7 +22,7 @@ $string['courses'] = 'Courses';
 $string['geography'] = 'Geography';
 
 // Page titles
-$string['pagetitle'] = 'Dashboard - {$a}';
+$string['pagetitle'] = '{$a}';
 $string['welcometodashboard'] = 'Welcome to Dashboard';
 
 // Statistics strings

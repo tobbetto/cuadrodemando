@@ -22,7 +22,7 @@ $string['courses'] = 'Námskeið';
 $string['geography'] = 'Landafræði';
 
 // Síðutitlar
-$string['pagetitle'] = 'Stjórnborð - {$a}';
+$string['pagetitle'] = '{$a}';
 $string['welcometodashboard'] = 'Velkomin á stjórnborðið';
 
 // Tölfræðistrengjir

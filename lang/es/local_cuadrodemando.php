@@ -22,7 +22,7 @@ $string['courses'] = 'Cursos';
 $string['geography'] = 'Geografía';
 
 // Títulos de página
-$string['pagetitle'] = 'Cuadro de Mando - {$a}';
+$string['pagetitle'] = '{$a}';
 $string['welcometodashboard'] = 'Bienvenido al Cuadro de Mando';
 
 // Cadenas de estadísticas
