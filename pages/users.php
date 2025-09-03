@@ -57,6 +57,17 @@ echo '<script src="/local/cuadrodemando/thirdpartylibs/datatables/buttons.colVis
 echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.css">';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js"></script>';
 
+// Add CSS to force hide loading spinners after page load
+echo '<style>
+.page-loaded .loading-table,
+.page-loaded .spinner-border {
+    display: none !important;
+}
+.loading-table {
+    transition: opacity 0.3s ease-out;
+}
+</style>';
+
 echo html_writer::start_div('dashboard-wrapper');
 
 // Use navbar helper
@@ -224,13 +235,36 @@ echo html_writer::end_div(); // dashboard-wrapper
 <script>
 // Hide loading spinners when page is loaded
 $(document).ready(function() {
-    // Hide all loading spinners
-    $('.loading-table').hide();
+    console.log('Document ready - looking for loading spinners');
+    
+    // Add class to body to trigger CSS hiding
+    $('body').addClass('page-loaded');
+    
+    // Hide all loading spinners immediately
+    $('.loading-table').each(function() {
+        console.log('Found loading spinner:', this);
+        $(this).hide();
+    });
+    
+    // Also hide spinner-border elements
+    $('.spinner-border').each(function() {
+        console.log('Found spinner-border:', this);
+        $(this).hide();
+    });
     
     // Show charts after a brief delay to ensure they're properly rendered
     setTimeout(function() {
         $('.chart canvas').show();
+        console.log('Charts should be visible now');
     }, 100);
+});
+
+// Window load event - fires after all resources are loaded
+$(window).on('load', function() {
+    console.log('Window fully loaded - hiding remaining spinners');
+    $('body').addClass('page-loaded');
+    $('.loading-table').fadeOut(300);
+    $('.spinner-border').fadeOut(300);
 });
 
 // Make the dashboard widgets sortable Using jquery UI
@@ -437,6 +471,11 @@ $.extend($.fn.DataTable.defaults, {
 
 $(function () {
     if ($("#usertable").length) {
+        console.log('Initializing DataTable for usertable');
+        
+        // Hide spinners before initializing DataTable
+        $('.loading-table').hide();
+        
         $("#usertable").DataTable({
             responsive: true,
             lengthChange: true,
@@ -517,16 +556,36 @@ $(function () {
                 "infoThousands": ",",
                 "loadingRecords": "Cargando..."
             },
-            "initComplete": function(settings, json) {
-                // Hide any remaining loading spinners when DataTable is initialized
+            "preDrawCallback": function(settings) {
+                console.log('DataTable preDrawCallback - hiding spinners');
                 $('.loading-table').hide();
+            },
+            "drawCallback": function(settings) {
+                console.log('DataTable drawCallback - hiding spinners');
+                $('.loading-table').hide();
+            },
+            "initComplete": function(settings, json) {
+                console.log('DataTable initComplete - hiding spinners');
+                $('.loading-table').hide();
+                $('.spinner-border').hide();
             }
         }).buttons().container().prependTo('#exportbuttons');
+        
+        console.log('DataTable initialized');
     }
 
-    // Final check to hide any remaining spinners after all content is loaded
+    // Additional aggressive spinner hiding
     setTimeout(function() {
+        console.log('Final timeout - hiding all spinners');
         $('.loading-table').fadeOut(300);
-    }, 1000);
+        $('.spinner-border').fadeOut(300);
+    }, 500);
+    
+    // Another timeout for stubborn spinners
+    setTimeout(function() {
+        console.log('Final final timeout - force hiding all spinners');
+        $('.loading-table').hide();
+        $('.spinner-border').hide();
+    }, 2000);
 });
 </script>
