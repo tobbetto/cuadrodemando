@@ -89,6 +89,16 @@ $string['onlineusers'] = 'Usuarios en línea';
 $string['login_statistics'] = 'Estadísticas de acceso';
 $string['user_changes'] = 'Cambios de usuarios';
 
+// User statistics strings
+$string['usersaddedtoday'] = 'Usuarios añadidos hoy';
+$string['usersdeletedtoday'] = 'Usuarios eliminados hoy';
+$string['userseditedtoday'] = 'Usuarios editados hoy';
+$string['accessestoday'] = 'Accesos hoy';
+
+// Chart labels
+$string['numberofaccesses'] = '# de accesos';
+$string['numberofusers'] = '# de usuarios';
+
 // Detalles del curso
 $string['coursedetails'] = 'Detalles del curso';
 $string['coursesoverview'] = 'Vista general de los cursos';

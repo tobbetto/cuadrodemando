@@ -91,6 +91,16 @@ $string['onlineusers'] = 'Online users';
 $string['login_statistics'] = 'Login statistics';
 $string['user_changes'] = 'User changes';
 
+// User statistics strings
+$string['usersaddedtoday'] = 'Users added today';
+$string['usersdeletedtoday'] = 'Users deleted today';
+$string['userseditedtoday'] = 'Users edited today';
+$string['accessestoday'] = 'Accesses today';
+
+// Chart labels
+$string['numberofaccesses'] = '# of accesses';
+$string['numberofusers'] = '# of users';
+
 // Course details
 $string['coursedetails'] = 'Course details';
 $string['coursesoverview'] = 'Courses overview';

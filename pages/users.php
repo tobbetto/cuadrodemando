@@ -85,14 +85,14 @@ echo html_writer::start_div('col-sm-6');
 if (isset($_GET['userid'])) {
     $user_info = $DB->get_record('user', ['id' => $_GET['userid']]);
     if (isset($_GET['roleid']) && $_GET['roleid'] == 5) {
-        echo html_writer::tag('h1', get_string('studentdetails', 'local_cuadrodemando') . ': <b>' . $user_info->firstname . ' ' . $user_info->lastname . '</b>');
+        echo html_writer::tag('h1', get_string('userdetails_student', 'local_cuadrodemando', $user_info->firstname . ' ' . $user_info->lastname));
     } elseif (isset($_GET['roleid']) && $_GET['roleid'] == 3) {
-        echo html_writer::tag('h1', get_string('teacherdetails', 'local_cuadrodemando') . ': <b>' . $user_info->firstname . ' ' . $user_info->lastname . '</b>');
+        echo html_writer::tag('h1', get_string('userdetails_teacher', 'local_cuadrodemando', $user_info->firstname . ' ' . $user_info->lastname));
     } else {
-        echo html_writer::tag('h1', get_string('userdetails', 'local_cuadrodemando') . ': <b>' . $user_info->firstname . ' ' . $user_info->lastname . '</b>');
+        echo html_writer::tag('h1', get_string('userdetails_user', 'local_cuadrodemando', $user_info->firstname . ' ' . $user_info->lastname));
     }
 } else {
-    echo html_writer::tag('h1', get_string('usersoverview', 'local_cuadrodemando'));
+    echo html_writer::tag('h1', get_string('users_overview', 'local_cuadrodemando'));
 }
 
 echo html_writer::end_div(); // col-sm-6
@@ -233,6 +233,10 @@ echo html_writer::end_div(); // dashboard-wrapper
 ?>
 
 <script>
+// Define language strings for JavaScript
+var numberOfAccessesLabel = <?php echo json_encode(get_string('numberofaccesses', 'local_cuadrodemando')); ?>;
+var numberOfUsersLabel = <?php echo json_encode(get_string('numberofusers', 'local_cuadrodemando')); ?>;
+
 // Hide loading spinners when page is loaded
 $(document).ready(function() {
     console.log('Document ready - looking for loading spinners');
@@ -308,7 +312,7 @@ var areaChartData = {
         }
     ?>,
     datasets: [{
-        label: '# de accesos',
+        label: numberOfAccessesLabel,
         backgroundColor: 'rgba(60,141,188,0.9)',
         borderColor: 'rgba(60,141,188,0.8)',
         borderRadius: 12,
@@ -375,7 +379,7 @@ var areaChartData2 = {
         echo $provinceUsers['province'];
     ?>,
     datasets: [{
-        label: '# de usuarios',
+        label: numberOfUsersLabel,
         backgroundColor: 'rgba(60,141,188,0.9)',
         borderColor: 'rgba(60,141,188,0.8)',
         borderRadius: 12,
@@ -435,36 +439,36 @@ $.extend($.fn.DataTable.defaults, {
         {
             extend: 'copyHtml5',
             text: '<i class="fas fa-copy"></i>',
-            titleAttr: 'Copiar tabla'
+            titleAttr: '<?php echo get_string('copytable', 'local_cuadrodemando'); ?>'
         },
         {
             extend: 'csvHtml5',
             text: '<i class="fas fa-file-csv"></i>',
-            titleAttr: 'Exportar CSV'
+            titleAttr: '<?php echo get_string('exportcsv', 'local_cuadrodemando'); ?>'
         },
         {
             extend: 'excelHtml5',
             text: '<i class="fas fa-file-excel"></i>',
-            titleAttr: 'Exportar Excel'
+            titleAttr: '<?php echo get_string('exportexcel', 'local_cuadrodemando'); ?>'
         },
         {
             extend: 'pdfHtml5',
             orientation: 'landscape',
             text: '<i class="fas fa-file-pdf"></i>',
-            titleAttr: 'Exportar PDF'
+            titleAttr: '<?php echo get_string('exportpdf', 'local_cuadrodemando'); ?>'
         },
         {
             extend: 'pdfHtml5',
             orientation: 'landscape',
             text: '<i class="fas fa-print"></i>',
             download: 'open',
-            titleAttr: 'Imprimir tabla'
+            titleAttr: '<?php echo get_string('printtable', 'local_cuadrodemando'); ?>'
         },
         'colvis'
     ],
     language: {
         buttons: {
-            colvis: 'Filtrar columnas'
+            colvis: '<?php echo get_string('filtercolumns', 'local_cuadrodemando'); ?>'
         }
     }
 });
@@ -481,46 +485,55 @@ $(function () {
             lengthChange: true,
             autoWidth: false,
             processing: true,
-            lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "Todos"]],
+            lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "<?php echo get_string('all', 'local_cuadrodemando'); ?>"]],
             language: {
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                "info": "<?php echo get_string('showingrecords', 'local_cuadrodemando'); ?>",
                 "datetime": {
-                    "previous": "Anterior",
-                    "next": "Proximo",
-                    "hours": "Horas",
-                    "minutes": "Minutos",
-                    "seconds": "Segundos",
-                    "unknown": "-",
-                    "amPm": ["AM", "PM"],
+                    "previous": "<?php echo get_string('previous', 'local_cuadrodemando'); ?>",
+                    "next": "<?php echo get_string('next', 'local_cuadrodemando'); ?>",
+                    "hours": "<?php echo get_string('hours', 'local_cuadrodemando'); ?>",
+                    "minutes": "<?php echo get_string('minutes', 'local_cuadrodemando'); ?>",
+                    "seconds": "<?php echo get_string('seconds', 'local_cuadrodemando'); ?>",
+                    "unknown": "<?php echo get_string('unknown', 'local_cuadrodemando'); ?>",
+                    "amPm": ["<?php echo get_string('am', 'local_cuadrodemando'); ?>", "<?php echo get_string('pm', 'local_cuadrodemando'); ?>"],
                     "months": {
-                        "0": "Enero", "1": "Febrero", "2": "Marzo", "3": "Abril",
-                        "4": "Mayo", "5": "Junio", "6": "Julio", "7": "Agosto",
-                        "8": "Septiembre", "9": "Octubre", "10": "Noviembre", "11": "Diciembre"
+                        "0": "<?php echo get_string('january', 'local_cuadrodemando'); ?>",
+                        "1": "<?php echo get_string('february', 'local_cuadrodemando'); ?>",
+                        "2": "<?php echo get_string('march', 'local_cuadrodemando'); ?>",
+                        "3": "<?php echo get_string('april', 'local_cuadrodemando'); ?>",
+                        "4": "<?php echo get_string('may', 'local_cuadrodemando'); ?>",
+                        "5": "<?php echo get_string('june', 'local_cuadrodemando'); ?>",
+                        "6": "<?php echo get_string('july', 'local_cuadrodemando'); ?>",
+                        "7": "<?php echo get_string('august', 'local_cuadrodemando'); ?>",
+                        "8": "<?php echo get_string('september', 'local_cuadrodemando'); ?>",
+                        "9": "<?php echo get_string('october', 'local_cuadrodemando'); ?>",
+                        "10": "<?php echo get_string('november', 'local_cuadrodemando'); ?>",
+                        "11": "<?php echo get_string('december', 'local_cuadrodemando'); ?>"
                     },
-                    "weekdays": ["dom", "lun", "mar", "mié", "jue", "vie", "sab"]
+                    "weekdays": ["<?php echo get_string('sunday', 'local_cuadrodemando'); ?>", "<?php echo get_string('monday', 'local_cuadrodemando'); ?>", "<?php echo get_string('tuesday', 'local_cuadrodemando'); ?>", "<?php echo get_string('wednesday', 'local_cuadrodemando'); ?>", "<?php echo get_string('thursday', 'local_cuadrodemando'); ?>", "<?php echo get_string('friday', 'local_cuadrodemando'); ?>", "<?php echo get_string('saturday', 'local_cuadrodemando'); ?>"]
                 },
                 "paginate": {
-                    "first": "Primero",
-                    "last": "Último",
-                    "next": "Siguiente",
-                    "previous": "Anterior"
+                    "first": "<?php echo get_string('first', 'local_cuadrodemando'); ?>",
+                    "last": "<?php echo get_string('last', 'local_cuadrodemando'); ?>",
+                    "next": "<?php echo get_string('next', 'local_cuadrodemando'); ?>",
+                    "previous": "<?php echo get_string('previous', 'local_cuadrodemando'); ?>"
                 },
                 "buttons": {
-                    "copy": "Copiar",
-                    "colvis": "Ocultar columnas",
-                    "collection": "Colección",
-                    "colvisRestore": "Restaurar visibilidad",
-                    "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br /> <br /> Para cancelar, haga clic en este mensaje o presione escape.",
+                    "copy": "<?php echo get_string('copy', 'local_cuadrodemando'); ?>",
+                    "colvis": "<?php echo get_string('hidecolumns', 'local_cuadrodemando'); ?>",
+                    "collection": "<?php echo get_string('collection', 'local_cuadrodemando'); ?>",
+                    "colvisRestore": "<?php echo get_string('restorevisibility', 'local_cuadrodemando'); ?>",
+                    "copyKeys": "<?php echo get_string('copykeys', 'local_cuadrodemando'); ?>",
                     "copySuccess": {
-                        "1": "Copiada 1 fila al portapapeles",
-                        "_": "Copiadas %ds fila al portapapeles"
+                        "1": "<?php echo get_string('copyrow', 'local_cuadrodemando'); ?>",
+                        "_": "<?php echo get_string('copyrows', 'local_cuadrodemando'); ?>"
                     },
-                    "copyTitle": "Copiar al portapapeles",
+                    "copyTitle": "<?php echo get_string('copytitle', 'local_cuadrodemando'); ?>",
                     "csv": "CSV",
                     "excel": "Excel",
                     "pageLength": {
-                        "-1": "Mostrar todas las filas",
-                        "_": "Mostrar %d filas"
+                        "-1": "<?php echo get_string('showallrows', 'local_cuadrodemando'); ?>",
+                        "_": "<?php echo get_string('showrows', 'local_cuadrodemando'); ?>"
                     },
                     "pdf": "PDF",
                     "print": "Imprimir",
@@ -533,28 +546,28 @@ $(function () {
                     "stateRestore": "Estado %d"
                 },
                 "searchPanes": {
-                    "clearMessage": "Borrar todo",
+                    "clearMessage": "<?php echo get_string('clearmessage', 'local_cuadrodemando'); ?>",
                     "collapse": {
-                        "0": "Paneles de búsqueda",
-                        "_": "Paneles de búsqueda (%d)"
+                        "0": "<?php echo get_string('searchpanes', 'local_cuadrodemando'); ?>",
+                        "_": "<?php echo get_string('searchpanesplural', 'local_cuadrodemando'); ?>"
                     },
                     "count": "{total}",
                     "countFiltered": "{shown} ({total})",
-                    "emptyPanes": "Sin paneles de búsqueda",
-                    "loadMessage": "Cargando paneles de búsqueda",
-                    "title": "Filtros Activos - %d",
-                    "showMessage": "Mostrar Todo",
-                    "collapseMessage": "Colapsar Todo"
+                    "emptyPanes": "<?php echo get_string('emptypanes', 'local_cuadrodemando'); ?>",
+                    "loadMessage": "<?php echo get_string('loadmessage', 'local_cuadrodemando'); ?>",
+                    "title": "<?php echo get_string('title', 'local_cuadrodemando'); ?>",
+                    "showMessage": "<?php echo get_string('showmessage', 'local_cuadrodemando'); ?>",
+                    "collapseMessage": "<?php echo get_string('collapsemessage', 'local_cuadrodemando'); ?>"
                 },
-                "processing": "Procesando...",
-                "lengthMenu": "Mostrar _MENU_ registros",
-                "zeroRecords": "No se encontraron resultados",
-                "emptyTable": "Ningún dato disponible en esta tabla",
-                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "search": "Buscar:",
+                "processing": "<?php echo get_string('processing', 'local_cuadrodemando'); ?>",
+                "lengthMenu": "<?php echo get_string('lengthmenu', 'local_cuadrodemando'); ?>",
+                "zeroRecords": "<?php echo get_string('zerorecords', 'local_cuadrodemando'); ?>",
+                "emptyTable": "<?php echo get_string('emptytable', 'local_cuadrodemando'); ?>",
+                "infoEmpty": "<?php echo get_string('infoempty', 'local_cuadrodemando'); ?>",
+                "infoFiltered": "<?php echo get_string('infofiltered', 'local_cuadrodemando'); ?>",
+                "search": "<?php echo get_string('search', 'local_cuadrodemando'); ?>",
                 "infoThousands": ",",
-                "loadingRecords": "Cargando..."
+                "loadingRecords": "<?php echo get_string('loadingrecords', 'local_cuadrodemando'); ?>"
             },
             "preDrawCallback": function(settings) {
                 console.log('DataTable preDrawCallback - hiding spinners');

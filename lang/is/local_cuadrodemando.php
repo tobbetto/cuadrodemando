@@ -89,6 +89,16 @@ $string['onlineusers'] = 'Notendur á netinu';
 $string['login_statistics'] = 'Innskráningartölfræði';
 $string['user_changes'] = 'Breytingar á notendum';
 
+// User statistics strings
+$string['usersaddedtoday'] = 'Notendur bætt við í dag';
+$string['usersdeletedtoday'] = 'Notendur eyddir í dag';
+$string['userseditedtoday'] = 'Notendur breyttir í dag';
+$string['accessestoday'] = 'Aðgangar í dag';
+
+// Chart labels
+$string['numberofaccesses'] = '# af aðgöngum';
+$string['numberofusers'] = '# af notendum';
+
 // Detalles del curso
 $string['coursedetails'] = 'Námskeiðsupplýsingar';
 $string['coursesoverview'] = 'Yfirlit yfir námskeið';
