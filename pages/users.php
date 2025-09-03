@@ -154,15 +154,16 @@ echo html_writer::start_div('row');
 
 // User data from adminlte_getdata class
 if (isset($_GET['userid'])) {
-    $user_data = new adminlte_getdata();
     if (isset($_GET['roleid'])) {
-        echo $user_data->get_user_numbers($_GET['userid'], $_GET['roleid']);
+        echo adminlte_getdata::get_user_table($_GET['userid'], $_GET['roleid']);
     } else {
-        echo $user_data->get_user_numbers($_GET['userid']);
+        // Default to student role (roleid = 5) if no role specified
+        echo adminlte_getdata::get_user_table($_GET['userid'], 5);
     }
 } else {
+    // Show user list when no specific user is selected
     $user_data = new adminlte_getdata();
-    echo $user_data->get_user_numbers();
+    echo $user_data->get_category_numbers(null);
 }
 
 echo html_writer::end_div(); // row
