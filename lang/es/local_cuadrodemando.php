@@ -274,3 +274,33 @@ $string['clearmessage'] = 'Borrar todo';
 $string['searchpanes'] = 'Paneles de búsqueda';
 $string['searchpanesplural'] = 'Paneles de búsqueda (%d)';
 $string['all'] = 'Todos';
+
+// Month names for DataTables internationalization
+$string['january'] = 'Enero';
+$string['february'] = 'Febrero';
+$string['march'] = 'Marzo';
+$string['april'] = 'Abril';
+$string['may'] = 'Mayo';
+$string['june'] = 'Junio';
+$string['july'] = 'Julio';
+$string['august'] = 'Agosto';
+$string['september'] = 'Septiembre';
+$string['october'] = 'Octubre';
+$string['november'] = 'Noviembre';
+$string['december'] = 'Diciembre';
+
+// Weekday abbreviations for DataTables internationalization
+$string['sunday'] = 'Dom';
+$string['monday'] = 'Lun';
+$string['tuesday'] = 'Mar';
+$string['wednesday'] = 'Mié';
+$string['thursday'] = 'Jue';
+$string['friday'] = 'Vie';
+$string['saturday'] = 'Sáb';
+
+// Additional missing strings
+$string['copyrow'] = 'Copiar 1 fila al portapapeles';
+$string['copyrows'] = 'Copiar %d filas al portapapeles';
+$string['averagecompletionindays'] = 'Promedio de finalización en días';
+$string['completionindays'] = 'Finalización en días';
+$string['numbercoursesincategory'] = '# de cursos en categoría';

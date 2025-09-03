@@ -634,12 +634,12 @@ function initializeGeoChart() {
                             {
                                 extend:    'copyHtml5',
                                 text:      '<i class="fas fa-copy"></i>',
-                                titleAttr: <?php get_string('copytable', 'local_cuadrodemando') ?>
+                                titleAttr: '<?php get_string('copytable', 'local_cuadrodemando') ?>'
                             },
                             {
                                 extend:    'csvHtml5',
                                 text:      '<i class="fas fa-file-csv"></i>',
-                                titleAttr: <?php get_string('exportcsv', 'local_cuadrodemando') ?>
+                                titleAttr: '<?php get_string('exportcsv', 'local_cuadrodemando') ?>'
                             },
                             {
                                 extend:    'excelHtml5',

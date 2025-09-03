@@ -303,3 +303,9 @@ $string['wednesday'] = 'Wed';
 $string['thursday'] = 'Thu';
 $string['friday'] = 'Fri';
 $string['saturday'] = 'Sat';
+
+// Additional missing strings
+$string['copyrow'] = 'Copy 1 row to clipboard';
+$string['copyrows'] = 'Copy %d rows to clipboard';
+$string['averagecompletionindays'] = 'Average completion in days';
+$string['completionindays'] = 'Completion in days';
