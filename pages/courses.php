@@ -644,20 +644,20 @@ function initializeGeoChart() {
                             {
                                 extend:    'excelHtml5',
                                 text:      '<i class="fas fa-file-excel"></i>',
-                                titleAttr: <?php get_string('exportexcel', 'local_cuadrodemando') ?>
+                                titleAttr: '<?php get_string('exportexcel', 'local_cuadrodemando') ?>'
                             },
                             {
                               extend: 'pdfHtml5',
                               orientation: 'landscape',
                               text: '<i class="fas fa-file-pdf"></i>',
-                              titleAttr: <?php get_string('exportpdf', 'local_cuadrodemando') ?>
+                              titleAttr: '<?php get_string('exportpdf', 'local_cuadrodemando') ?>''
                             },
                             {
                               extend: 'pdfHtml5',
                               orientation: 'landscape',
                               text: '<i class="fas fa-print"></i>',
                               download: 'open',
-                              titleAttr: <?php get_string('printtable', 'local_cuadrodemando') ?>
+                              titleAttr: '<?php get_string('printtable', 'local_cuadrodemando') ?>'
                             },
                             'colvis'
                           ],
