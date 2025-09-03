@@ -222,6 +222,17 @@ echo html_writer::end_div(); // dashboard-wrapper
 ?>
 
 <script>
+// Hide loading spinners when page is loaded
+$(document).ready(function() {
+    // Hide all loading spinners
+    $('.loading-table').hide();
+    
+    // Show charts after a brief delay to ensure they're properly rendered
+    setTimeout(function() {
+        $('.chart canvas').show();
+    }, 100);
+});
+
 // Make the dashboard widgets sortable Using jquery UI
 if (typeof $ !== 'undefined' && $.fn.sortable) {
     $('.connectedSortable').sortable({
@@ -317,6 +328,9 @@ if (document.getElementById("barChart")) {
         data: barChartData,
         options: barChartOptions
     });
+
+    // Hide loading spinner for this chart
+    $(barChartCanvas).closest('.chart').find('.loading-table').hide();
 }
 
 <?php if (!isset($_GET['userid'])): ?>
@@ -375,6 +389,9 @@ if (document.getElementById("barChart2")) {
         data: barChartData2,
         options: barChartOptions2
     });
+
+    // Hide loading spinner for this chart
+    $(barChartCanvas2).closest('.chart').find('.loading-table').hide();
 }
 <?php endif; ?>
 
@@ -499,8 +516,17 @@ $(function () {
                 "search": "Buscar:",
                 "infoThousands": ",",
                 "loadingRecords": "Cargando..."
+            },
+            "initComplete": function(settings, json) {
+                // Hide any remaining loading spinners when DataTable is initialized
+                $('.loading-table').hide();
             }
         }).buttons().container().prependTo('#exportbuttons');
     }
+
+    // Final check to hide any remaining spinners after all content is loaded
+    setTimeout(function() {
+        $('.loading-table').fadeOut(300);
+    }, 1000);
 });
 </script>
