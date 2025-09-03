@@ -542,7 +542,7 @@ class adminlte_getdata {
         foreach ($users as $user) {
             
             $usertable .= '<tr>';
-            $usertable .= '<td><a href="' . $CFG->wwwroot . '/local/cuadrodemando/users?userid=' . $user->id .  '&roleid=5" title="' . get_string('viewuserdetail', 'local_cuadrodemando') . '">' . $user->username . '</a></td>';
+            $usertable .= '<td><a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=users&userid=' . $user->id .  '&roleid=5" title="' . get_string('viewuserdetail', 'local_cuadrodemando') . '">' . $user->username . '</a></td>';
             $usertable .= '<td>' . $user->firstname . ' ' . $user->lastname . '</td>';
             $usertable .= '<td><a href="mailto:' . $user->email .  '" title="' . get_string('sendemailtoperson', 'local_cuadrodemando') . '">' . $user->email . '</a></td>';
             $usertable .= '<td>' . $user->city . '</td>';
@@ -813,7 +813,7 @@ class adminlte_getdata {
                                     $yearlyCoursesTable .= '<li class="list-inline-item">';
                                         foreach($courseTeachers as $courseTeacher) :
 
-                                            $yearlyCoursesTable .= $OUTPUT->user_picture($courseTeacher, ['size' => 35, 'class' => 'userpicture']) . ' <a href="' . $CFG->wwwroot . '/local/cuadrodemando/users?userid=' . $courseTeacher->id . '&roleid=3" title="' . get_string('viewteacherdetail', 'local_cuadrodemando') . '" > ' . $courseTeacher->firstname . ' ' . $courseTeacher->lastname . '</a> ' . '<br />';
+                                            $yearlyCoursesTable .= $OUTPUT->user_picture($courseTeacher, ['size' => 35, 'class' => 'userpicture']) . ' <a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=users&userid=' . $courseTeacher->id . '&roleid=3" title="' . get_string('viewteacherdetail', 'local_cuadrodemando') . '" > ' . $courseTeacher->firstname . ' ' . $courseTeacher->lastname . '</a> ' . '<br />';
                                         
                                         endforeach;
                                     $yearlyCoursesTable .= '</li>
@@ -992,7 +992,7 @@ class adminlte_getdata {
                     $yearlyCoursesTable .= '
                                     
                                 <tr>
-                                    <td><a href="' . $CFG->wwwroot . '/local/cuadrodemando/users?userid=' . $enrolledUser->id . '&roleid=5" title="' . get_string('viewstudentdetail', 'local_cuadrodemando') . '">' . $enrolledUser->username . '</a></td>
+                                    <td><a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=users&userid=' . $enrolledUser->id . '&roleid=5" title="' . get_string('viewstudentdetail', 'local_cuadrodemando') . '">' . $enrolledUser->username . '</a></td>
                                     <td>' . $enrolledUser->firstname . ' ' . $enrolledUser->lastname . '</td>
                                     <td><a href="mailto:' .  $enrolledUser->email . '" title="' . get_string('sendemail', 'local_cuadrodemando') . '" >' . $enrolledUser->email . '</a</td>
                                     <td>' . $enrolledUser->department . '</td>
