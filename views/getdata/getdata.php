@@ -456,8 +456,8 @@ class adminlte_getdata {
                     }
             $usertable .= '</h3>
                     <div class="card-tools">
-                    <a href="' . $CFG->wwwroot . '/local/cuadrodemando/users">
-                        <button type="button" class="btn btn-primary btn-sm" data-card-widget="back" title="' . get_string('backtolist', 'local_cuadrodemando') . '" href="' . $CFG->wwwroot . '/local/cuadrodemando/users" >
+                    <a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=users">
+                        <button type="button" class="btn btn-primary btn-sm" data-card-widget="back" title="' . get_string('backtolist', 'local_cuadrodemando') . '" href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=users" >
                                 <i class="fas fa-solid fa-circle-left"></i>
                         </button>
                     </a>
@@ -516,8 +516,8 @@ class adminlte_getdata {
                 <div class="card-header ui-sortable-handle">
                     <h3 class="card-title">' . get_string('platformusers', 'local_cuadrodemando') . '</h3>
                     <div class="card-tools">
-                    <a href="' . $CFG->wwwroot . '/local/cuadrodemando/users">
-                        <!-- <button type="button" class="btn btn-primary btn-sm" data-card-widget="back" title="Atrás" href="' . $CFG->wwwroot . '/local/cuadrodemando/users" >
+                    <a href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=users">
+                        <!-- <button type="button" class="btn btn-primary btn-sm" data-card-widget="back" title="Atrás" href="' . $CFG->wwwroot . '/local/cuadrodemando/index.php?page=users" >
                                 <i class="fas fa-solid fa-circle-left"></i>
                         </button> -->
                     </a>
