@@ -66,25 +66,6 @@ echo \local_cuadrodemando\navbar_helper::render_navbar('geo');
 // Content Wrapper
 echo html_writer::start_div('content-wrapper');
 
-// Content Header (Page header)
-echo html_writer::start_tag('section', array('class' => 'content-header'));
-echo html_writer::start_div('container-fluid');
-echo html_writer::start_div('row mb-2');
-echo html_writer::start_div('col-sm-6');
-echo html_writer::tag('h1', get_string('geo', 'local_cuadrodemando'));
-echo html_writer::end_div();
-echo html_writer::start_div('col-sm-6');
-echo html_writer::start_tag('ol', array('class' => 'breadcrumb float-sm-right'));
-echo html_writer::start_tag('li', array('class' => 'breadcrumb-item'));
-echo html_writer::link(new moodle_url('/local/cuadrodemando/index.php'), get_string('home', 'local_cuadrodemando'));
-echo html_writer::end_tag('li');
-echo html_writer::tag('li', get_string('geo', 'local_cuadrodemando'), array('class' => 'breadcrumb-item active'));
-echo html_writer::end_tag('ol');
-echo html_writer::end_div();
-echo html_writer::end_div(); // row mb-2
-echo html_writer::end_div(); // container-fluid
-echo html_writer::end_tag('section'); // content-header
-
 // Main content
 echo html_writer::start_tag('section', array('class' => 'content'));
 echo html_writer::start_div('container-fluid');
