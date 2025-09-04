@@ -8,103 +8,71 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once('../../../config.php');
-require_once($CFG->dirroot . '/local/cuadrodemando/lib.php');
+defined('MOODLE_INTERNAL') || die();
 
-// Check if user is logged in
-require_login();
+// Disable AMD/RequireJS before loading third-party scripts
+echo '<script>';
+echo 'if (typeof define === "function" && define.amd) {';
+echo '    var originalDefine = define;';
+echo '    define = undefined;';
+echo '    window.requirejsVars = { originalDefine: originalDefine };';
+echo '}';
+echo '</script>';
 
-// Check permissions
-$context = context_system::instance();
-require_capability('local/cuadrodemando:view', $context);
+// Direct asset loading (like template.php)
+echo '<link rel="stylesheet" type="text/bundle" href="/local/cuadrodemando/thirdpartylibs/fonts-googleapi/fonts.googleapi.css">';
+echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/fontawesome/css/all.min.css">';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js" crossorigin="anonymous"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/jquery-ui/jquery-ui.min.js"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js"></script>';
+echo '<script src="/local/cuadrodemando/assets/scripts/bootstrap/bootstrap.bundle.min.js"></script>';
+echo '<script src="/local/cuadrodemando/assets/scripts/map/mapa.js"></script>';
+echo '<link rel="stylesheet" href="/local/cuadrodemando/assets/scripts/map/estilos.css"/>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/chart/chart.umd.js"></script>';
+echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/overlayscrollbars/overlayscrollbars.min.css">';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/overlayscrollbars/overlayscrollbars.browser.es6.min.js"></script>';
+echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/datatables/dataTables.bootstrap5.min.css">';
+echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/datatables/responsive.bootstrap5.min.css">';
+echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/datatables/buttons.bootstrap5.min.css">';
+echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/datatables/datatables.min.css">';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/datatables/datatables.min.js"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/datatables/jquery.dataTables.min.js"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/datatables/dataTables.buttons.min.js"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/datatables/jszip.min.js"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/datatables/pdfmake.min.js"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/datatables/vfs_fonts.js"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/datatables/buttons.html5.min.js"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/datatables/buttons.print.min.js"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/datatables/buttons.bootstrap5.min.js"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/datatables/buttons.colVis.min.js"></script>';
+echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.css">';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js"></script>';
 
-// Set page context
-$PAGE->set_context($context);
-$PAGE->set_url('/local/cuadrodemando/pages/geo.php');
-$PAGE->set_title(get_string('geo', 'local_cuadrodemando'));
-$PAGE->set_heading(get_string('geo', 'local_cuadrodemando'));
-$PAGE->set_pagelayout('admin');
+global $OUTPUT, $CFG, $DB;
 
-// Add CSS and JS for the map functionality
-$PAGE->requires->css('/local/cuadrodemando/styles.css');
-$PAGE->requires->js('/local/cuadrodemando/amd/src/map.js');
+// Include necessary classes
+require_once($CFG->dirroot . '/local/cuadrodemando/classes/navbar_helper.php');
+include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/getdata.php');
 
 // Include data classes
 require_once($CFG->dirroot . '/local/cuadrodemando/views/pages/geo/data/user_provincia_table.php');
 require_once($CFG->dirroot . '/local/cuadrodemando/views/pages/geo/data/province_activity_table.php');
 
-// Navigation breadcrumbs
-$PAGE->navbar->add(get_string('home', 'local_cuadrodemando'), new moodle_url('/local/cuadrodemando/index.php'));
-$PAGE->navbar->add(get_string('geo', 'local_cuadrodemando'));
+echo html_writer::start_div('dashboard-wrapper');
 
-echo $OUTPUT->header();
+// Use navbar helper
+echo \local_cuadrodemando\navbar_helper::render_navbar('geo');
 
-// Navigation menu
-echo html_writer::start_div('dashboard-nav mb-4');
-echo html_writer::start_tag('nav', array('class' => 'navbar navbar-expand-lg navbar-light bg-light'));
-echo html_writer::start_div('container-fluid');
-
-// Brand/Home link
-echo html_writer::link(
-    new moodle_url('/local/cuadrodemando/index.php'),
-    get_string('dashboard', 'local_cuadrodemando'),
-    array('class' => 'navbar-brand')
-);
-
-// Navigation links
-echo html_writer::start_div('navbar-nav');
-echo html_writer::start_div('nav-item');
-echo html_writer::link(
-    new moodle_url('/local/cuadrodemando/pages/home.php'),
-    get_string('home', 'local_cuadrodemando'),
-    array('class' => 'nav-link')
-);
-echo html_writer::end_div();
-
-echo html_writer::start_div('nav-item');
-echo html_writer::link(
-    new moodle_url('/local/cuadrodemando/pages/courses.php'),
-    get_string('courses', 'local_cuadrodemando'),
-    array('class' => 'nav-link')
-);
-echo html_writer::end_div();
-
-echo html_writer::start_div('nav-item');
-echo html_writer::link(
-    new moodle_url('/local/cuadrodemando/pages/users.php'),
-    get_string('users', 'local_cuadrodemando'),
-    array('class' => 'nav-link')
-);
-echo html_writer::end_div();
-
-echo html_writer::start_div('nav-item');
-echo html_writer::link(
-    new moodle_url('/local/cuadrodemando/pages/geo.php'),
-    get_string('geo', 'local_cuadrodemando'),
-    array('class' => 'nav-link active')
-);
-echo html_writer::end_div();
-
-echo html_writer::end_div(); // navbar-nav
-echo html_writer::end_div(); // container-fluid
-echo html_writer::end_tag('nav');
-echo html_writer::end_div(); // dashboard-nav
-
-// Get geographical data
-$geoData = User_provincia_table::getprovinciainfo();
-$provinceData = Activity_province_table::getprovinceactivity();
-
+// Content Wrapper
 echo html_writer::start_div('content-wrapper');
+
+// Content Header (Page header)
 echo html_writer::start_tag('section', array('class' => 'content-header'));
 echo html_writer::start_div('container-fluid');
 echo html_writer::start_div('row mb-2');
-
-// Page header
 echo html_writer::start_div('col-sm-6');
 echo html_writer::tag('h1', get_string('geo', 'local_cuadrodemando'));
 echo html_writer::end_div();
-
-// Breadcrumb
 echo html_writer::start_div('col-sm-6');
 echo html_writer::start_tag('ol', array('class' => 'breadcrumb float-sm-right'));
 echo html_writer::start_tag('li', array('class' => 'breadcrumb-item'));
@@ -113,7 +81,6 @@ echo html_writer::end_tag('li');
 echo html_writer::tag('li', get_string('geo', 'local_cuadrodemando'), array('class' => 'breadcrumb-item active'));
 echo html_writer::end_tag('ol');
 echo html_writer::end_div();
-
 echo html_writer::end_div(); // row mb-2
 echo html_writer::end_div(); // container-fluid
 echo html_writer::end_tag('section'); // content-header
@@ -271,75 +238,86 @@ echo html_writer::end_div(); // container-fluid
 echo html_writer::end_tag('section'); // content
 echo html_writer::end_div(); // content-wrapper
 
-// JavaScript for map functionality
-echo html_writer::start_tag('script');
-echo "
+echo html_writer::end_div(); // dashboard-wrapper
+
+// Get geographical data
+$geoDatas = User_provincia_table::getprovinciainfo();
+$provinceDatas = Activity_province_table::getprovinceactivity();
+$activity_data = array_merge_recursive($geoDatas, $provinceDatas);
+
+?>
+
+<script>
+/*LLAMA A LA FUNCIÓN QUE CARGA EL MAPA EN SU CONTEBNEDOR*/
 $(document).ready(function(){
-    var geoData = " . json_encode($geoData) . ";
-    var provinceData = " . json_encode($provinceData) . ";
-    
-    // Load map if function exists
-    if (typeof $.fn.cargarMapa === 'function') {
-        $('#mapa-cont').cargarMapa(geoData, provinceData);
-    } else {
-        // Fallback: display data in table format
-        console.log('Map function not available, displaying data:', geoData, provinceData);
-        $('#mapa-cont').html('<div class=\"alert alert-info\">" . get_string('map_loading', 'local_cuadrodemando') . "</div>');
-    }
-    
-    // Initialize tooltips and popovers
+  var geoData = <?php echo json_encode($geoDatas) ?>;
+  var provinceData = <?php echo json_encode($provinceDatas); ?>;
+
+    $('#mapa-cont').cargarMapa(geoData, provinceData);
     $(function () {
-        $('[data-toggle=\"popover\"]').popover();
-        $('[data-toggle=\"tooltip\"]').tooltip();
-    });
-});
+        $('[data-toggle="popover"]').popover()
+    })
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 
-// jQuery Knob configuration
-$(function () {
+});
+</script>
+<script>
+  $(function () {
+    /* jQueryKnob */
+
     $('.knob').knob({
-        draw: function () {
-            if (this.$.data('skin') == 'tron') {
-                var a   = this.angle(this.cv),
-                    sa  = this.startAngle,
-                    sat = this.startAngle,
-                    ea,
-                    eat = sat + a,
-                    r   = true;
 
-                this.g.lineWidth = this.lineWidth;
+      draw: function () {
 
-                this.o.cursor
-                && (sat = eat - 0.3)
-                && (eat = eat + 0.3);
+        // "tron" case
+        if (this.$.data('skin') == 'tron') {
 
-                if (this.o.displayPrevious) {
-                    ea = this.startAngle + this.angle(this.value);
-                    this.o.cursor
-                    && (sa = ea - 0.3)
-                    && (ea = ea + 0.3);
-                    this.g.beginPath();
-                    this.g.strokeStyle = this.previousColor;
-                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
-                    this.g.stroke();
-                }
+          var a   = this.angle(this.cv)  // Angle
+            ,
+              sa  = this.startAngle          // Previous start angle
+            ,
+              sat = this.startAngle         // Start angle
+            ,
+              ea                            // Previous end angle
+            ,
+              eat = sat + a                 // End angle
+            ,
+              r   = true
 
-                this.g.beginPath();
-                this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
-                this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
-                this.g.stroke();
+          this.g.lineWidth = this.lineWidth
 
-                this.g.lineWidth = 2;
-                this.g.beginPath();
-                this.g.strokeStyle = this.o.fgColor;
-                this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
-                this.g.stroke();
+          this.o.cursor
+          && (sat = eat - 0.3)
+          && (eat = eat + 0.3)
 
-                return false;
-            }
+          if (this.o.displayPrevious) {
+            ea = this.startAngle + this.angle(this.value)
+            this.o.cursor
+            && (sa = ea - 0.3)
+            && (ea = ea + 0.3)
+            this.g.beginPath()
+            this.g.strokeStyle = this.previousColor
+            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false)
+            this.g.stroke()
+          }
+
+          this.g.beginPath()
+          this.g.strokeStyle = r ? this.o.fgColor : this.fgColor
+          this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false)
+          this.g.stroke()
+
+          this.g.lineWidth = 2
+          this.g.beginPath()
+          this.g.strokeStyle = this.o.fgColor
+          this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false)
+          this.g.stroke()
+
+          return false
         }
-    });
-});
-";
-echo html_writer::end_tag('script');
-
-echo $OUTPUT->footer();
+      }
+    })
+    /* END JQUERY KNOB */
+  })
+</script>
