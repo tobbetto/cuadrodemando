@@ -1,6 +1,25 @@
 <?php
 
-require_once "../../../../../config.php";
+// Try multiple paths to find Moodle config
+$config_paths = [
+    "../../../../../config.php",
+    "../../../../../../config.php", 
+    __DIR__ . "/../../../../../config.php",
+    $_SERVER['DOCUMENT_ROOT'] . "/config.php"
+];
+
+$config_loaded = false;
+foreach ($config_paths as $config_path) {
+    if (file_exists($config_path)) {
+        require_once $config_path;
+        $config_loaded = true;
+        break;
+    }
+}
+
+if (!$config_loaded) {
+    die('Could not find Moodle config.php');
+}
 
 defined('MOODLE_INTERNAL') || die();
 global $DB, $CFG;

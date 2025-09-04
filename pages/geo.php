@@ -97,7 +97,13 @@ $geoDatas = [];
 $provinceDatas = [];
 
 try {
+    echo '<script>console.log("Current file location:", "' . addslashes(__FILE__) . '");</script>';
+    echo '<script>console.log("Parent directory:", "' . addslashes(dirname(__DIR__)) . '");</script>';
+    
     $user_provincia_file = dirname(__DIR__) . '/views/pages/geo/data/user_provincia_table.php';
+    echo '<script>console.log("Looking for user_provincia_table at:", "' . addslashes($user_provincia_file) . '");</script>';
+    echo '<script>console.log("File exists check:", ' . (file_exists($user_provincia_file) ? 'true' : 'false') . ');</script>';
+    
     if (file_exists($user_provincia_file)) {
         require_once($user_provincia_file);
         echo '<script>console.log("User provincia table file included successfully");</script>';
