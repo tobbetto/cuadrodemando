@@ -1,5 +1,5 @@
 $.fn.cargarMapa = function(geoData, provinceData) {
-	$(this).load('views/pages/geo/mapa/mapa.php', function(){
+	$(this).load('/local/cuadrodemando/views/pages/geo/mapa/mapa.php', function(){
 		cargarDatos(geoData, provinceData);
 	});
 }
