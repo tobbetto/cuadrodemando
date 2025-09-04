@@ -10,8 +10,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-// Load essential assets for the map
+// Load essential assets
+echo '<link rel="stylesheet" type="text/bundle" href="/local/cuadrodemando/thirdpartylibs/fonts-googleapi/fonts.googleapi.css">';
+echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/fontawesome/css/all.min.css">';
+echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.css">';
 echo '<link rel="stylesheet" href="/local/cuadrodemando/assets/scripts/map/estilos.css"/>';
+
+echo '<script src="/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js"></script>';
 echo '<script src="/local/cuadrodemando/assets/scripts/map/mapa.js"></script>';
 
 global $OUTPUT, $CFG, $DB;
@@ -29,18 +35,9 @@ try {
     die();
 }
 
-// Test basic output first
-echo '<div>Basic output working</div>';
-
-echo '<div class="dashboard-wrapper">';
-
 // Use navbar helper
-try {
-    echo \local_cuadrodemando\navbar_helper::render_navbar('geo');
-    echo '<div>Navbar rendered successfully</div>';
-} catch (Exception $e) {
-    echo '<div>Error rendering navbar: ' . $e->getMessage() . '</div>';
-}
+echo '<div class="dashboard-wrapper">';
+echo \local_cuadrodemando\navbar_helper::render_navbar('geo');
 
 // Add content wrapper
 echo '<div class="content-wrapper">';
@@ -64,7 +61,28 @@ echo '<div class="col-10">';
 echo '<div id="mapa-cont"></div>';
 echo '</div>';
 echo '<div class="col-2">';
-echo '<div class="alert alert-info">Map statistics will load here</div>';
+try {
+    // Try to load getdata for map knobs
+    if (file_exists($CFG->dirroot . '/local/cuadrodemando/views/getdata/getdata.php')) {
+        include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/getdata.php');
+        
+        if (class_exists('adminlte_getdata') && method_exists('adminlte_getdata', 'get_map_knobs')) {
+            $calendar_info = adminlte_getdata::get_map_knobs();
+            echo $calendar_info;
+        } else {
+            echo '<div class="info-box shadow">';
+            echo '<span class="info-box-icon bg-info"><i class="fa-solid fa-map"></i></span>';
+            echo '<div class="info-box-content">';
+            echo '<span class="info-box-text">Total Provinces</span>';
+            echo '<span class="info-box-number">52</span>';
+            echo '</div></div>';
+        }
+    } else {
+        echo '<div class="alert alert-info">Map statistics loading...</div>';
+    }
+} catch (Exception $e) {
+    echo '<div class="alert alert-warning">Map statistics unavailable</div>';
+}
 echo '</div>';
 echo '</div>';
 
