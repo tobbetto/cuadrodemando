@@ -10,6 +10,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+// Disable AMD/RequireJS before loading third-party scripts
+echo '<script>';
+echo 'if (typeof define === "function" && define.amd) {';
+echo '    var originalDefine = define;';
+echo '    define = undefined;';
+echo '    window.requirejsVars = { originalDefine: originalDefine };';
+echo '}';
+echo '</script>';
+
 // Load essential assets
 echo '<link rel="stylesheet" type="text/bundle" href="/local/cuadrodemando/thirdpartylibs/fonts-googleapi/fonts.googleapi.css">';
 echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/fontawesome/css/all.min.css">';
@@ -330,4 +339,11 @@ $(document).ready(function(){
   // Start trying after a short delay
   setTimeout(tryInitKnobs, 200);
 });
+</script>
+
+<script>
+// Fix for RequireJS/AMD conflicts - restore AMD detection if needed
+if (window.requirejsVars && window.requirejsVars.originalDefine) {
+    define = window.requirejsVars.originalDefine;
+}
 </script>
