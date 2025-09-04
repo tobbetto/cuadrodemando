@@ -99,24 +99,14 @@ $geoDatas = [];
 $provinceDatas = [];
 
 try {
-    echo '<script>console.log("Current file location:", "' . addslashes(__FILE__) . '");</script>';
-    echo '<script>console.log("Parent directory:", "' . addslashes(dirname(__DIR__)) . '");</script>';
-    
     $user_provincia_file = dirname(__DIR__) . '/views/pages/geo/data/user_provincia_table.php';
-    echo '<script>console.log("Looking for user_provincia_table at:", "' . addslashes($user_provincia_file) . '");</script>';
-    echo '<script>console.log("File exists check:", ' . (file_exists($user_provincia_file) ? 'true' : 'false') . ');</script>';
     
     if (file_exists($user_provincia_file)) {
         require_once($user_provincia_file);
-        echo '<script>console.log("User provincia table file included successfully");</script>';
         
         if (class_exists('User_provincia_table')) {
-            echo '<script>console.log("User_provincia_table class exists");</script>';
             if (method_exists('User_provincia_table', 'getprovinciainfo')) {
-                echo '<script>console.log("getprovinciainfo method exists");</script>';
                 $geoDatas = User_provincia_table::getprovinciainfo();
-                echo '<script>console.log("Geo data class loaded, data count:", ' . (is_array($geoDatas) ? count($geoDatas) : 0) . ');</script>';
-                echo '<script>console.log("Geo data type:", "' . gettype($geoDatas) . '");</script>';
             } else {
                 echo '<script>console.error("getprovinciainfo method does not exist");</script>';
             }
@@ -124,7 +114,7 @@ try {
             echo '<script>console.error("User_provincia_table class does not exist");</script>';
         }
     } else {
-        echo '<script>console.warn("user_provincia_table.php not found at: ' . addslashes($user_provincia_file) . '");</script>';
+        echo '<script>console.warn("user_provincia_table.php not found");</script>';
     }
 } catch (Exception $e) {
     echo '<script>console.error("Error loading geographical data: ' . addslashes($e->getMessage()) . '");</script>';
@@ -136,15 +126,10 @@ try {
     $province_activity_file = dirname(__DIR__) . '/views/pages/geo/data/province_activity_table.php';
     if (file_exists($province_activity_file)) {
         require_once($province_activity_file);
-        echo '<script>console.log("Province activity table file included successfully");</script>';
         
         if (class_exists('Activity_province_table')) {
-            echo '<script>console.log("Activity_province_table class exists");</script>';
             if (method_exists('Activity_province_table', 'getprovinceactivity')) {
-                echo '<script>console.log("getprovinceactivity method exists");</script>';
                 $provinceDatas = Activity_province_table::getprovinceactivity();
-                echo '<script>console.log("Province data class loaded, data count:", ' . (is_array($provinceDatas) ? count($provinceDatas) : 0) . ');</script>';
-                echo '<script>console.log("Province data type:", "' . gettype($provinceDatas) . '");</script>';
             } else {
                 echo '<script>console.error("getprovinceactivity method does not exist");</script>';
             }
@@ -152,7 +137,7 @@ try {
             echo '<script>console.error("Activity_province_table class does not exist");</script>';
         }
     } else {
-        echo '<script>console.warn("province_activity_table.php not found at: ' . addslashes($province_activity_file) . '");</script>';
+        echo '<script>console.warn("province_activity_table.php not found");</script>';
     }
 } catch (Exception $e) {
     echo '<script>console.error("Error loading province activity data: ' . addslashes($e->getMessage()) . '");</script>';
@@ -252,22 +237,15 @@ try {
 </style>
 
 <script>
-console.log('Geo page loaded successfully');
-
 // Initialize map
 $(document).ready(function(){
   var geoData = <?php echo json_encode($geoDatas ?: []); ?>;
   var provinceData = <?php echo json_encode($provinceDatas ?: []); ?>;
-  
-  console.log('Geo data loaded:', geoData.length, 'provinces');
-  console.log('Province data loaded:', provinceData.length, 'records');
 
-  // Only initialize map if data is available and map container exists
+  // Initialize map if data is available and map container exists
   if ($('#mapa-cont').length) {
-    console.log('Map container found');
     if (typeof $.fn.cargarMapa === 'function') {
       $('#mapa-cont').cargarMapa(geoData, provinceData);
-      console.log('Map initialized successfully');
     } else {
       console.warn('cargarMapa function not available');
     }
@@ -321,11 +299,9 @@ $(document).ready(function(){
           }
         }
       });
-      console.log('Knobs initialized successfully');
     } else {
-      console.warn('jQuery Knob plugin not available - checking script loading...');
-      console.log('Available jQuery functions:', Object.getOwnPropertyNames($.fn).filter(name => name.includes('knob')));
+      console.warn('jQuery Knob plugin not available');
     }
-  }, 500); // Wait 500ms for all scripts to load
+  }, 500);
 });
 </script>
