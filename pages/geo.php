@@ -19,7 +19,20 @@ echo '<link rel="stylesheet" href="/local/cuadrodemando/assets/scripts/map/estil
 echo '<script src="/local/cuadrodemando/assets/scripts/jquery/jquery.min.js"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js"></script>';
-echo '<script src="/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js"></script>';
+echo '<script>
+// Load jQuery Knob with error handling
+(function() {
+  var script = document.createElement("script");
+  script.src = "/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js";
+  script.onload = function() {
+    console.log("jQuery Knob script loaded successfully");
+  };
+  script.onerror = function() {
+    console.error("Failed to load jQuery Knob script");
+  };
+  document.head.appendChild(script);
+})();
+</script>';
 echo '<script src="/local/cuadrodemando/assets/scripts/map/mapa.js"></script>';
 
 global $OUTPUT, $CFG, $DB;
@@ -253,9 +266,14 @@ $(document).ready(function(){
     console.warn('Map container not found');
   }
 
-  // Initialize knobs (circular progress indicators)
-  setTimeout(function() {
+  // Wait for all scripts to load and check knobs multiple times
+  function initializeKnobs() {
+    console.log('Checking knob availability...');
+    console.log('jQuery version:', $.fn.jquery);
+    console.log('Available jQuery functions containing knob:', Object.getOwnPropertyNames($.fn).filter(name => name.toLowerCase().includes('knob')));
+    
     if (typeof $.fn.knob === 'function') {
+      console.log('jQuery Knob found, initializing...');
       $('.knob').knob({
         draw: function () {
           // "tron" case
@@ -299,9 +317,30 @@ $(document).ready(function(){
           }
         }
       });
+      console.log('Knobs initialized successfully');
+      return true;
     } else {
-      console.warn('jQuery Knob plugin not available');
+      console.warn('jQuery Knob plugin not available, retrying...');
+      return false;
     }
-  }, 500);
+  }
+
+  // Try multiple times with increasing delays
+  var attempts = 0;
+  var maxAttempts = 5;
+  
+  function tryInitKnobs() {
+    attempts++;
+    if (initializeKnobs() || attempts >= maxAttempts) {
+      if (attempts >= maxAttempts) {
+        console.error('Failed to initialize knobs after', maxAttempts, 'attempts');
+      }
+      return;
+    }
+    setTimeout(tryInitKnobs, attempts * 500);
+  }
+  
+  // Start trying after a short delay
+  setTimeout(tryInitKnobs, 200);
 });
 </script>
