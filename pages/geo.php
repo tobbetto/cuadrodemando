@@ -97,8 +97,9 @@ $geoDatas = [];
 $provinceDatas = [];
 
 try {
-    if (file_exists($CFG->dirroot . '/local/cuadrodemando/views/pages/geo/data/user_provincia_table.php')) {
-        require_once($CFG->dirroot . '/local/cuadrodemando/views/pages/geo/data/user_provincia_table.php');
+    $user_provincia_file = dirname(__DIR__) . '/views/pages/geo/data/user_provincia_table.php';
+    if (file_exists($user_provincia_file)) {
+        require_once($user_provincia_file);
         echo '<script>console.log("User provincia table file included successfully");</script>';
         
         if (class_exists('User_provincia_table')) {
@@ -115,7 +116,7 @@ try {
             echo '<script>console.error("User_provincia_table class does not exist");</script>';
         }
     } else {
-        echo '<script>console.warn("user_provincia_table.php not found at: ' . addslashes($CFG->dirroot) . '/local/cuadrodemando/views/pages/geo/data/user_provincia_table.php");</script>';
+        echo '<script>console.warn("user_provincia_table.php not found at: ' . addslashes($user_provincia_file) . '");</script>';
     }
 } catch (Exception $e) {
     echo '<script>console.error("Error loading geographical data: ' . addslashes($e->getMessage()) . '");</script>';
@@ -124,8 +125,9 @@ try {
 }
 
 try {
-    if (file_exists($CFG->dirroot . '/local/cuadrodemando/views/pages/geo/data/province_activity_table.php')) {
-        require_once($CFG->dirroot . '/local/cuadrodemando/views/pages/geo/data/province_activity_table.php');
+    $province_activity_file = dirname(__DIR__) . '/views/pages/geo/data/province_activity_table.php';
+    if (file_exists($province_activity_file)) {
+        require_once($province_activity_file);
         echo '<script>console.log("Province activity table file included successfully");</script>';
         
         if (class_exists('Activity_province_table')) {
@@ -142,7 +144,7 @@ try {
             echo '<script>console.error("Activity_province_table class does not exist");</script>';
         }
     } else {
-        echo '<script>console.warn("province_activity_table.php not found at: ' . addslashes($CFG->dirroot) . '/local/cuadrodemando/views/pages/geo/data/province_activity_table.php");</script>';
+        echo '<script>console.warn("province_activity_table.php not found at: ' . addslashes($province_activity_file) . '");</script>';
     }
 } catch (Exception $e) {
     echo '<script>console.error("Error loading province activity data: ' . addslashes($e->getMessage()) . '");</script>';
