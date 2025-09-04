@@ -27,23 +27,8 @@ echo '<link rel="stylesheet" href="/local/cuadrodemando/assets/scripts/map/estil
 
 echo '<script src="/local/cuadrodemando/assets/scripts/jquery/jquery.min.js"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js"></script>';
-echo '<script>
-// Load jQuery Knob with error handling
-(function() {
-  console.log("Starting to load jQuery Knob script...");
-  var script = document.createElement("script");
-  script.src = "/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js";
-  script.onload = function() {
-    console.log("jQuery Knob script loaded successfully");
-    console.log("jQuery.fn.knob available:", typeof jQuery !== "undefined" && typeof jQuery.fn.knob === "function");
-  };
-  script.onerror = function() {
-    console.error("Failed to load jQuery Knob script from:", script.src);
-  };
-  document.head.appendChild(script);
-})();
-</script>';
 echo '<script src="/local/cuadrodemando/assets/scripts/map/mapa.js"></script>';
 
 global $OUTPUT, $CFG, $DB;
@@ -282,15 +267,12 @@ $(document).ready(function(){
     console.log('Checking jQuery Knob availability...');
     console.log('jQuery version:', typeof $ !== 'undefined' ? $.fn.jquery : 'not loaded');
     console.log('jQuery.fn.knob exists:', typeof $ !== 'undefined' && typeof $.fn.knob === 'function');
-    console.log('Available jQuery functions containing knob:', typeof $ !== 'undefined' ? Object.getOwnPropertyNames($.fn).filter(name => name.toLowerCase().includes('knob')) : 'jQuery not available');
     
     // Wait for DOM to be fully ready
     var knobElements = $('.knob');
     console.log('Knob elements found:', knobElements.length);
     
     if (typeof $.fn.knob === 'function') {
-      console.log('jQuery Knob found, checking for elements...');
-      
       if (knobElements.length === 0) {
         console.warn('No .knob elements found on the page yet, will retry...');
         return false; // Retry since elements might not be loaded yet
