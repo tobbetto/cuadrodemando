@@ -16,8 +16,10 @@ echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/fontaweso
 echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.css">';
 echo '<link rel="stylesheet" href="/local/cuadrodemando/assets/scripts/map/estilos.css"/>';
 
+echo '<script src="/local/cuadrodemando/assets/scripts/jquery/jquery.min.js"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js"></script>';
 echo '<script src="/local/cuadrodemando/assets/scripts/map/mapa.js"></script>';
 
 global $OUTPUT, $CFG, $DB;
@@ -252,67 +254,6 @@ try {
 <script>
 console.log('Geo page loaded successfully');
 
-// Load jQuery Knob plugin
-const knobScript = document.createElement('script');
-knobScript.src = '/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js';
-knobScript.onload = function() {
-  console.log('jQuery Knob loaded');
-  initializeKnobs();
-};
-document.head.appendChild(knobScript);
-
-function initializeKnobs() {
-  // Initialize knobs (circular progress indicators)
-  if (typeof $.fn.knob === 'function') {
-    $('.knob').knob({
-      draw: function () {
-        // "tron" case
-        if (this.$.data('skin') == 'tron') {
-          var a = this.angle(this.cv);
-          var sa = this.startAngle;
-          var sat = this.startAngle;
-          var ea;
-          var eat = sat + a;
-          var r = true;
-
-          this.g.lineWidth = this.lineWidth;
-
-          this.o.cursor
-            && (sat = eat - 0.3)
-            && (eat = eat + 0.3);
-
-          if (this.o.displayPrevious) {
-            ea = this.startAngle + this.angle(this.value);
-            this.o.cursor
-              && (sa = ea - 0.3)
-              && (ea = ea + 0.3);
-            this.g.beginPath();
-            this.g.strokeStyle = this.previousColor;
-            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
-            this.g.stroke();
-          }
-
-          this.g.beginPath();
-          this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
-          this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
-          this.g.stroke();
-
-          this.g.lineWidth = 2;
-          this.g.beginPath();
-          this.g.strokeStyle = this.o.fgColor;
-          this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
-          this.g.stroke();
-
-          return false;
-        }
-      }
-    });
-    console.log('Knobs initialized');
-  } else {
-    console.warn('jQuery Knob plugin not available');
-  }
-}
-
 // Initialize map
 $(document).ready(function(){
   var geoData = <?php echo json_encode($geoDatas ?: []); ?>;
@@ -333,5 +274,58 @@ $(document).ready(function(){
   } else {
     console.warn('Map container not found');
   }
+
+  // Initialize knobs (circular progress indicators)
+  setTimeout(function() {
+    if (typeof $.fn.knob === 'function') {
+      $('.knob').knob({
+        draw: function () {
+          // "tron" case
+          if (this.$.data('skin') == 'tron') {
+            var a = this.angle(this.cv);
+            var sa = this.startAngle;
+            var sat = this.startAngle;
+            var ea;
+            var eat = sat + a;
+            var r = true;
+
+            this.g.lineWidth = this.lineWidth;
+
+            this.o.cursor
+              && (sat = eat - 0.3)
+              && (eat = eat + 0.3);
+
+            if (this.o.displayPrevious) {
+              ea = this.startAngle + this.angle(this.value);
+              this.o.cursor
+                && (sa = ea - 0.3)
+                && (ea = ea + 0.3);
+              this.g.beginPath();
+              this.g.strokeStyle = this.previousColor;
+              this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
+              this.g.stroke();
+            }
+
+            this.g.beginPath();
+            this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
+            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
+            this.g.stroke();
+
+            this.g.lineWidth = 2;
+            this.g.beginPath();
+            this.g.strokeStyle = this.o.fgColor;
+            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+            this.g.stroke();
+
+            return false;
+          }
+        }
+      });
+      console.log('Knobs initialized successfully');
+    } else {
+      console.warn('jQuery Knob plugin not available - checking script loading...');
+      console.log('Available jQuery functions:', Object.getOwnPropertyNames($.fn).filter(name => name.includes('knob')));
+    }
+  }, 500); // Wait 500ms for all scripts to load
 });
 </script>
