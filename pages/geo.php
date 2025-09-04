@@ -31,8 +31,16 @@ echo '<script src="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js"
 echo '<script>
 // Load jQuery Knob with error handling
 (function() {
+  console.log("Starting to load jQuery Knob script...");
   var script = document.createElement("script");
   script.src = "/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js";
+  script.onload = function() {
+    console.log("jQuery Knob script loaded successfully");
+    console.log("jQuery.fn.knob available:", typeof jQuery !== "undefined" && typeof jQuery.fn.knob === "function");
+  };
+  script.onerror = function() {
+    console.error("Failed to load jQuery Knob script from:", script.src);
+  };
   document.head.appendChild(script);
 })();
 </script>';
@@ -269,10 +277,27 @@ $(document).ready(function(){
     console.warn('Map container not found');
   }
 
-  // Initialize knobs when jQuery Knob is available
+  // Initialize knobs when jQuery Knob is available AND DOM elements exist
   function initializeKnobs() {
+    console.log('Checking jQuery Knob availability...');
+    console.log('jQuery version:', typeof $ !== 'undefined' ? $.fn.jquery : 'not loaded');
+    console.log('jQuery.fn.knob exists:', typeof $ !== 'undefined' && typeof $.fn.knob === 'function');
+    console.log('Available jQuery functions containing knob:', typeof $ !== 'undefined' ? Object.getOwnPropertyNames($.fn).filter(name => name.toLowerCase().includes('knob')) : 'jQuery not available');
+    
+    // Wait for DOM to be fully ready
+    var knobElements = $('.knob');
+    console.log('Knob elements found:', knobElements.length);
+    
     if (typeof $.fn.knob === 'function') {
-      $('.knob').knob({
+      console.log('jQuery Knob found, checking for elements...');
+      
+      if (knobElements.length === 0) {
+        console.warn('No .knob elements found on the page yet, will retry...');
+        return false; // Retry since elements might not be loaded yet
+      }
+      
+      console.log('Initializing', knobElements.length, 'knob elements...');
+      knobElements.knob({
         draw: function () {
           // "tron" case
           if (this.$.data('skin') == 'tron') {
@@ -315,29 +340,34 @@ $(document).ready(function(){
           }
         }
       });
+      console.log('Knobs initialized successfully');
       return true;
     } else {
+      console.warn('jQuery Knob plugin not available, jQuery exists:', typeof $ !== 'undefined');
       return false;
     }
   }
 
-  // Try multiple times with increasing delays
+  // Try multiple times with increasing delays - allow more time for DOM elements to load
   var attempts = 0;
-  var maxAttempts = 5;
+  var maxAttempts = 10; // Increased from 5 to 10
   
   function tryInitKnobs() {
     attempts++;
+    console.log('Knob initialization attempt', attempts, 'of', maxAttempts);
     if (initializeKnobs() || attempts >= maxAttempts) {
       if (attempts >= maxAttempts) {
         console.error('Failed to initialize knobs after', maxAttempts, 'attempts');
+        console.log('Final check - knob elements in DOM:', $('.knob').length);
+        console.log('jQuery Knob function available:', typeof $.fn.knob === 'function');
       }
       return;
     }
-    setTimeout(tryInitKnobs, attempts * 500);
+    setTimeout(tryInitKnobs, attempts * 1000); // Increased delay to 1 second intervals
   }
   
-  // Start trying after a short delay
-  setTimeout(tryInitKnobs, 200);
+  // Start trying after a longer delay to allow DOM to fully load
+  setTimeout(tryInitKnobs, 1000); // Increased from 200ms to 1000ms
 });
 </script>
 
