@@ -20,7 +20,7 @@ echo '}';
 echo '</script>';
 
 // Direct asset loading (like template.php)
-echo '<link rel="stylesheet" type="text/bundle" href="/local/cuadrodemando/thirdpartylibs/fonts-googleapi/fonts.googleapi.css">';
+echo '<link rel="stylesheet" type="text/css" href="/local/cuadrodemando/thirdpartylibs/fonts-googleapi/fonts.googleapi.css">';
 echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/fontawesome/css/all.min.css">';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js" crossorigin="anonymous"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/jquery-ui/jquery-ui.min.js"></script>';
@@ -98,11 +98,19 @@ try {
         echo $calendar_info;
     } else {
         // Fallback display for map statistics
+        // Get total provinces count (temporary fallback)
+        $tempGeoData = [];
+        try {
+            $tempGeoData = User_provincia_table::getprovinciainfo();
+        } catch (Exception $e) {
+            error_log('Error getting province data: ' . $e->getMessage());
+        }
+        
         echo html_writer::start_div('info-box shadow');
         echo html_writer::tag('span', html_writer::tag('i', '', array('class' => 'fa-solid fa-map')), array('class' => 'info-box-icon bg-info'));
         echo html_writer::start_div('info-box-content');
         echo html_writer::tag('span', get_string('provinces_total', 'local_cuadrodemando'), array('class' => 'info-box-text'));
-        echo html_writer::tag('span', count($geoData), array('class' => 'info-box-number'));
+        echo html_writer::tag('span', count($tempGeoData), array('class' => 'info-box-number'));
         echo html_writer::end_div();
         echo html_writer::end_div();
     }
@@ -222,8 +230,20 @@ echo html_writer::end_div(); // content-wrapper
 echo html_writer::end_div(); // dashboard-wrapper
 
 // Get geographical data
-$geoDatas = User_provincia_table::getprovinciainfo();
-$provinceDatas = Activity_province_table::getprovinceactivity();
+try {
+    $geoDatas = User_provincia_table::getprovinciainfo();
+} catch (Exception $e) {
+    error_log('Error loading geographical data: ' . $e->getMessage());
+    $geoDatas = []; // Fallback to empty array
+}
+
+try {
+    $provinceDatas = Activity_province_table::getprovinceactivity();
+} catch (Exception $e) {
+    error_log('Error loading province activity data: ' . $e->getMessage());
+    $provinceDatas = []; // Fallback to empty array
+}
+
 $activity_data = array_merge_recursive($geoDatas, $provinceDatas);
 
 ?>
@@ -231,24 +251,35 @@ $activity_data = array_merge_recursive($geoDatas, $provinceDatas);
 <script>
 /*LLAMA A LA FUNCIÓN QUE CARGA EL MAPA EN SU CONTEBNEDOR*/
 $(document).ready(function(){
-  var geoData = <?php echo json_encode($geoDatas) ?>;
-  var provinceData = <?php echo json_encode($provinceDatas); ?>;
+  var geoData = <?php echo json_encode($geoDatas ?: []); ?>;
+  var provinceData = <?php echo json_encode($provinceDatas ?: []); ?>;
 
-    $('#mapa-cont').cargarMapa(geoData, provinceData);
+    // Only initialize map if data is available and map container exists
+    if ($('#mapa-cont').length && typeof $.fn.cargarMapa === 'function') {
+        $('#mapa-cont').cargarMapa(geoData, provinceData);
+    } else {
+        console.warn('Map container not found or cargarMapa function not available');
+    }
+    
     $(function () {
-        $('[data-toggle="popover"]').popover()
-    })
+        if (typeof $.fn.popover === 'function') {
+            $('[data-toggle="popover"]').popover();
+        }
+    });
+    
     $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
+        if (typeof $.fn.tooltip === 'function') {
+            $('[data-toggle="tooltip"]').tooltip();
+        }
+    });
 
 });
 </script>
 <script>
   $(function () {
     /* jQueryKnob */
-
-    $('.knob').knob({
+    if (typeof $.fn.knob === 'function') {
+      $('.knob').knob({
 
       draw: function () {
 
@@ -298,7 +329,10 @@ $(document).ready(function(){
           return false
         }
       }
-    })
+    });
     /* END JQUERY KNOB */
+    } else {
+      console.warn('jQuery Knob plugin not loaded');
+    }
   })
 </script>
