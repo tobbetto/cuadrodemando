@@ -20,7 +20,7 @@ echo '}';
 echo '</script>';
 
 // Direct asset loading (like template.php)
-echo '<link rel="stylesheet" type="text/css" href="/local/cuadrodemando/thirdpartylibs/fonts-googleapi/fonts.googleapi.css">';
+echo '<link rel="stylesheet" type="text/bundle" href="/local/cuadrodemando/thirdpartylibs/fonts-googleapi/fonts.googleapi.css">';
 echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/fontawesome/css/all.min.css">';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js" crossorigin="anonymous"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/jquery-ui/jquery-ui.min.js"></script>';
@@ -48,11 +48,9 @@ echo '<script src="/local/cuadrodemando/thirdpartylibs/datatables/buttons.colVis
 echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.css">';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js"></script>';
 
-global $OUTPUT, $CFG, $DB;
-
-// Include necessary classes
+global $DB, $CFG;
+include_once 'views/getdata/getdata.php';
 require_once($CFG->dirroot . '/local/cuadrodemando/classes/navbar_helper.php');
-include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/getdata.php');
 
 // Include data classes
 require_once($CFG->dirroot . '/local/cuadrodemando/views/pages/geo/data/user_provincia_table.php');

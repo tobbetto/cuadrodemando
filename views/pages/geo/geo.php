@@ -1,7 +1,12 @@
 <?php 
-require_once 'data/user_provincia_table.php'; 
-require_once 'data/province_activity_table.php'; 
-include 'views/getdata/getdata.php'; ?>
+try {
+    require_once 'data/user_provincia_table.php'; 
+    require_once 'data/province_activity_table.php'; 
+    include 'views/getdata/getdata.php'; 
+} catch (Exception $e) {
+    error_log('Error loading geo page dependencies: ' . $e->getMessage());
+}
+?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -40,7 +45,19 @@ include 'views/getdata/getdata.php'; ?>
           <div id="mapa-cont"></div>
         </div>
         <div class="col-2">     
-          <div><?php $calendar_info = adminlte_getdata::get_map_knobs(); echo $calendar_info?></div>
+          <div><?php 
+            try {
+              if (class_exists('adminlte_getdata') && method_exists('adminlte_getdata', 'get_map_knobs')) {
+                $calendar_info = adminlte_getdata::get_map_knobs(); 
+                echo $calendar_info;
+              } else {
+                echo '<div class="alert alert-info">Map statistics loading...</div>';
+              }
+            } catch (Exception $e) {
+              echo '<div class="alert alert-warning">Map statistics unavailable</div>';
+              error_log('Error in geo.php map knobs: ' . $e->getMessage());
+            }
+          ?></div>
         </div>
       </div>
             <!-- Modal -->
@@ -140,32 +157,56 @@ include 'views/getdata/getdata.php'; ?>
   </div>
   <!-- /.content-wrapper -->
 
-    <?php $geoDatas = User_provincia_table::getprovinciainfo();?>
-    <?php $provinceDatas = Activity_province_table::getprovinceactivity(); 
+    <?php 
+    try {
+        $geoDatas = User_provincia_table::getprovinciainfo();
+    } catch (Exception $e) {
+        error_log('Error loading geographical data: ' . $e->getMessage());
+        $geoDatas = [];
+    }
+    ?>
+    <?php 
+    try {
+        $provinceDatas = Activity_province_table::getprovinceactivity();
+    } catch (Exception $e) {
+        error_log('Error loading province activity data: ' . $e->getMessage());
+        $provinceDatas = [];
+    }
     $activity_data = array_merge_recursive($geoDatas, $provinceDatas); 
-    //var_dump( (array) $activity_data); //array_merge($geoDatas, $provinceDatas ); ?>
+    //var_dump( (array) $activity_data); //array_merge($geoDatas, $provinceDatas ); 
+    ?>
 
 <script>
 /*LLAMA A LA FUNCIÓN QUE CARGA EL MAPA EN SU CONTEBNEDOR*/
 $(document).ready(function(){
-  var geoData = <?php echo json_encode($geoDatas) ?>;
-  var provinceData = <?php echo json_encode($provinceDatas); ?>;
+  var geoData = <?php echo json_encode($geoDatas ?: []); ?>;
+  var provinceData = <?php echo json_encode($provinceDatas ?: []); ?>;
 
-    $('#mapa-cont').cargarMapa(geoData, provinceData);
+    // Check if map container exists and cargarMapa function is available
+    if ($('#mapa-cont').length && typeof $.fn.cargarMapa === 'function') {
+        $('#mapa-cont').cargarMapa(geoData, provinceData);
+    } else {
+        console.warn('Map container not found or cargarMapa function not available');
+    }
+    
     $(function () {
-        $('[data-toggle="popover"]').popover()
-    })
+        if (typeof $.fn.popover === 'function') {
+            $('[data-toggle="popover"]').popover();
+        }
+    });
     $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
+        if (typeof $.fn.tooltip === 'function') {
+            $('[data-toggle="tooltip"]').tooltip();
+        }
+    });
 
 });
 </script>
 <script>
   $(function () {
     /* jQueryKnob */
-
-    $('.knob').knob({
+    if (typeof $.fn.knob === 'function') {
+        $('.knob').knob({
 
       draw: function () {
 
@@ -215,7 +256,10 @@ $(document).ready(function(){
           return false
         }
       }
-    })
+    });
     /* END JQUERY KNOB */
+    } else {
+        console.warn('jQuery Knob plugin not loaded');
+    }
   })
 </script>
