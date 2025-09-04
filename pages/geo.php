@@ -48,9 +48,11 @@ echo '<script src="/local/cuadrodemando/thirdpartylibs/datatables/buttons.colVis
 echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.css">';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js"></script>';
 
-global $DB, $CFG;
-include_once 'views/getdata/getdata.php';
+global $OUTPUT, $CFG, $DB;
+
+// Include necessary classes
 require_once($CFG->dirroot . '/local/cuadrodemando/classes/navbar_helper.php');
+include_once($CFG->dirroot . '/local/cuadrodemando/views/getdata/getdata.php');
 
 // Include data classes
 require_once($CFG->dirroot . '/local/cuadrodemando/views/pages/geo/data/user_provincia_table.php');
@@ -96,19 +98,11 @@ try {
         echo $calendar_info;
     } else {
         // Fallback display for map statistics
-        // Get total provinces count (temporary fallback)
-        $tempGeoData = [];
-        try {
-            $tempGeoData = User_provincia_table::getprovinciainfo();
-        } catch (Exception $e) {
-            error_log('Error getting province data: ' . $e->getMessage());
-        }
-        
         echo html_writer::start_div('info-box shadow');
         echo html_writer::tag('span', html_writer::tag('i', '', array('class' => 'fa-solid fa-map')), array('class' => 'info-box-icon bg-info'));
         echo html_writer::start_div('info-box-content');
         echo html_writer::tag('span', get_string('provinces_total', 'local_cuadrodemando'), array('class' => 'info-box-text'));
-        echo html_writer::tag('span', count($tempGeoData), array('class' => 'info-box-number'));
+        echo html_writer::tag('span', '52', array('class' => 'info-box-number')); // Static fallback
         echo html_writer::end_div();
         echo html_writer::end_div();
     }
@@ -119,107 +113,6 @@ try {
 echo html_writer::end_div();
 
 echo html_writer::end_div(); // row
-
-// Modal for province details
-echo html_writer::start_div('modal fade', array('id' => 'modalDatosProvincia', 'tabindex' => '-1', 'role' => 'dialog'));
-echo html_writer::start_div('modal-dialog modal-xl');
-echo html_writer::start_div('modal-content');
-
-// Modal header
-echo html_writer::start_div('modal-header');
-echo html_writer::tag('h4', '', array('class' => 'modal-title'));
-echo html_writer::tag('h4', ': ' . get_string('province_last_30_days', 'local_cuadrodemando'), array('class' => 'modal-subtitle', 'style' => 'line-height: 1.5;'));
-echo html_writer::start_tag('button', array('type' => 'button', 'class' => 'close', 'data-bs-dismiss' => 'modal', 'aria-label' => 'Close'));
-echo html_writer::tag('span', '&times;', array('aria-hidden' => 'true'));
-echo html_writer::end_tag('button');
-echo html_writer::end_div();
-
-// Modal body with statistics
-echo html_writer::start_div('modal-body');
-echo html_writer::start_div('row');
-
-// First column of stats
-echo html_writer::start_div('col-md-4 col-sm-2 col-2 connectedSortable');
-
-// Active sessions info box
-echo html_writer::start_div('info-box shadow connectedSortable');
-echo html_writer::tag('span', html_writer::tag('i', '', array('class' => 'fa-solid fa-right-to-bracket')), array('class' => 'info-box-icon bg-success'));
-echo html_writer::start_div('info-box-content');
-echo html_writer::tag('span', get_string('sessions_last_hour', 'local_cuadrodemando'), array('class' => 'info-box-text'));
-echo html_writer::tag('span', html_writer::tag('p', '', array('class' => 'sessions dato', 'style' => 'font-size: 1rem')), array('class' => 'info-box-number', 'id' => 'datos-provincia'));
-echo html_writer::end_div();
-echo html_writer::end_div();
-
-// Active users info box
-echo html_writer::start_div('info-box shadow connectedSortable');
-echo html_writer::tag('span', html_writer::tag('i', '', array('class' => 'fa-solid fa-user-clock')), array('class' => 'info-box-icon bg-success'));
-echo html_writer::start_div('info-box-content');
-echo html_writer::tag('span', get_string('active_users_last_hour', 'local_cuadrodemando'), array('class' => 'info-box-text'));
-echo html_writer::tag('span', html_writer::tag('p', '', array('class' => 'views dato', 'style' => 'font-size: 1rem')), array('class' => 'info-box-number', 'id' => 'datos-provincia'));
-echo html_writer::end_div();
-echo html_writer::end_div();
-
-echo html_writer::end_div(); // col-md-4
-
-// Second column of stats
-echo html_writer::start_div('col-md-4 col-sm-6 col-6 connectedSortable');
-
-// Completions info box
-echo html_writer::start_div('info-box shadow connectedSortable');
-echo html_writer::tag('span', html_writer::tag('i', '', array('class' => 'fa-solid fa-award')), array('class' => 'info-box-icon bg-success'));
-echo html_writer::start_div('info-box-content');
-echo html_writer::tag('span', get_string('completions_last_month', 'local_cuadrodemando'), array('class' => 'info-box-text'));
-echo html_writer::tag('span', html_writer::tag('p', '', array('class' => 'graduates dato', 'style' => 'font-size: 1rem')), array('class' => 'info-box-number', 'id' => 'datos-provincia'));
-echo html_writer::end_div();
-echo html_writer::end_div();
-
-// Enrollments info box
-echo html_writer::start_div('info-box shadow connectedSortable');
-echo html_writer::tag('span', html_writer::tag('i', '', array('class' => 'fa-solid fa-user-graduate')), array('class' => 'info-box-icon bg-success'));
-echo html_writer::start_div('info-box-content');
-echo html_writer::tag('span', get_string('enrollments_last_month', 'local_cuadrodemando'), array('class' => 'info-box-text'));
-echo html_writer::tag('span', html_writer::tag('p', '', array('class' => 'enrolments dato', 'style' => 'font-size: 1rem')), array('class' => 'info-box-number', 'id' => 'datos-provincia'));
-echo html_writer::end_div();
-echo html_writer::end_div();
-
-echo html_writer::end_div(); // col-md-4
-
-// Third column of stats
-echo html_writer::start_div('col-md-4 col-sm-6 col-6 connectedSortable');
-
-// New registrations info box
-echo html_writer::start_div('info-box shadow connectedSortable');
-echo html_writer::tag('span', html_writer::tag('i', '', array('class' => 'fa-solid fa-user-plus')), array('class' => 'info-box-icon bg-success'));
-echo html_writer::start_div('info-box-content');
-echo html_writer::tag('span', get_string('registrations_last_month', 'local_cuadrodemando'), array('class' => 'info-box-text'));
-echo html_writer::tag('span', html_writer::tag('p', '', array('class' => 'registrations dato', 'style' => 'font-size: 1rem')), array('class' => 'info-box-number', 'id' => 'datos-provincia'));
-echo html_writer::end_div();
-echo html_writer::end_div();
-
-// Deletions info box
-echo html_writer::start_div('info-box shadow connectedSortable');
-echo html_writer::tag('span', html_writer::tag('i', '', array('class' => 'fa-solid fa-user-minus')), array('class' => 'info-box-icon bg-danger'));
-echo html_writer::start_div('info-box-content');
-echo html_writer::tag('span', get_string('deletions_last_month', 'local_cuadrodemando'), array('class' => 'info-box-text'));
-echo html_writer::tag('span', html_writer::tag('p', '', array('class' => 'deletes dato', 'style' => 'font-size: 1rem')), array('class' => 'info-box-number', 'id' => 'datos-provincia'));
-echo html_writer::end_div();
-echo html_writer::end_div();
-
-echo html_writer::end_div(); // col-md-4
-
-echo html_writer::end_div(); // row
-echo html_writer::end_div(); // modal-body
-
-echo html_writer::end_div(); // modal-content
-echo html_writer::end_div(); // modal-dialog
-echo html_writer::end_div(); // modal
-
-// Hidden tooltip for province
-echo html_writer::start_div('hidden', array('id' => 'tooltip-provincia'));
-echo html_writer::start_div('', array('style' => 'font-size: x-large'));
-echo html_writer::tag('span', '', array('class' => 'badge badge-secondary text-justify font-weight-normal p-3', 'style' => 'line-height: 120%'));
-echo html_writer::end_div();
-echo html_writer::end_div();
 
 echo html_writer::end_div(); // container-fluid
 echo html_writer::end_tag('section'); // content

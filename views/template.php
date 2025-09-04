@@ -112,7 +112,7 @@ if (strstr($routesArray[1], 'moodle')) {
     } elseif (strstr($routesArray[3], 'index.php')) {
       include "views/pages/home/home.php";
     } elseif (strstr($routesArray[3], 'geo')) {
-      include "pages/geo.php";
+      include "views/pages/geo/geo.php";
     } else {
         require "views/pages/404/404.php";
     }
@@ -132,7 +132,7 @@ if (strstr($routesArray[1], 'moodle')) {
         } elseif (strstr($routesArray[2], 'index.php')) {
           include "views/pages/home/home.php";
         } elseif (strstr($routesArray[2], 'geo')) {
-          include "pages/geo.php";
+          include "views/pages/geo/geo.php";
         } else {
             require "views/pages/404/404.php";
         }
