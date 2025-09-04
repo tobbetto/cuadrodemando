@@ -160,8 +160,159 @@ try {
 
 ?>
 
+<!-- Modal for province data -->
+<div class="modal" id="modalDatosProvincia" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <h4 class="modal-subtitle" style="line-height: 1.5;">: Los datos de la provincia durante los últimos 30 días</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-6 connectedSortable">
+                        <div class="info-box shadow connectedSortable">
+                            <span class="info-box-icon bg-success"><i class="fa-solid fa-right-to-bracket"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Sesiones abiertas última hora</span>
+                                <span class="info-box-number sessions dato" style="font-size: 1rem">-</span>
+                            </div>
+                        </div>
+                        <div class="info-box shadow connectedSortable">
+                            <span class="info-box-icon bg-success"><i class="fa-solid fa-user-clock"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Usuarios activos última hora</span>
+                                <span class="info-box-number views dato" style="font-size: 1rem">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-6 connectedSortable">
+                        <div class="info-box shadow connectedSortable">
+                            <span class="info-box-icon bg-success"><i class="fa-solid fa-award"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Finalizaciones el último mes</span>
+                                <span class="info-box-number graduates dato" style="font-size: 1rem">-</span>
+                            </div>
+                        </div>
+                        <div class="info-box shadow connectedSortable">
+                            <span class="info-box-icon bg-success"><i class="fa-solid fa-user-graduate"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Matriculaciones el último mes</span>
+                                <span class="info-box-number enrolments dato" style="font-size: 1rem">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-6 connectedSortable">
+                        <div class="info-box shadow connectedSortable">
+                            <span class="info-box-icon bg-success"><i class="fa-solid fa-chart-line"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Accesos el último mes</span>
+                                <span class="info-box-number accesses dato" style="font-size: 1rem">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tooltip for hover effects -->
+<div class="hidden" id="tooltip-provincia">
+    <div style="font-size: x-large">
+        <span class="badge badge-secondary text-justify font-weight-normal p-3" style="line-height: 120%"></span>
+    </div>
+</div>
+
+<style>
+.hidden {
+    display: none;
+}
+
+#tooltip-provincia {
+    position: absolute;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.knob {
+    font-weight: bold;
+}
+
+.knob-label {
+    font-size: 0.8rem;
+    margin-top: 5px;
+    text-align: center;
+}
+</style>
+
 <script>
 console.log('Geo page loaded successfully');
+
+// Load jQuery Knob plugin
+const knobScript = document.createElement('script');
+knobScript.src = '/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js';
+knobScript.onload = function() {
+  console.log('jQuery Knob loaded');
+  initializeKnobs();
+};
+document.head.appendChild(knobScript);
+
+function initializeKnobs() {
+  // Initialize knobs (circular progress indicators)
+  if (typeof $.fn.knob === 'function') {
+    $('.knob').knob({
+      draw: function () {
+        // "tron" case
+        if (this.$.data('skin') == 'tron') {
+          var a = this.angle(this.cv);
+          var sa = this.startAngle;
+          var sat = this.startAngle;
+          var ea;
+          var eat = sat + a;
+          var r = true;
+
+          this.g.lineWidth = this.lineWidth;
+
+          this.o.cursor
+            && (sat = eat - 0.3)
+            && (eat = eat + 0.3);
+
+          if (this.o.displayPrevious) {
+            ea = this.startAngle + this.angle(this.value);
+            this.o.cursor
+              && (sa = ea - 0.3)
+              && (ea = ea + 0.3);
+            this.g.beginPath();
+            this.g.strokeStyle = this.previousColor;
+            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
+            this.g.stroke();
+          }
+
+          this.g.beginPath();
+          this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
+          this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
+          this.g.stroke();
+
+          this.g.lineWidth = 2;
+          this.g.beginPath();
+          this.g.strokeStyle = this.o.fgColor;
+          this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+          this.g.stroke();
+
+          return false;
+        }
+      }
+    });
+    console.log('Knobs initialized');
+  } else {
+    console.warn('jQuery Knob plugin not available');
+  }
+}
+
 // Initialize map
 $(document).ready(function(){
   var geoData = <?php echo json_encode($geoDatas ?: []); ?>;
