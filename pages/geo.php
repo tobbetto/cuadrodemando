@@ -262,6 +262,8 @@ $(document).ready(function(){
     console.warn('Map container not found');
   }
 
+  // KNOB INITIALIZATION COMMENTED OUT
+  /*
   // Initialize knobs when jQuery Knob is available AND DOM elements exist
   function initializeKnobs() {
     console.log('Checking jQuery Knob availability...');
@@ -350,6 +352,7 @@ $(document).ready(function(){
   
   // Start trying after a longer delay to allow DOM to fully load
   setTimeout(tryInitKnobs, 1000); // Increased from 200ms to 1000ms
+  */
 });
 </script>
 
