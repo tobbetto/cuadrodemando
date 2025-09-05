@@ -27,6 +27,7 @@ echo '<link rel="stylesheet" href="/local/cuadrodemando/assets/scripts/map/estil
 
 echo '<script src="/local/cuadrodemando/assets/scripts/jquery/jquery.min.js"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js"></script>';
 echo '<script src="/local/cuadrodemando/assets/scripts/map/mapa.js"></script>';
 
@@ -233,46 +234,11 @@ try {
     pointer-events: none;
 }
 
-/* CSS Circular Progress Indicators */
-.circular-progress {
-    position: relative;
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: conic-gradient(#28a745 0deg, #28a745 var(--progress-deg), #e9ecef var(--progress-deg), #e9ecef 360deg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 10px;
-}
-
-.circular-progress.small {
-    width: 50px;
-    height: 50px;
-}
-
-.circular-progress::before {
-    content: '';
-    position: absolute;
-    width: 70%;
-    height: 70%;
-    border-radius: 50%;
-    background: white;
-}
-
-.progress-value {
-    position: relative;
-    z-index: 1;
-    font-size: 14px;
+.knob {
     font-weight: bold;
-    color: #28a745;
 }
 
-.circular-progress.small .progress-value {
-    font-size: 10px;
-}
-
-.progress-label {
+.knob-label {
     font-size: 0.8rem;
     margin-top: 5px;
     text-align: center;
@@ -295,6 +261,98 @@ $(document).ready(function(){
   } else {
     console.warn('Map container not found');
   }
+
+  // KNOB INITIALIZATION COMMENTED OUT
+  /*
+  // Initialize knobs when jQuery Knob is available AND DOM elements exist
+  function initializeKnobs() {
+    console.log('Checking jQuery Knob availability...');
+    console.log('jQuery version:', typeof $ !== 'undefined' ? $.fn.jquery : 'not loaded');
+    console.log('jQuery.fn.knob exists:', typeof $ !== 'undefined' && typeof $.fn.knob === 'function');
+    
+    // Wait for DOM to be fully ready
+    var knobElements = $('.knob');
+    console.log('Knob elements found:', knobElements.length);
+    
+    if (typeof $.fn.knob === 'function') {
+      if (knobElements.length === 0) {
+        console.warn('No .knob elements found on the page yet, will retry...');
+        return false; // Retry since elements might not be loaded yet
+      }
+      
+      console.log('Initializing', knobElements.length, 'knob elements...');
+      knobElements.knob({
+        draw: function () {
+          // "tron" case
+          if (this.$.data('skin') == 'tron') {
+            var a = this.angle(this.cv);
+            var sa = this.startAngle;
+            var sat = this.startAngle;
+            var ea;
+            var eat = sat + a;
+            var r = true;
+
+            this.g.lineWidth = this.lineWidth;
+
+            this.o.cursor
+              && (sat = eat - 0.3)
+              && (eat = eat + 0.3);
+
+            if (this.o.displayPrevious) {
+              ea = this.startAngle + this.angle(this.value);
+              this.o.cursor
+                && (sa = ea - 0.3)
+                && (ea = ea + 0.3);
+              this.g.beginPath();
+              this.g.strokeStyle = this.previousColor;
+              this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
+              this.g.stroke();
+            }
+
+            this.g.beginPath();
+            this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
+            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
+            this.g.stroke();
+
+            this.g.lineWidth = 2;
+            this.g.beginPath();
+            this.g.strokeStyle = this.o.fgColor;
+            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+            this.g.stroke();
+
+            return false;
+          }
+        }
+      });
+      console.log('Knobs initialized successfully');
+      return true;
+    } else {
+      console.warn('jQuery Knob plugin not available, jQuery exists:', typeof $ !== 'undefined');
+      return false;
+    }
+  }
+
+  // Try multiple times with increasing delays - allow more time for DOM elements to load
+  var attempts = 0;
+  var maxAttempts = 10; // Increased from 5 to 10
+  
+  function tryInitKnobs() {
+    attempts++;
+    console.log('Knob initialization attempt', attempts, 'of', maxAttempts);
+    if (initializeKnobs() || attempts >= maxAttempts) {
+      if (attempts >= maxAttempts) {
+        console.error('Failed to initialize knobs after', maxAttempts, 'attempts');
+        console.log('Final check - knob elements in DOM:', $('.knob').length);
+        console.log('jQuery Knob function available:', typeof $.fn.knob === 'function');
+      }
+      return;
+    }
+    setTimeout(tryInitKnobs, attempts * 1000); // Increased delay to 1 second intervals
+  }
+  
+  // Start trying after a longer delay to allow DOM to fully load
+  setTimeout(tryInitKnobs, 1000); // Increased from 200ms to 1000ms
+  */
 });
 </script>
 

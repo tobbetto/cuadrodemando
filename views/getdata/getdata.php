@@ -1333,13 +1333,15 @@ public static function get_category_name_number() {
 
                     foreach ($popularcategories as $category) :
 
-                        $percent = round($category->coursecount * 100 / $totalCourses->countcourses, 1) . '%';
+                        $percent = round($category->coursecount * 100 / $totalCourses->countcourses, 1);
+                        $percentText = $percent . '%';
+                        $progressDeg = $percent * 3.6; // Convert percentage to degrees (360deg = 100%)
 
                     $categoryNumbersSection .= '<div class="col-6 col-md-3 text-center">
-                        <input type="text" class="knob" data-readOnly="true" data-skin="tron" data-thickness="0.2" value="' . $percent . '" data-width="90" data-height="90"
-                                data-fgColor="#28a745">
-
-                        <div class="knob-label"><a href="/course/management.php?categoryid=' . $category->id . '"  target="_blank" style="color:#28a745;" title="' . get_string('gotocategoryinplatform', 'local_cuadrodemando') . '"> ' . $category->name . '</a></div>
+                        <div class="circular-progress" style="--progress-deg: ' . $progressDeg . 'deg;">
+                            <div class="progress-value">' . $percentText . '</div>
+                        </div>
+                        <div class="progress-label"><a href="/course/management.php?categoryid=' . $category->id . '"  target="_blank" style="color:#28a745;" title="' . get_string('gotocategoryinplatform', 'local_cuadrodemando') . '"> ' . $category->name . '</a></div>
                         </div>';
 
                     endforeach;
@@ -1849,11 +1851,15 @@ ORDER BY enroled DESC";
 
         foreach ($popularProvinces as $category) :
 
-            $percent = round($category->count * 100 / $allProvinces->departments, 1) . '%';
+            $percent = round($category->count * 100 / $allProvinces->departments, 1);
+            $percentText = $percent . '%';
+            $progressDeg = $percent * 3.6; // Convert percentage to degrees (360deg = 100%)
 
         $categoryNumbersSection .= '<div class="col-12 text-center">
-            <input type="text" class="knob" data-readOnly="true" data-skin="tron" data-thickness="0.2" value="' . $percent . '" data-width="50" data-height="50"
-                    data-fgColor="#28a745"><p class="knob-label">' . $category->department . '</p>
+            <div class="circular-progress small" style="--progress-deg: ' . $progressDeg . 'deg;">
+                <div class="progress-value">' . $percentText . '</div>
+            </div>
+            <p class="progress-label">' . $category->department . '</p>
             </div>';
 
         endforeach;
