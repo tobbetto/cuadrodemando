@@ -77,6 +77,7 @@ $string['registrations_last_month'] = 'Altas el último mes';
 $string['deletions_last_month'] = 'Bajas el último mes';
 $string['geo_data_loading'] = 'Cargando datos geográficos...';
 $string['map_loading'] = 'Cargando mapa interactivo...';
+$string['map_unavailable'] = 'Estadísticas del mapa no disponibles';
 $string['visiblecourses'] = 'Cursos visibles';
 $string['userdetails_student'] = 'Detalles del alumno: {$a}';
 $string['userdetails_teacher'] = 'Detalles del docente: {$a}';

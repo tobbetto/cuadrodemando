@@ -61,7 +61,7 @@ echo html_writer::start_div('row mb-2');
 echo html_writer::start_div('col-sm-12');
 echo html_writer::start_div('instruccion');
 echo html_writer::start_div('body-instruccion');
-echo 'Pasa el cursor sobre cada provincia para ver sus datos y pulsa para más detalles';
+echo get_string('geo_instructions', 'local_cuadrodemando');
 echo html_writer::end_div(); // body-instruccion
 echo html_writer::end_div(); // instruccion
 echo html_writer::end_div(); // col-sm-12
@@ -85,16 +85,16 @@ try {
             echo html_writer::start_div('info-box shadow');
             echo html_writer::tag('span', html_writer::tag('i', '', ['class' => 'fa-solid fa-map']), ['class' => 'info-box-icon bg-info']);
             echo html_writer::start_div('info-box-content');
-            echo html_writer::tag('span', 'Total Provinces', ['class' => 'info-box-text']);
+            echo html_writer::tag('span', get_string('provinces_total', 'local_cuadrodemando'), ['class' => 'info-box-text']);
             echo html_writer::tag('span', '52', ['class' => 'info-box-number']);
             echo html_writer::end_div(); // info-box-content
             echo html_writer::end_div(); // info-box
         }
     } else {
-        echo html_writer::div('Map statistics loading...', 'alert alert-info');
+        echo html_writer::div(get_string('map_loading', 'local_cuadrodemando'), 'alert alert-info');
     }
 } catch (Exception $e) {
-    echo html_writer::div('Map statistics unavailable', 'alert alert-warning');
+    echo html_writer::div(get_string('map_unavailable', 'local_cuadrodemando'), 'alert alert-warning');
 }
 echo html_writer::end_div(); // col-2
 echo html_writer::end_div(); // row
@@ -164,7 +164,7 @@ try {
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"></h4>
-                <h4 class="modal-subtitle" style="line-height: 1.5;">: Los datos de la provincia durante los últimos 30 días</h4>
+                <h4 class="modal-subtitle" style="line-height: 1.5;">: <?php echo get_string('province_last_30_days', 'local_cuadrodemando'); ?></h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -175,14 +175,14 @@ try {
                         <div class="info-box shadow connectedSortable">
                             <span class="info-box-icon bg-success"><i class="fa-solid fa-right-to-bracket"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Sesiones abiertas última hora</span>
+                                <span class="info-box-text"><?php echo get_string('sessions_last_hour', 'local_cuadrodemando'); ?></span>
                                 <span class="info-box-number" id='datos-provincia'><?php echo '<p class="sessions dato" style="font-size: 1rem"></p></span>'; ?></span>
                             </div>
                         </div>
                         <div class="info-box shadow connectedSortable">
                             <span class="info-box-icon bg-success"><i class="fa-solid fa-user-clock"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Usuarios activos última hora</span>
+                                <span class="info-box-text"><?php echo get_string('active_users_last_hour', 'local_cuadrodemando'); ?></span>
                                 <span class="info-box-number" id='datos-provincia'><?php echo '<p class="views dato" style="font-size: 1rem"></p></span>'; ?></span>
                             </div>
                         </div>
@@ -193,14 +193,14 @@ try {
                         <div class="info-box shadow connectedSortable">
                             <span class="info-box-icon bg-success"><i class="fa-solid fa-award"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Finalizaciones el último mes</span>
+                                <span class="info-box-text"><?php echo get_string('completions_last_month', 'local_cuadrodemando'); ?></span>
                                 <span class="info-box-number" id='datos-provincia'><?php echo '<p class="graduates dato" style="font-size: 1rem"></p></span>'; ?></span>
                             </div>
                         </div>
                         <div class="info-box shadow connectedSortable">
                             <span class="info-box-icon bg-success"><i class="fa-solid fa-user-graduate"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Matriculaciones el último mes</span>
+                                <span class="info-box-text"><?php echo get_string('enrollments_last_month', 'local_cuadrodemando'); ?></span>
                                 <span class="info-box-number" id='datos-provincia'><?php echo '<p class="enrolments dato" style="font-size: 1rem"></p></span>'; ?></span>
                             </div>
                         </div>
@@ -211,14 +211,14 @@ try {
                         <div class="info-box shadow connectedSortable">
                             <span class="info-box-icon bg-success"><i class="fa-solid fa-user-plus"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Altas el último mes</span>
+                                <span class="info-box-text"><?php echo get_string('registrations_last_month', 'local_cuadrodemando'); ?></span>
                                 <span class="info-box-number" id='datos-provincia'><?php echo '<p class="registrations dato" style="font-size: 1rem"></p></span>'; ?></span>
                             </div>
                         </div>
                         <div class="info-box shadow connectedSortable">
                             <span class="info-box-icon bg-danger"><i class="fa-solid fa-user-minus"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Bajas en provincia último mes:</span>
+                                <span class="info-box-text"><?php echo get_string('deletions_last_month', 'local_cuadrodemando'); ?></span>
                                 <span class="info-box-number" id='datos-provincia'><?php echo '<p class="deletes dato" style="font-size: 1rem"></p></span>'; ?></span>
                             </div>
                         </div>

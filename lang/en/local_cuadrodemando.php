@@ -77,6 +77,7 @@ $string['registrations_last_month'] = 'New registrations last month';
 $string['deletions_last_month'] = 'Deletions last month';
 $string['geo_data_loading'] = 'Loading geographical data...';
 $string['map_loading'] = 'Loading interactive map...';
+$string['map_unavailable'] = 'Map statistics unavailable';
 $string['visiblecourses'] = 'Visible courses';
 
 // User details strings
