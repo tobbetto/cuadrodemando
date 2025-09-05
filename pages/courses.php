@@ -16,7 +16,6 @@ echo '<link rel="stylesheet" type="text/bundle" href="/local/cuadrodemando/third
 echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/fontawesome/css/all.min.css">';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js" crossorigin="anonymous"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/jquery-ui/jquery-ui.min.js"></script>';
-echo '<script src="/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js"></script>';
 echo '<script src="/local/cuadrodemando/assets/scripts/bootstrap/bootstrap.bundle.min.js"></script>';
 echo '<script src="/local/cuadrodemando/assets/scripts/map/mapa.js"></script>';
 echo '<link rel="stylesheet" href="/local/cuadrodemando/assets/scripts/map/estilos.css"/>';
@@ -39,6 +38,56 @@ echo '<script src="/local/cuadrodemando/thirdpartylibs/datatables/buttons.bootst
 echo '<script src="/local/cuadrodemando/thirdpartylibs/datatables/buttons.colVis.min.js"></script>';
 echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.css">';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js"></script>';
+
+// CSS Circular Progress Styles
+echo '<style>
+.circular-progress {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: conic-gradient(#28a745 0deg, #28a745 var(--progress-deg, 0deg), #e9ecef var(--progress-deg, 0deg) 360deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.circular-progress.small {
+  width: 50px;
+  height: 50px;
+}
+
+.circular-progress .progress-value {
+  position: absolute;
+  background: white;
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #28a745;
+  font-size: 14px;
+}
+
+.circular-progress.small .progress-value {
+  font-size: 11px;
+}
+
+.progress-label {
+  margin-top: 10px;
+  font-size: 12px;
+  text-align: center;
+  color: #495057;
+}
+
+.circular-progress.small + .progress-label {
+  margin-top: 5px;
+  font-size: 10px;
+}
+</style>';
 
 global $DB, $CFG;
 include_once 'views/getdata/getdata.php';
@@ -277,74 +326,6 @@ function initializeDashboard() {
   
   window.coursesPageInitialized = true;
 }
-</script>
-<script>
-// Wait for jQuery and jQuery Knob to be loaded before initializing knob elements
-window.knobInitialized = window.knobInitialized || false;
-
-(function checkKnob() {
-    if (typeof jQuery !== 'undefined' && jQuery.fn.knob && !window.knobInitialized) {
-        jQuery(function ($) {
-            /* jQueryKnob */
-
-            $('.knob').knob({
-
-              draw: function () {
-
-                // "tron" case
-                if (this.$.data('skin') == 'tron') {
-
-                  var a   = this.angle(this.cv)  // Angle
-                    ,
-                      sa  = this.startAngle          // Previous start angle
-                    ,
-                      sat = this.startAngle         // Start angle
-                    ,
-                      ea                            // Previous end angle
-                    ,
-                      eat = sat + a                 // End angle
-                    ,
-                      r   = true
-
-                  this.g.lineWidth = this.lineWidth
-
-                  this.o.cursor
-                  && (sat = eat - 0.3)
-                  && (eat = eat + 0.3)
-
-                  if (this.o.displayPrevious) {
-                    ea = this.startAngle + this.angle(this.value)
-                    this.o.cursor
-                    && (sa = ea - 0.3)
-                    && (ea = ea + 0.3)
-                    this.g.beginPath()
-                    this.g.strokeStyle = this.previousColor
-                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false)
-                    this.g.stroke()
-                  }
-
-                  this.g.beginPath()
-                  this.g.strokeStyle = r ? this.o.fgColor : this.fgColor
-                  this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false)
-                  this.g.stroke()
-
-                  this.g.lineWidth = 2
-                  this.g.beginPath()
-                  this.g.strokeStyle = this.o.fgColor
-                  this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false)
-                  this.g.stroke()
-
-                  return false
-                }
-              }
-            })
-            /* END JQUERY KNOB */
-            window.knobInitialized = true;
-        });
-    } else {
-        setTimeout(checkKnob, 100);
-    }
-})();
 </script>
 <script>
 // Wait for Chart.js to be loaded before initializing charts
