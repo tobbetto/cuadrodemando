@@ -171,48 +171,60 @@ try {
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-4 col-sm-6 col-6 connectedSortable">
+                    <div class="col-md-4 col-sm-2 col-2 connectedSortable">
                         <div class="info-box shadow connectedSortable">
                             <span class="info-box-icon bg-success"><i class="fa-solid fa-right-to-bracket"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Sesiones abiertas última hora</span>
-                                <span class="info-box-number sessions dato" style="font-size: 1rem">-</span>
+                                <span class="info-box-number" id='datos-provincia'><?php echo '<p class="sessions dato" style="font-size: 1rem"></p></span>'; ?></span>
                             </div>
                         </div>
                         <div class="info-box shadow connectedSortable">
                             <span class="info-box-icon bg-success"><i class="fa-solid fa-user-clock"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Usuarios activos última hora</span>
-                                <span class="info-box-number views dato" style="font-size: 1rem">-</span>
+                                <span class="info-box-number" id='datos-provincia'><?php echo '<p class="views dato" style="font-size: 1rem"></p></span>'; ?></span>
                             </div>
                         </div>
                     </div>
+                    <!-- /.col -->
+
                     <div class="col-md-4 col-sm-6 col-6 connectedSortable">
                         <div class="info-box shadow connectedSortable">
                             <span class="info-box-icon bg-success"><i class="fa-solid fa-award"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Finalizaciones el último mes</span>
-                                <span class="info-box-number graduates dato" style="font-size: 1rem">-</span>
+                                <span class="info-box-number" id='datos-provincia'><?php echo '<p class="graduates dato" style="font-size: 1rem"></p></span>'; ?></span>
                             </div>
                         </div>
                         <div class="info-box shadow connectedSortable">
                             <span class="info-box-icon bg-success"><i class="fa-solid fa-user-graduate"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Matriculaciones el último mes</span>
-                                <span class="info-box-number enrolments dato" style="font-size: 1rem">-</span>
+                                <span class="info-box-number" id='datos-provincia'><?php echo '<p class="enrolments dato" style="font-size: 1rem"></p></span>'; ?></span>
                             </div>
                         </div>
                     </div>
+                    <!-- /.col -->
+
                     <div class="col-md-4 col-sm-6 col-6 connectedSortable">
                         <div class="info-box shadow connectedSortable">
-                            <span class="info-box-icon bg-success"><i class="fa-solid fa-chart-line"></i></span>
+                            <span class="info-box-icon bg-success"><i class="fa-solid fa-user-plus"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Accesos el último mes</span>
-                                <span class="info-box-number accesses dato" style="font-size: 1rem">-</span>
+                                <span class="info-box-text">Altas el último mes</span>
+                                <span class="info-box-number" id='datos-provincia'><?php echo '<p class="registrations dato" style="font-size: 1rem"></p></span>'; ?></span>
+                            </div>
+                        </div>
+                        <div class="info-box shadow connectedSortable">
+                            <span class="info-box-icon bg-danger"><i class="fa-solid fa-user-minus"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Bajas en provincia último mes:</span>
+                                <span class="info-box-number" id='datos-provincia'><?php echo '<p class="deletes dato" style="font-size: 1rem"></p></span>'; ?></span>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <!-- /.col -->
+                </div> <!--  row -->
             </div>
         </div>
     </div>
