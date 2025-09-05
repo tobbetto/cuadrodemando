@@ -25,12 +25,12 @@ echo '</script>';
 echo '<link rel="stylesheet" type="text/bundle" href="/local/cuadrodemando/thirdpartylibs/fonts-googleapi/fonts.googleapi.css">';
 echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/fontawesome/css/all.min.css">';
 echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.css">';
-echo '<link rel="stylesheet" href="/local/cuadrodemando/assets/scripts/map/estilos.css"/>';
+echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/map/estilos.css"/>';
 
-echo '<script src="/local/cuadrodemando/assets/scripts/jquery/jquery.min.js"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/jquery/jquery.min.js"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js"></script>';
-echo '<script src="/local/cuadrodemando/assets/scripts/map/mapa.js"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/map/mapa.js"></script>';
 
 // Include necessary classes with error handling
 try {
@@ -165,7 +165,7 @@ try {
             <div class="modal-header">
                 <h4 class="modal-title"></h4>
                 <h4 class="modal-subtitle" style="line-height: 1.5;">: Los datos de la provincia durante los últimos 30 días</h4>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
