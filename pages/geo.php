@@ -10,6 +10,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+global $OUTPUT, $CFG, $DB;
+
 // Disable AMD/RequireJS before loading third-party scripts
 echo '<script>';
 echo 'if (typeof define === "function" && define.amd) {';
@@ -30,8 +32,6 @@ echo '<script src="/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js
 echo '<script src="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js"></script>';
 echo '<script src="/local/cuadrodemando/assets/scripts/map/mapa.js"></script>';
 
-global $OUTPUT, $CFG, $DB;
-
 // Include necessary classes with error handling
 try {
     if (file_exists($CFG->dirroot . '/local/cuadrodemando/classes/navbar_helper.php')) {
@@ -46,31 +46,33 @@ try {
 }
 
 // Use navbar helper
-echo '<div class="dashboard-wrapper">';
+echo html_writer::start_div('dashboard-wrapper');
 echo \local_cuadrodemando\navbar_helper::render_navbar('geo');
 
-// Add content wrapper
-echo '<div class="content-wrapper">';
-echo '<section class="content">';
-echo '<div class="container-fluid">';
+// Content Wrapper
+echo html_writer::start_div('content-wrapper');
+
+// Main content
+echo html_writer::start_tag('section', ['class' => 'content']);
+echo html_writer::start_div('container-fluid');
 
 // Instructions
-echo '<div class="row mb-2">';
-echo '<div class="col-sm-12">';
-echo '<div class="instruccion">';
-echo '<div class="body-instruccion">';
+echo html_writer::start_div('row mb-2');
+echo html_writer::start_div('col-sm-12');
+echo html_writer::start_div('instruccion');
+echo html_writer::start_div('body-instruccion');
 echo 'Pasa el cursor sobre cada provincia para ver sus datos y pulsa para más detalles';
-echo '</div>';
-echo '</div>';
-echo '</div>';
-echo '</div>';
+echo html_writer::end_div(); // body-instruccion
+echo html_writer::end_div(); // instruccion
+echo html_writer::end_div(); // col-sm-12
+echo html_writer::end_div(); // row
 
 // Map and data section
-echo '<div class="row">';
-echo '<div class="col-10">';
-echo '<div id="mapa-cont"></div>';
-echo '</div>';
-echo '<div class="col-2">';
+echo html_writer::start_div('row');
+echo html_writer::start_div('col-10');
+echo html_writer::div('', '', ['id' => 'mapa-cont']);
+echo html_writer::end_div(); // col-10
+echo html_writer::start_div('col-2');
 try {
     // Try to load getdata for map knobs
     if (file_exists($CFG->dirroot . '/local/cuadrodemando/views/getdata/getdata.php')) {
@@ -80,27 +82,28 @@ try {
             $calendar_info = adminlte_getdata::get_map_knobs();
             echo $calendar_info;
         } else {
-            echo '<div class="info-box shadow">';
-            echo '<span class="info-box-icon bg-info"><i class="fa-solid fa-map"></i></span>';
-            echo '<div class="info-box-content">';
-            echo '<span class="info-box-text">Total Provinces</span>';
-            echo '<span class="info-box-number">52</span>';
-            echo '</div></div>';
+            echo html_writer::start_div('info-box shadow');
+            echo html_writer::tag('span', html_writer::tag('i', '', ['class' => 'fa-solid fa-map']), ['class' => 'info-box-icon bg-info']);
+            echo html_writer::start_div('info-box-content');
+            echo html_writer::tag('span', 'Total Provinces', ['class' => 'info-box-text']);
+            echo html_writer::tag('span', '52', ['class' => 'info-box-number']);
+            echo html_writer::end_div(); // info-box-content
+            echo html_writer::end_div(); // info-box
         }
     } else {
-        echo '<div class="alert alert-info">Map statistics loading...</div>';
+        echo html_writer::div('Map statistics loading...', 'alert alert-info');
     }
 } catch (Exception $e) {
-    echo '<div class="alert alert-warning">Map statistics unavailable</div>';
+    echo html_writer::div('Map statistics unavailable', 'alert alert-warning');
 }
-echo '</div>';
-echo '</div>';
+echo html_writer::end_div(); // col-2
+echo html_writer::end_div(); // row
 
-echo '</div>'; // container-fluid
-echo '</section>'; // content
-echo '</div>'; // content-wrapper
+echo html_writer::end_div(); // container-fluid
+echo html_writer::end_tag('section'); // content
+echo html_writer::end_div(); // content-wrapper
 
-echo '</div>'; // dashboard-wrapper
+echo html_writer::end_div(); // dashboard-wrapper
 
 // Load data classes and get geographical data
 $geoDatas = [];
