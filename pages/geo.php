@@ -24,11 +24,13 @@ echo '</script>';
 // Load essential assets
 echo '<link rel="stylesheet" type="text/bundle" href="/local/cuadrodemando/thirdpartylibs/fonts-googleapi/fonts.googleapi.css">';
 echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/fontawesome/css/all.min.css">';
+// Bootstrap 5 quick include (CDN) - Option A
 echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.css">';
 echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/map/estilos.css"/>';
 
 echo '<script src="/local/cuadrodemando/thirdpartylibs/jquery/jquery.min.js"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js"></script>';
+// Load vendored AdminLTE v4 and bundled dependencies (includes Bootstrap 5 utilities)
 echo '<script src="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/map/mapa.js"></script>';
 

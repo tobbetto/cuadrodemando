@@ -1,0 +1,26 @@
+/* Backup of adminlte v3 (original adminlte.min.css) */
+/*! AdminLTE v3.2.0 backup */
+.userinitials {
+    background-color: #e9ecef;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #343a40;
+    font-weight: 400;
+    margin-right: 0.25rem;
+    width: 35px;
+    height: 35px;
+}
+img.userpicture {
+    margin-right: 0.25rem;
+}
+
+.userpicture {
+    border-radius: 50%;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}

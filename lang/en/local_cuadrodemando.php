@@ -79,6 +79,7 @@ $string['geo_data_loading'] = 'Loading geographical data...';
 $string['map_loading'] = 'Loading interactive map...';
 $string['map_unavailable'] = 'Map statistics unavailable';
 $string['visiblecourses'] = 'Visible courses';
+$string['toggle_navigation'] = 'Toggle navigation';
 
 // User details strings
 $string['userdetails_student'] = 'Student details: {$a}';

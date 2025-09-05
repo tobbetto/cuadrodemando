@@ -79,6 +79,7 @@ $string['geo_data_loading'] = 'Cargando datos geográficos...';
 $string['map_loading'] = 'Cargando mapa interactivo...';
 $string['map_unavailable'] = 'Estadísticas del mapa no disponibles';
 $string['visiblecourses'] = 'Cursos visibles';
+$string['toggle_navigation'] = 'Alternar navegación';
 $string['userdetails_student'] = 'Detalles del alumno: {$a}';
 $string['userdetails_teacher'] = 'Detalles del docente: {$a}';
 $string['userdetails_user'] = 'Detalles del usuario: {$a}';

@@ -46,8 +46,14 @@ class navbar_helper {
             ['class' => 'navbar-brand h3 mb-0']
         );
 
-        // Navigation links
-        $html .= \html_writer::start_div('navbar-nav me-auto');
+        // Navbar toggler for responsive collapse
+        $html .= \html_writer::tag('button', \html_writer::tag('span', '', ['class' => 'navbar-toggler-icon']), ['class' => 'navbar-toggler', 'type' => 'button', 'data-bs-toggle' => 'collapse', 'data-bs-target' => '#cuadrodemandoNavbar', 'aria-controls' => 'cuadrodemandoNavbar', 'aria-expanded' => 'false', 'aria-label' => get_string('toggle_navigation', 'local_cuadrodemando')]);
+
+        // Collapsible nav wrapper
+        $html .= \html_writer::start_tag('div', ['class' => 'collapse navbar-collapse', 'id' => 'cuadrodemandoNavbar']);
+
+        // Navigation list
+        $html .= \html_writer::start_tag('ul', ['class' => 'navbar-nav me-auto']);
         
         // Define navigation items using index.php?page=...
         $nav_items = [
@@ -75,16 +81,19 @@ class navbar_helper {
                 $classes[] = 'active';
             }
             
-            $html .= \html_writer::start_div('nav-item');
+            $html .= \html_writer::start_tag('li', ['class' => 'nav-item']);
             $html .= \html_writer::link(
                 $item['url'],
                 $item['text'],
                 ['class' => implode(' ', $classes)]
             );
-            $html .= \html_writer::end_div();
+            $html .= \html_writer::end_tag('li');
         }
         
-        $html .= \html_writer::end_div(); // navbar-nav
+        $html .= \html_writer::end_tag('ul'); // navbar-nav
+
+        // End collapse wrapper
+        $html .= \html_writer::end_tag('div'); // collapse navbar-collapse
 
         $html .= \html_writer::end_div(); // container-fluid
         $html .= \html_writer::end_tag('nav');
