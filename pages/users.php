@@ -33,10 +33,7 @@ echo '<link rel="stylesheet" type="text/bundle" href="/local/cuadrodemando/third
 echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/fontawesome/css/all.min.css">';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js" crossorigin="anonymous"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/jquery-ui/jquery-ui.min.js"></script>';
-echo '<script src="/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js"></script>';
 echo '<script src="/local/cuadrodemando/assets/scripts/bootstrap/bootstrap.bundle.min.js"></script>';
-echo '<script src="/local/cuadrodemando/thirdpartylibs/map/mapa.js"></script>';
-echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/map/estilos.css"/>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/chart/chart.umd.js"></script>';
 echo '<link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/overlayscrollbars/overlayscrollbars.min.css">';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/overlayscrollbars/overlayscrollbars.browser.es6.min.js"></script>';
