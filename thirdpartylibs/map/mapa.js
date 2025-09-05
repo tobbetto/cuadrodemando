@@ -9,11 +9,29 @@ Añadimos un data-loquesea por cada valor que necesitemos mostrar en el modal
 */
 function cargarDatos(geoData, provinceData){
 
-    geoData.forEach(function(value, key, geoData) {
-       /* console.log(geoData[key]); */
-        $("#" + geoData[key][0]).data("name", geoData[key][1]).data("courses", geoData[key][2]).data("enrolled", geoData[key][3]).data("users", geoData[key][4]).addClass("color-" + geoData[key][5]).data("graduates", geoData[key][6]).data("enrolments", geoData[key][7]).data("registrations", geoData[key][8]).data("deletes", geoData[key][9]).data("sessions", provinceData[key][2]).data("views", provinceData[key][3]);// Mañana !!!!
 
-	});
+	geoData.forEach(function(value, key, geoData) {
+	   /* console.log(geoData[key]); */
+		$("#" + geoData[key][0]).data("name", geoData[key][1]).data("courses", geoData[key][2]).data("enrolled", geoData[key][3]).data("users", geoData[key][4]).addClass("color-" + geoData[key][5]).data("graduates", geoData[key][6]).data("enrolments", geoData[key][7]).data("registrations", geoData[key][8]).data("deletes", geoData[key][9]).data("sessions", provinceData[key][2]).data("views", provinceData[key][3]);// Mañana !!!!
+
+		// Also apply the same data and color class to an optional '<id>-dot' element
+		var dot = $("#" + geoData[key][0] + "-dot");
+		if (dot.length) {
+			dot
+				.data("name", geoData[key][1])
+				.data("courses", geoData[key][2])
+				.data("enrolled", geoData[key][3])
+				.data("users", geoData[key][4])
+				.addClass("color-" + geoData[key][5])
+				.data("graduates", geoData[key][6])
+				.data("enrolments", geoData[key][7])
+				.data("registrations", geoData[key][8])
+				.data("deletes", geoData[key][9])
+				.data("sessions", provinceData[key][2])
+				.data("views", provinceData[key][3]);
+		}
+
+		});
 
 	$('.path-provincia-activa').click(function(){
 		
