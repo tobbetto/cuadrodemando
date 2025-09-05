@@ -99,9 +99,13 @@ $provincias = [
     
     foreach ($maps as $map) : ?>
 
-          <path data-provincia="name" id="<?php echo $map['idtext'] ?>" class="path-provincia path-provincia-activa" name="<?php echo $map['name'] ?>" fill="#d5c5d0" d="<?php echo $map['dtext'] ?>" />';
+        <path data-provincia="name" id="<?php echo $map['idtext'] ?>" class="path-provincia path-provincia-activa" name="<?php echo $map['name'] ?>" fill="#d5c5d0" d="<?php echo $map['dtext'] ?>" />';
 
     <?php endforeach; ?>
+
+    <!-- Madrid marker (optional) - mirrors behaviour in mapa.html so cargarDatos can annotate a dot element -->
+    <circle id="madrid-dot" cx="321.159" cy="121.233" r="6" style="fill:#ff0000; stroke:#ffffff; stroke-width:1" class="path-provincia path-provincia-activa" />
+
     <path style="fill:none;stroke:#cccccc;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="m 13.5,305 174,0 0,63" id="rectangulo" />
 
 </svg>

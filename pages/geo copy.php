@@ -29,7 +29,7 @@ echo '<script src="/local/cuadrodemando/assets/scripts/jquery/jquery.min.js"></s
 echo '<script src="/local/cuadrodemando/thirdpartylibs/fontawesome/js/all.min.js"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/jquery-knob/jquery.knob.min.js"></script>';
 echo '<script src="/local/cuadrodemando/thirdpartylibs/adminlte/adminlte.min.js"></script>';
-echo '<script src="/local/cuadrodemando/assets/scripts/map/mapa.js"></script>';
+echo '<script src="/local/cuadrodemando/thirdpartylibs/map/mapa.js"></script>';
 
 global $OUTPUT, $CFG, $DB;
 

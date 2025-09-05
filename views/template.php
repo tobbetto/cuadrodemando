@@ -49,9 +49,9 @@ $routesArray = array_filter($routesArray);
     <!-- Bootstrap 5 -->
     <script type="text/javascript" src="views/assets/scripts/bootstrap/bootstrap.bundle.min.js"></script>
 
-    <!-- Map of Spain -->
-    <script src="views/assets/scripts/map/mapa.js"></script>
-    <link rel="stylesheet" href="views/assets/scripts/map/estilos.css"/>
+  <!-- Map of Spain (canonical thirdpartylibs copy) -->
+  <script src="/local/cuadrodemando/thirdpartylibs/map/mapa.js"></script>
+  <link rel="stylesheet" href="/local/cuadrodemando/thirdpartylibs/map/estilos.css"/>
 
     <!-- ChartJS -->
     <script src="views/assets/scripts/chart/chart.umd.js"></script>
